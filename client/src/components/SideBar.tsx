@@ -21,9 +21,9 @@ function SideBar() {
     <div className="min-h-screen grid grid-col-1 lg:grid-cols-6">
       <div
         //condtion in classes for screen navigation
-        className={`fixed lg:static w-[80%] lg:w-full top-0 z-50 bg-white ${
-          sideBar ? "-left-0" : " -left-full"
-        }  w-full h-full col-span-1 p-8 border-r`}
+        className={`fixed lg:static w-[80vw] md:w-[40vw] lg:w-full top-0  z-50 bg-white transition-all ${
+          sideBar ? "-left-0" : "-left-full"
+        }  h-full col-span-1 p-8 border-r`}
       >
         <div className="text-center p-8">
           <h1 className="font-poppin font-bold text-2xl uppercase tracking-[4px]">
@@ -86,7 +86,7 @@ function SideBar() {
       {/* <div className="bg-blue-400 col-span-5">Helo</div> */}
       <div>
         <button
-          className="absolute bottom-4 right-4 bg-cyan-600 p-2 text-white rounded lg:hidden"
+          className="block  fixed bottom-4 right-4 bg-cyan-600 p-2 text-white rounded lg:hidden text-2xl z-40"
           onClick={navigationHandler}
         >
           {sideBar ? <FaTimes className="text-red-500 " /> : <FaBars />}
