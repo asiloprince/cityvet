@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaRegBell, FaCog, FaSearch, FaCheckCircle } from "react-icons/fa";
 function Header() {
   return (
@@ -37,10 +37,7 @@ function Header() {
           </ul>
         </nav>
       </header>
-      <div>
-        {" "}
-        <Outlet />
-      </div>
+      <div></div>
     </div>
   );
 }

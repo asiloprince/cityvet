@@ -46,15 +46,15 @@ function SideBar() {
               <li>
                 <Link
                   to="/"
-                  className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
+                  className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors ml-1"
                 >
                   <FaRegChartBar /> Dashboard
                 </Link>
               </li>
-              <div className="h-16 mb-6">
+              <div className="h-16 mb-5">
                 <li>
                   <button
-                    className="flex items-center gap-3 w-40  text-sm text-gray-700 font-semibold transition-all rounded-lg transition-colors "
+                    className="flex items-center gap-4 w-40  text-sm text-gray-700 font-semibold transition-all rounded-lg transition-colors "
                     onClick={() => {
                       setSubButton(!subButton);
                     }}
@@ -72,18 +72,18 @@ function SideBar() {
                   {/* output subButton if true */}
                   {subButton && (
                     <ul className="absolute py-2 space-y-2 text-xs  overflow-y-auto ">
-                      <li>
+                      <li className="flex items-center">
                         <Link
                           to="disperse"
-                          className="flex items-center ml-2 p-2 text-gray-700 w-44 font-semibold hover:bg-cyan-600 hover:text-white transition-colors"
+                          className="flex items-center justify-center align-middle ml-0.5 p-2 text-gray-700 w-44 font-semibold hover:bg-cyan-600 hover:text-white transition-colors"
                         >
                           Disperse
                         </Link>
                       </li>
-                      <li>
+                      <li className="flex items-center">
                         <Link
                           to="#"
-                          className="flex items-center ml-2 p-2  text-gray-700 w-44 font-semibold hover:bg-cyan-600 hover:text-white transition-colors"
+                          className="flex items-center justify-center align-middle ml-2 p-2 text-gray-700 w-44 font-semibold hover:bg-cyan-600 hover:text-white transition-colors"
                         >
                           Redisperse
                         </Link>
@@ -98,7 +98,7 @@ function SideBar() {
               <li>
                 <Link
                   to="/benefeciaries"
-                  className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
+                  className="flex items-center gap-4 ml-1 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
                 >
                   <FaUserFriends /> Recipients
                 </Link>
@@ -106,7 +106,7 @@ function SideBar() {
               <li>
                 <Link
                   to="/livestocks"
-                  className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
+                  className="flex items-center gap-4 ml-1 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
                 >
                   <FaPiggyBank />
                   Livestock
@@ -117,7 +117,7 @@ function SideBar() {
               <li>
                 <Link
                   to="/benefeciaries"
-                  className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
+                  className="flex items-center gap-4 ml-1 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
                 >
                   <FaEdit /> Notes
                 </Link>
@@ -125,7 +125,7 @@ function SideBar() {
               <li>
                 <Link
                   to="/livestocks"
-                  className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
+                  className="flex items-center gap-4 ml-1 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
                 >
                   <FaCalendarCheck />
                   Calendar
@@ -140,7 +140,7 @@ function SideBar() {
               <li>
                 <Link
                   to="/"
-                  className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
+                  className="flex items-center gap-4 ml-1 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
                 >
                   <FaChartLine /> Statistics
                 </Link>
@@ -148,7 +148,7 @@ function SideBar() {
               <li>
                 <Link
                   to="/benefeciaries"
-                  className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
+                  className="flex items-center gap-4 ml-1 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
                 >
                   <FaFileAlt /> Logs
                 </Link>
@@ -159,7 +159,7 @@ function SideBar() {
           <div className="flex flex-col gap-4">
             <Link
               to="#"
-              className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
+              className="flex items-center gap-4 ml-1 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
             >
               <FaCog />
               Settings
