@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "./Header";
+
 import links from "../utils/link";
 import { FaBars, FaCog, FaTimes } from "react-icons/fa";
 
@@ -12,7 +12,7 @@ function SideBar() {
     setSideBar(!sideBar);
   };
   return (
-    <div className="min-h-screen grid grid-col-1 lg:grid-cols-6">
+    <div>
       <div
         //condtion in classes for screen navigation
         className={`fixed lg:static w-[80vw] md:w-[40vw] lg:w-full top-0  z-50 bg-white transition-all ${
@@ -63,13 +63,11 @@ function SideBar() {
       {/* <div className="bg-blue-400 col-span-5">Helo</div> */}
 
       <button
-        className="block absolute fixed bottom-4 right-4 bg-cyan-600 p-2 text-white rounded lg:hidden text-2xl"
+        className="fixed bottom-4 right-4 bg-cyan-600 p-2 text-white rounded lg:hidden text-2xl"
         onClick={navigationHandler}
       >
         {sideBar ? <FaTimes className="text-red-500 " /> : <FaBars />}
       </button>
-
-      <Header />
     </div>
   );
 }

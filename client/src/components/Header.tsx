@@ -37,7 +37,6 @@ function Header() {
           </ul>
         </nav>
       </header>
-      <div></div>
     </div>
   );
 }
