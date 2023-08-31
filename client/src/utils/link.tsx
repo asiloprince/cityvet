@@ -2,12 +2,12 @@ import {
   FaPeopleArrows,
   FaUserFriends,
   FaPiggyBank,
-  FaRegChartBar,
   FaChartLine,
   FaFileAlt,
   FaCalendarCheck,
   FaEdit,
 } from "react-icons/fa";
+import { RiDashboardFill } from "react-icons/ri";
 
 const links = [
   {
@@ -18,7 +18,7 @@ const links = [
         id: 1,
         title: "Dashboard",
         url: "/",
-        icon: <FaRegChartBar />,
+        icon: <RiDashboardFill />,
       },
       {
         id: 2,

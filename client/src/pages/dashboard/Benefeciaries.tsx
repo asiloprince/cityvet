@@ -1,7 +1,7 @@
 function Benefeciaries() {
   return (
     <div>
-      <h1>Benefeciaries</h1>
+      <h1 className="ml-5">Benefeciaries</h1>
     </div>
   );
 }
