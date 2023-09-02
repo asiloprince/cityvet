@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FaRegBell, FaCog, FaSearch, FaCheckCircle } from "react-icons/fa";
 function Header() {
   return (
-    <div className="col-span-5">
+    <div className="col-span-5 ml-6">
       <header className="flex items-center justify-between p-4 w-full">
         {/* search */}
         <form className="w-[40%]">
