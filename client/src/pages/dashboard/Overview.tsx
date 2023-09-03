@@ -4,7 +4,7 @@ import {
   chartBoxLivestocks,
   chartBoxRedispersal,
   chartBoxUser,
-} from "../../data";
+} from "../../utils/keyMetrics";
 
 function Overview() {
   return (
@@ -33,7 +33,7 @@ function Overview() {
         </div>
 
         <div className="bg-white rounded-lg p-4 col-span-2 row-span-4 lg:col-span-2 lg:row-span-6  h-72 shadow">
-          Box 6
+          Recent Activity
         </div>
 
         <div className="bg-white rounded-lg p-4 col-span-2 lg:col-span-1 row-span-4 h-72 shadow">

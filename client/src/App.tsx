@@ -9,6 +9,7 @@ import {
   Layout,
   Livestock,
   Profile,
+  TeamRole,
 } from "./pages/dashboard";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="disperse" element={<Disperse />}></Route>
           <Route path="livestocks" element={<Livestock />}></Route>
           <Route path="Profile" element={<Profile />}></Route>
+          <Route path="Roles" element={<TeamRole />}></Route>
         </Route>
 
         <Route path="/login" element={<Login />}></Route>
