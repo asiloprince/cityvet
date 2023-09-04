@@ -1,4 +1,6 @@
 import CardWidget from "../../components/cards/CardWidget";
+import RecentActivity from "../../components/activity/RecentActivity";
+
 import {
   chartBoxDispersal,
   chartBoxLivestocks,
@@ -33,7 +35,8 @@ function Overview() {
         </div>
 
         <div className="bg-white rounded-lg p-4 col-span-2 row-span-4 lg:col-span-2 lg:row-span-6  h-72 shadow">
-          Recent Activity
+          <RecentActivity/>
+          
         </div>
 
         <div className="bg-white rounded-lg p-4 col-span-2 lg:col-span-1 row-span-4 h-72 shadow">
