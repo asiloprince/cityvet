@@ -11,7 +11,7 @@ function Layout() {
       </div>
 
       {/* Scrollable Content */}
-      <div className="col-span-2 lg:col-span-6 lg:ml-52">
+      <div className="col-span-2 mb-2 lg:col-span-6 lg:ml-52">
         <Header />
         <main>
           <Outlet />
