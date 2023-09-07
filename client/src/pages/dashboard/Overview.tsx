@@ -1,4 +1,4 @@
-import CardWidget from "../../components/cards/CardWidget";
+import CardWidget from "../../components/cardWidgets/CardWidget";
 import RecentActivity from "../../components/activity/RecentActivity";
 
 import {
@@ -7,6 +7,7 @@ import {
   chartBoxRedispersal,
   chartBoxUser,
 } from "../../utils/keyMetrics";
+import CardWidgetPie from "../../components/cardWidgets/CardWidgetPie";
 
 function Overview() {
   return (
@@ -18,19 +19,19 @@ function Overview() {
           <CardWidget {...chartBoxUser} />
         </div>
 
-        <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto">
+        <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto border-r-4 border-teal-500">
           <CardWidget {...chartBoxDispersal} />
         </div>
 
-        <div className="bg-white rounded-lg p-4 col-span-3 md:col-span-1 row-span-2 shadow h-full">
-          Box 3
+        <div className="bg-white rounded-lg p-4 col-span-3 md:col-span-1 row-span-2 shadow h-auto">
+          <CardWidgetPie />
         </div>
 
         <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto">
           <CardWidget {...chartBoxLivestocks} />
         </div>
 
-        <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto">
+        <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto border-r-4 border-teal-500">
           <CardWidget {...chartBoxRedispersal} />
         </div>
 
