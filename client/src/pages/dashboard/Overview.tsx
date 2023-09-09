@@ -11,7 +11,7 @@ import CardWidgetPie from "../../components/cardWidgets/CardWidgetPie";
 
 function Overview() {
   return (
-    <div className="max-w-7xl m-auto px-4 sm:px-6 lg:px-8">
+    <div className="m-auto px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold mb-4">Home</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

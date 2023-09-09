@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { LiaFilterSolid } from "react-icons/lia";
-import { DispersedActivity } from "../../data";
+import { DispersedActivity } from "../../sampledata/recentActivity";
 function RecentActivity() {
   return (
-    <div className=" mx-auto bg-white-100 p-4 rounded-md">
+    <div className=" mx-auto bg-white-100 rounded-md">
       <div className="flex justify-between">
         <h1 className="font-bold text-xl text-gray-500 ">Recent Activity</h1>
         <div className="flex mb-3">

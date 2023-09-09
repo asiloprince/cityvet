@@ -1,8 +1,8 @@
 import Overview from "./Overview";
-import Benefeciaries from "./Benefeciaries";
+import Benefeciaries from "./recipient/Benefeciaries";
 import Disperse from "./Disperse";
 import Layout from "./Layout";
-import Livestock from "./Livestock";
+import Livestock from "./livestock/Livestock";
 import Profile from "./Profile";
 import TeamRole from "./TeamRole";
 
