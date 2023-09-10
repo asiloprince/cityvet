@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import links from "../../utils/link";
+import links from "./link";
 import { FaBars, FaCog, FaTimes } from "react-icons/fa";
 
 function SideBar() {

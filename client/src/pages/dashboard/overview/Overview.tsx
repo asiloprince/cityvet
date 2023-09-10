@@ -1,13 +1,13 @@
-import CardWidget from "../../components/cardWidgets/CardWidget";
-import RecentActivity from "../../components/activity/RecentActivity";
+import CardWidget from "../../../components/cardWidgets/CardWidget";
+import RecentActivity from "../../../components/activity/RecentActivity";
 
 import {
   chartBoxDispersal,
   chartBoxLivestocks,
   chartBoxRedispersal,
   chartBoxUser,
-} from "../../utils/keyMetrics";
-import CardWidgetPie from "../../components/cardWidgets/CardWidgetPie";
+} from "../../../components/cardWidgets/keyMetrics";
+import CardWidgetPie from "../../../components/cardWidgets/CardWidgetPie";
 
 function Overview() {
   return (
