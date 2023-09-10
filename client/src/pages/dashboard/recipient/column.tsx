@@ -6,7 +6,6 @@ import {
   FaRegEye,
   FaRegEdit,
   FaRegTrashAlt,
-  FaSortAmountDown,
 } from "react-icons/fa";
 
 import {
@@ -17,34 +16,32 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu";
+import { DataTableColumnHeader } from "../../../components/data-table/data-table-column-header";
 
 export const columns: ColumnDef<Recipients>[] = [
   {
     header: ({ column }) => {
-      return (
-        <button
-          className="bg-transparent text-gray-600 font-semibold py-2 px-4 "
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === "asc");
-          }}
-        >
-          Recipients Id
-          <FaSortAmountDown className="inline-block h-4 w-4 ml-2" />
-        </button>
-      );
+      return <DataTableColumnHeader column={column} title="Recipient ID" />;
     },
+
     accessorKey: "ID",
   },
   {
-    header: "FullName",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Full Name" />;
+    },
     accessorKey: "Name",
   },
   {
-    header: "Barangay",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Barangay" />;
+    },
     accessorKey: "Barangay",
   },
   {
-    header: "Date of Birth",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Birthdate" />;
+    },
     accessorKey: "Birthdate",
   },
   {

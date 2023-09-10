@@ -42,7 +42,7 @@ export function RecipientsDataTable<TData, TValue>({
   });
 
   return (
-    <div className="w-full space-y-4 overflow-auto">
+    <div className=" space-y-4 overflow-auto">
       {/* table */}
       <div className="rounded-md border">
         <Table>
