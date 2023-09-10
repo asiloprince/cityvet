@@ -1,4 +1,4 @@
-import CardWidget from "../../../components/cardWidgets/CardWidget";
+import CardWidget from "../../../components/card-widgets/CardWidget";
 import RecentActivity from "../../../components/activity/RecentActivity";
 
 import {
@@ -6,8 +6,8 @@ import {
   chartBoxLivestocks,
   chartBoxRedispersal,
   chartBoxUser,
-} from "../../../components/cardWidgets/keyMetrics";
-import CardWidgetPie from "../../../components/cardWidgets/CardWidgetPie";
+} from "../../../components/card-widgets/keyMetrics";
+import CardWidgetPie from "../../../components/card-widgets/CardWidgetPie";
 
 function Overview() {
   return (

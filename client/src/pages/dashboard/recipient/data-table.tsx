@@ -17,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../../components/ui/table";
+import { DataTablePagination } from "../../../components/data-table/data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -41,7 +42,7 @@ export function RecipientsDataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="w-full space-y-4 overflow-auto">
       {/* table */}
       <div className="rounded-md border">
         <Table>
@@ -79,19 +80,19 @@ export function RecipientsDataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <div className="text-red-400 font:poppin">
-                  {" "}
-                  <TableCell>No Data Results</TableCell>
-                </div>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center font-poppin"
+                >
+                  No Data Results.
+                </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
       {/* pagination */}
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <button className="bg-gray-300 p4 m3">Previous</button>
-      </div>
+      <DataTablePagination table={table} />
     </div>
   );
 }
