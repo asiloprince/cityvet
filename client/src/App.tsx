@@ -3,7 +3,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import NotFoundPage from "./pages/404";
 import {
-  Benefeciaries,
+  Beneficiaries,
   Disperse,
   Overview,
   Layout,
@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Overview />}></Route>
-          <Route path="benefeciaries" element={<Benefeciaries />}></Route>
+          <Route path="benefeciaries" element={<Beneficiaries />}></Route>
           <Route path="disperse" element={<Disperse />}></Route>
           <Route path="livestocks" element={<Livestock />}></Route>
           <Route path="Profile" element={<Profile />}></Route>

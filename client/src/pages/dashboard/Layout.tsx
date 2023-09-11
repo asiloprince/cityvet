@@ -1,5 +1,5 @@
 import SideBar from "../../components/sidebar/SideBar";
-import Header from "../../components/header/Header";
+import Topbar from "../../components/topbar/Topbar";
 import { Outlet } from "react-router-dom";
 
 function Layout() {
@@ -11,8 +11,8 @@ function Layout() {
       </div>
 
       {/* Scrollable Content */}
-      <div className="col-span-2 lg:col-span-6 lg:ml-52">
-        <Header />
+      <div className="col-span-2 mb-2 lg:col-span-6 lg:ml-52">
+        <Topbar />
         <main>
           <Outlet />
         </main>

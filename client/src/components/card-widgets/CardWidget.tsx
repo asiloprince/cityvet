@@ -16,12 +16,12 @@ function CardWidget(props: Props) {
       <div className="flex-grow flex flex-col justify-between">
         <div className="flex items-center gap-4">
           <RiUserSharedFill />
-          <span className="font-bold text-wrap text-center sm:text-left">
+          <span className=" text-wrap text-center text-sm text-gray-500 font-poppin sm:text-left">
             {props.title}
           </span>
         </div>
-        <h1 className="font-bold">
-          {props.number}{" "}
+        <h1 className="font-bold text-2xl font-poppin text-gray-800">
+          {props.number}
           {/* <span className="font-bold text-sm">{props.percentage}</span> */}
         </h1>
         <Link to="/" className="text-xs">

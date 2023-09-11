@@ -1,14 +1,14 @@
-import Overview from "./Overview";
-import Benefeciaries from "./Benefeciaries";
-import Disperse from "./Disperse";
+import Overview from "./overview/Overview";
+import Beneficiaries from "./recipient/Beneficiaries";
+import Disperse from "./dispersal/Disperse";
 import Layout from "./Layout";
-import Livestock from "./Livestock";
-import Profile from "./Profile";
-import TeamRole from "./TeamRole";
+import Livestock from "./livestock/Livestock";
+import Profile from "./profile/Profile";
+import TeamRole from "./team/TeamRole";
 
 export {
   Overview,
-  Benefeciaries,
+  Beneficiaries,
   Disperse,
   Layout,
   Livestock,

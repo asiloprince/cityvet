@@ -1,4 +1,4 @@
-export const Benefeciaries = [
+export const recipient = [
   {
     ID: "01",
     Barangay: " BUCAL",
@@ -71,75 +71,4 @@ export const Benefeciaries = [
   },
 ];
 
-export const Livestockk = [
-  {
-    ID: "2023-01",
-    Breed: " Ongole cattle ",
-    AnimlType: " Cattle ",
-    StatusAlive: "",
-    Health: "",
-  },
-  {
-    ID: "2023-02",
-    Breed: " Ongole cattle ",
-    AnimlType: " Cattle ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-  {
-    ID: "2023-03",
-    Breed: " Ongole cattle ",
-    AnimlType: " Cattle ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-  {
-    ID: "2023-04",
-    Breed: " Plymouth Rock chicken ",
-    AnimlType: " Free Range Chicken ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-  {
-    ID: "2023-05",
-    Breed: " Plymouth Rock chicken ",
-    AnimlType: " Free Range Chicken ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-  {
-    ID: "2023-06",
-    Breed: " Australorp ",
-    AnimlType: " Free Range Chicken ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-  {
-    ID: "2023-07",
-    Breed: " Anglo-Nubian goat ",
-    AnimlType: " Goat - Doe ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-  {
-    ID: "2023-08",
-    Breed: " Anglo-Nubian goat ",
-    AnimlType: " Goat - Doe ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-  {
-    ID: "2023-09",
-    Breed: " Anglo-Nubian goat ",
-    AnimlType: " Goat - Doe ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-  {
-    ID: "2023-010",
-    Breed: " Enviropig ",
-    AnimlType: " Swine ",
-    StatusAlive: " Yes ",
-    Health: "",
-  },
-];
+export type Recipients = (typeof recipient)[number];
