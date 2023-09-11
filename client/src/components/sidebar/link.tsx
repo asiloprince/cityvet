@@ -23,7 +23,7 @@ const links = [
       {
         id: 2,
         title: "Dispersal",
-        url: "/",
+        url: "/disperse",
         icon: <FaPeopleArrows />,
       },
     ],

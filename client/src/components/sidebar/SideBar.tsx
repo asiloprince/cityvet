@@ -17,7 +17,7 @@ function SideBar() {
         //condtion in classes for screen navigation
         className={`fixed lg:static w-[80vw] md:w-[40vw] lg:w-full top-0  z-50 bg-white transition-all ${
           sideBar ? "-left-0" : "-left-full"
-        }  h-full col-span-1 p-10 border-r lg:min-h-screen`}
+        }  h-full col-span-1 p-8 border-r lg:min-h-screen`}
       >
         <div className="text-center pb-4">
           <h1 className="font-poppin font-bold text-2xl uppercase tracking-[4px]">

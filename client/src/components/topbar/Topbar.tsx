@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FaRegBell, FaCog, FaSearch, FaCheckCircle } from "react-icons/fa";
 function Topbar() {
   return (
-    <div className="col-span-5 ml-6">
+    <div className="col-span-5 ml-4">
       <header className="flex items-center justify-between p-4 w-full">
         {/* search */}
         <form className="w-[40%]">

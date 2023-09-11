@@ -1,9 +1,11 @@
 import React from "react";
 import {
   ColumnDef,
+  ColumnFiltersState,
   SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -18,6 +20,7 @@ import {
   TableRow,
 } from "../../../components/ui/table";
 import { DataTablePagination } from "../../../components/data-table/data-table-pagination";
+import { DataTableToolbar } from "../../../components/data-table/data-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -29,22 +32,30 @@ export function RecipientsDataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     state: {
       sorting,
+      columnFilters,
     },
   });
 
   return (
-    <div className=" space-y-4 overflow-auto">
+    <div className="w-auto space-y-2 overflow-auto">
+      {/* toolbar */}
+      <DataTableToolbar table={table} />
       {/* table */}
-      <div className="rounded-md border">
+      <div className="rounded-md border  space-y-4 overflow-auto">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => {

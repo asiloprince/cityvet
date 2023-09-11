@@ -37,6 +37,9 @@ export const columns: ColumnDef<Recipients>[] = [
       return <DataTableColumnHeader column={column} title="Barangay" />;
     },
     accessorKey: "Barangay",
+    filterFn: (row, value) => {
+      return value.includes(row.getValue(value));
+    },
   },
   {
     header: ({ column }) => {
