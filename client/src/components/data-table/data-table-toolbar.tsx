@@ -1,7 +1,7 @@
 import { Input } from "../ui/input";
 import { Table } from "@tanstack/react-table";
 import { DataTableViewOptions } from "./data-table-view-options";
-import { DataTableFacetedFilter } from "./data-table-filter";
+import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { barangays } from "./barangay-filter-utils";
 import { Button } from "../ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
