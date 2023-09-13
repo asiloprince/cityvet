@@ -84,7 +84,7 @@ function Disperse() {
                             <button className='m-2'><GoItalic/></button>
                             <button className='m-2'><BsTypeUnderline/></button>
                         </div>
-                        <input type='text' placeholder='' className='h-24 border-b-2 border-l-2 border-r-2 rounded-b-md'/>
+                        <textarea  className='h-24 border-b-2 border-l-2 border-r-2 rounded-b-md'/>
                     </form>
                 </div>
 
