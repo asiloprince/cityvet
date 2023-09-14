@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { RiUserSharedFill } from "react-icons/ri";
+
 import { ResponsiveContainer, LineChart, Line, Tooltip } from "recharts";
 
 type Props = {
@@ -15,12 +15,11 @@ function CardWidget(props: Props) {
     <div className="flex h-full ">
       <div className="flex-grow flex flex-col justify-between">
         <div className="flex items-center gap-4">
-          <RiUserSharedFill />
-          <span className=" text-wrap text-center text-sm text-gray-500 font-poppin sm:text-left">
+          <span className=" text-wrap text-center text-sm font-poppin sm:text-left">
             {props.title}
           </span>
         </div>
-        <h1 className="font-bold text-2xl font-poppin text-gray-800">
+        <h1 className="font-bold text-2xl font-poppin">
           {props.number}
           {/* <span className="font-bold text-sm">{props.percentage}</span> */}
         </h1>

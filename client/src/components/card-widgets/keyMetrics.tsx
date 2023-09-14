@@ -29,7 +29,7 @@ export const chartBoxLivestocks = {
   ],
 };
 export const chartBoxDispersal = {
-  title: "Total Dispersal",
+  title: " Total Number of Livestock Dispersed",
   number: 1402,
   dataKey: "dispersed",
   percentage: 60,
@@ -44,7 +44,7 @@ export const chartBoxDispersal = {
   ],
 };
 export const chartBoxRedispersal = {
-  title: "Total Redispersal",
+  title: "Total Number of Livestock Redispersed",
   number: 452,
   dataKey: "redispersed",
   percentage: 60,

@@ -15,12 +15,12 @@ function Overview() {
       <h1 className="text-2xl font-bold mb-4">Home</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto">
+        <div className="bg-teal-400 text-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto">
           <CardWidget {...chartBoxUser} />
         </div>
 
-        <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto border-r-4 border-teal-500">
-          <CardWidget {...chartBoxDispersal} />
+        <div className="bg-gray-800 text-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto border-r-4 border-teal-500">
+          <CardWidget {...chartBoxLivestocks} />
         </div>
 
         <div className="bg-white rounded-lg p-4 col-span-3 md:col-span-1 row-span-2 shadow h-auto">
@@ -28,7 +28,7 @@ function Overview() {
         </div>
 
         <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto">
-          <CardWidget {...chartBoxLivestocks} />
+          <CardWidget {...chartBoxDispersal} />
         </div>
 
         <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto border-r-4 border-teal-500">
