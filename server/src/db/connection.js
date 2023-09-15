@@ -13,4 +13,5 @@ export default async function connectDb(database) {
   } catch (err) {
     console.error("[database connection error]", err);
   }
+  return connection;
 }
