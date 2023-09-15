@@ -1,15 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
+import beneficiaries from "./src/api/beneficiaries/beneficiaries.js";
 const app = express();
 
 // configurations
 const envPath = `./.env.${process.env.NODE_ENV}`;
 dotenv.config({ path: envPath });
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // API
 app.get("/", (req, res) => {
   res.json({ message: "hello world" });
 });
+app.use("/api", beneficiaries);
 
 // serve for production
 if (process.env.NODE_ENV === "production") {
