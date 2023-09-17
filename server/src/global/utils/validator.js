@@ -6,9 +6,9 @@ export function isStringEmpty(value) {
 }
 export function isString(value) {
   if (typeof value !== "string") {
-    return true;
+    return false;
   }
-  return false;
+  return true;
 }
 
 export function isObject(obj) {

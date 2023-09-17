@@ -1,10 +1,13 @@
-import configs from "./global.config";
+import configs from "./global.config.js";
 
 export default {
   userId: {
     ...configs.id,
   },
-  name: {
+  first_name: {
+    ...configs.name,
+  },
+  last_name: {
     ...configs.name,
   },
   email: {
@@ -14,13 +17,5 @@ export default {
   password: {
     minLength: 6,
     maxLength: 16,
-  },
-  role: {
-    allowedValues: [
-      "Administrator",
-      "Program Manager",
-      "Livestock Coordinator",
-      "Beneficiaries Coordinator",
-    ],
   },
 };
