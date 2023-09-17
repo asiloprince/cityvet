@@ -9,8 +9,18 @@ export default {
   },
   email: {
     maxLength: 100,
+    minLength: 6, //sample case: ae@a.a
+  },
+  password: {
+    minLength: 6,
+    maxLength: 16,
   },
   role: {
-    allowedValues: ["admin", "employee"],
+    allowedValues: [
+      "Administrator",
+      "Program Manager",
+      "Livestock Coordinator",
+      "Beneficiaries Coordinator",
+    ],
   },
 };
