@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import beneficiaries from "./src/api/beneficiaries/beneficiaries.js";
+import auth from "./src/api/authentications/authentications.js";
 const app = express();
 
 // configurations
@@ -14,6 +15,9 @@ app.get("/", (req, res) => {
   res.json({ message: "hello world" });
 });
 app.use("/api", beneficiaries);
+app.use("/auth", auth);
+
+console.log(`Environment: ${process.env.NODE_ENV.toUpperCase()}`);
 
 // serve for production
 if (process.env.NODE_ENV === "production") {
