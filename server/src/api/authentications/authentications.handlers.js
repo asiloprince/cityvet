@@ -75,7 +75,14 @@ export async function handleLogin(req, res) {
     console.error("[DB Error]", err);
     return res.send({
       success: false,
-      message: "Incorrect credentials. Please try again",
+      message: "An error occured while logging in.",
+    });
+  }
+
+  if (!isPasswordCorrect) {
+    return res.send({
+      successful: false,
+      message: "Incorrect credentials, Please try again!",
     });
   }
 
@@ -87,7 +94,7 @@ export async function handleLogin(req, res) {
       httpOnly: true,
       secure: true,
     })
-    .send({ success: true, message: "Login successfully" });
+    .send({ success: true, message: "Login successful" });
 }
 
 export async function handleLogout(req, res) {
