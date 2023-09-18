@@ -1,6 +1,14 @@
 import express from "express";
-import { handleUserRegistration } from "./authentications.handlers.js";
-import { validateUserRegistrationPayload } from "./authentications.middlewares.js";
+import {
+  handleUserRegistration,
+  handleLogin,
+  handleIsAuth,
+  handleLogout,
+} from "./authentications.handlers.js";
+import {
+  validateUserRegistrationPayload,
+  validateLoginPayload,
+} from "./authentications.middlewares.js";
 
 const router = express.Router();
 
@@ -10,4 +18,6 @@ router.post(
   handleUserRegistration
 );
 
+router.post("/login", validateLoginPayload, handleLogin);
+router.delete("/logout", handleLogout);
 export default router;
