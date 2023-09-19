@@ -5,7 +5,7 @@ import { isString, isStringEmpty } from "../../global/utils/validator.js";
 import { isEmailRegistered } from "./authentications.utils.js";
 
 export async function validateUserRegistrationPayload(req, res, next) {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, roleType } = req.body;
 
   if (!isString(firstName)) {
     return res.send({
@@ -106,6 +106,21 @@ export async function validateUserRegistrationPayload(req, res, next) {
     });
   }
   next();
+
+  // role type
+  if (!isString(roleType)) {
+    return res.status({ success: false, message: "Role type must be String" });
+  }
+  if (isStringEmpty(roleType)) {
+    return res.send({ success: false, message: "Please select a role" });
+  }
+
+  if (!usersConfigs.role.allowedValues.includes(roleType)) {
+    return res.send({
+      success: false,
+      message: `Role type ${roleType} is not valid.`,
+    });
+  }
 }
 
 export async function validateLoginPayload(req, res, next) {

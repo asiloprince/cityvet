@@ -13,7 +13,7 @@ export async function hashPassword(plainPassword) {
 
 export async function saveUsersData(db, validatedPayload) {
   const sql =
-    "INSERT INTO users (first_name, last_name, email, password) VALUES (?,?,?,?)";
+    "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?,?,?,?,?)";
 
   let hashedPassword;
 
@@ -27,6 +27,7 @@ export async function saveUsersData(db, validatedPayload) {
     validatedPayload.lastName,
     validatedPayload.email,
     hashedPassword,
+    validatedPayload.roleType,
   ];
 
   // dont end connections/ still part of transactions and also it must be handled after commit or rollback outside function ;)

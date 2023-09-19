@@ -123,6 +123,16 @@ export function handleIsAuth(req, res) {
     });
   }
 
+  try {
+    jwt.verify(authCookie, process.env.TOKEN_SALT);
+  } catch (err) {
+    return res.clearCookie("auth_token").send({
+      success: false,
+      message: "Authorization token is invalid",
+      isAuth: false,
+    });
+  }
+
   return res.send({
     success: true,
     message: "You are now authorized",
