@@ -18,7 +18,7 @@ export default {
     minLength: 6,
     maxLength: 16,
   },
-  roles: {
+  role: {
     allowedValues: ["Admin", "Program Manager", "Coordinator"],
   },
 };
