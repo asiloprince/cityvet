@@ -1,13 +1,16 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import beneficiaries from "./src/api/beneficiaries/beneficiaries.js";
 import auth from "./src/api/authentications/authentications.js";
+import accounts from "./src/api/accounts/accounts.js";
 const app = express();
 
 // configurations
 const envPath = `./.env.${process.env.NODE_ENV}`;
 dotenv.config({ path: envPath });
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 // API
@@ -16,6 +19,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api", beneficiaries);
 app.use("/auth", auth);
+app.use("/accounts", accounts);
 
 console.log(`Environment: ${process.env.NODE_ENV.toUpperCase()}`);
 
