@@ -1,8 +1,8 @@
 import { Input } from "../ui/input";
 import { Table } from "@tanstack/react-table";
-import { DataTableViewOptions } from "./data-table-view-options";
-import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { barangays } from "./barangay-filter-utils";
+import { DataTableViewOptions } from "../data-table/data-table-view-options";
+import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter";
+import { barangays } from "../data-table/barangay-filter-utils";
 import { Button } from "../ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
@@ -10,7 +10,7 @@ interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
 
-export function DataTableToolbar<TData>({
+export function DispersalToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;

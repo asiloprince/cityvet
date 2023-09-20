@@ -4,7 +4,7 @@ import Register from "./pages/register/Register";
 import NotFoundPage from "./pages/404";
 import {
   Beneficiaries,
-  Disperse,
+  LayoutDispersal,
   Overview,
   Layout,
   Livestock,
@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Overview />}></Route>
           <Route path="benefeciaries" element={<Beneficiaries />}></Route>
-          <Route path="disperse" element={<Disperse />}></Route>
+          <Route path="disperse" element={<LayoutDispersal />}></Route>
           <Route path="livestocks" element={<Livestock />}></Route>
           <Route path="Profile" element={<Profile />}></Route>
           <Route path="Roles" element={<TeamRole />}></Route>
