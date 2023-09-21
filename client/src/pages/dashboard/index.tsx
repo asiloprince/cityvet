@@ -6,6 +6,7 @@ import Livestock from "./livestock/Livestock";
 import Profile from "./profile/Profile";
 import TeamRole from "./team/TeamRole";
 import LayoutDispersal from "./dispersal/Layout";
+import Disperse from "./dispersal/Disperse";
 
 export {
   Overview,
@@ -16,4 +17,5 @@ export {
   Profile,
   TeamRole,
   LayoutDispersal,
+  Disperse,
 };

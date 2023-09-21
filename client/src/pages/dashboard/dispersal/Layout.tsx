@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DisperseLivestock from "./disperse-redispersed/DisperseLivestock";
-import DisperseNonEarTag from "./dispersal-non-eartags/DisperseNonEarTag";
+import DisperseLivestock from "./disperse-redispersed-table/DisperseLivestock";
+import DisperseNonEarTag from "./dispersal-non-eartags-table/DisperseNonEarTag";
 import { Button } from "../../../components/ui/button";
 
 function LayoutDispersal() {
@@ -8,6 +8,10 @@ function LayoutDispersal() {
 
   const tableHandlers = (table: string) => {
     setCurrentTable(table);
+  };
+
+  const disperseDirectHandler = () => {
+    window.location.href = "disperse";
   };
 
   return (
@@ -31,7 +35,10 @@ function LayoutDispersal() {
           </Button>
         </div>
         <div className="flex justify-between m-2">
-          <Button className="font-poppin text-white text-sm bg-cyan-600 rounded">
+          <Button
+            className="font-poppin text-white text-sm bg-cyan-600 rounded"
+            onClick={disperseDirectHandler}
+          >
             Disperse
           </Button>
         </div>

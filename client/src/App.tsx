@@ -10,6 +10,7 @@ import {
   Livestock,
   Profile,
   TeamRole,
+  Disperse,
 } from "./pages/dashboard";
 
 function App() {
@@ -19,10 +20,12 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Overview />}></Route>
           <Route path="benefeciaries" element={<Beneficiaries />}></Route>
-          <Route path="disperse" element={<LayoutDispersal />}></Route>
           <Route path="livestocks" element={<Livestock />}></Route>
           <Route path="Profile" element={<Profile />}></Route>
           <Route path="Roles" element={<TeamRole />}></Route>
+
+          <Route path="dispersal" element={<LayoutDispersal />}></Route>
+          <Route path="disperse" element={<Disperse />}></Route>
         </Route>
 
         <Route path="/login" element={<Login />}></Route>
