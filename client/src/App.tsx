@@ -10,7 +10,7 @@ import {
   Livestock,
   Profile,
   TeamRole,
-  Disperse,
+  DispersalType,
 } from "./pages/dashboard";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
           <Route path="Roles" element={<TeamRole />}></Route>
 
           <Route path="dispersal" element={<LayoutDispersal />}></Route>
-          <Route path="disperse" element={<Disperse />}></Route>
+          <Route path="dispersal-type" element={<DispersalType />}></Route>
         </Route>
 
         <Route path="/login" element={<Login />}></Route>

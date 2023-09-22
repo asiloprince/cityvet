@@ -1,16 +1,18 @@
 import ImageCard from "../../../components/image-card/imageCard";
+import { useNavigate } from "react-router-dom";
 import SectionContent, {
   SectionTitle,
   SectionWrapper,
 } from "../../../components/section-content/sectionContent";
 
-export default function Disperse() {
+export default function DispersalType() {
+  const navigate = useNavigate();
   function redirectToTaggedDispersal() {
-    window.location.href = "/";
+    navigate("/disperse");
   }
 
   function redirectToUnTaggedDispersal() {
-    window.location.href = "/";
+    navigate("/disperse-non-eartag");
   }
 
   return (

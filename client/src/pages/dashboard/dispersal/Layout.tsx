@@ -11,7 +11,7 @@ function LayoutDispersal() {
   };
 
   const disperseDirectHandler = () => {
-    window.location.href = "disperse";
+    window.location.href = "dispersal-type";
   };
 
   return (
