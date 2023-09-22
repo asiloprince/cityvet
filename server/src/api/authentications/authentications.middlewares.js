@@ -114,13 +114,6 @@ export async function validateUserRegistrationPayload(req, res, next) {
   if (isStringEmpty(roleType)) {
     return res.send({ success: false, message: "Please select a role" });
   }
-
-  if (!usersConfigs.role.allowedValues.includes(roleType)) {
-    return res.send({
-      success: false,
-      message: `Role type ${roleType} is not valid.`,
-    });
-  }
 }
 
 export async function validateLoginPayload(req, res, next) {

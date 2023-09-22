@@ -13,7 +13,7 @@ export async function hashPassword(plainPassword) {
 
 export async function saveUsersData(db, validatedPayload) {
   const sql =
-    "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?,?,?,?,?)";
+    "INSERT INTO users (first_name, last_name, email, password, role_id) VALUES (?,?,?,?,?)";
 
   let hashedPassword;
 

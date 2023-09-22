@@ -10,7 +10,7 @@ export async function handleGetUserInfo(req, res) {
   }
 
   const sql =
-    "SELECT userId, first_name, last_name, role, email, password, registration_date FROM users WHERE userId = ?;";
+    "SELECT users.userId, first_name, last_name, email, password, registration_date, roles.role_name FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE users.userId = ?;";
 
   const values = [userID];
 
