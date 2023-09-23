@@ -12,11 +12,16 @@ dotenv.config({ path: envPath });
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", process.env.CLIENT_URL);
+  res.set("Access-Control-Allow-Credentials", true);
+  res.set("Access-Control-Allow-Headers", "Content-Type");
+  res.set("Access-Control-Allow-Methods", "GET, POST, DELETE");
 
-// API
-app.get("/", (req, res) => {
-  res.json({ message: "hello world" });
+  next();
 });
+
+// APIs
 app.use("/api", beneficiaries);
 app.use("/auth", auth);
 app.use("/accounts", accounts);
