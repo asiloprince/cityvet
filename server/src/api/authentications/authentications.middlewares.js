@@ -1,5 +1,5 @@
 import validator from "validator";
-import usersConfigs from "../../db/configs/users.config.js";
+import usersConfigs from "../../db/configs/users.configs.js";
 
 import { isString, isStringEmpty } from "../../global/utils/validator.js";
 import { isEmailRegistered } from "./authentications.utils.js";

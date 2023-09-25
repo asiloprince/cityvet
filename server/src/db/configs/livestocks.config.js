@@ -1,4 +1,4 @@
-import configs from "./global.config.js";
+import configs from "./global.configs.js";
 
 export default {
   livestockId: {
