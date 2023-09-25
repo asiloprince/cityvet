@@ -90,12 +90,12 @@ export async function validateLivestocksPayload(req, res, next) {
       message: "age is required.",
     });
   }
-  if (!validator.isInt(age)) {
-    return res.send({
-      success: false,
-      message: "age is invalid. It must contain numbers only.",
-    });
-  }
+  // if (!validator.isInt(age)) {
+  //   return res.send({
+  //     success: false,
+  //     message: "age is invalid. It must contain numbers only.",
+  //   });
+  // }
 
   //health
   if (!isString(health)) {
