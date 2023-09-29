@@ -41,7 +41,7 @@ export async function handleLogin(req, res) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
 
-  const sql = "SELECT userId, password FROM users WHERE email = ? LIMIT 1";
+  const sql = "SELECT user_id, password FROM users WHERE email = ? LIMIT 1";
   const values = [req.body.email];
 
   let rows;
@@ -86,7 +86,7 @@ export async function handleLogin(req, res) {
     });
   }
 
-  const token = await signToken(fetchedData.userId);
+  const token = await signToken(fetchedData.user_id);
 
   res
     .cookie("auth_token", token, {

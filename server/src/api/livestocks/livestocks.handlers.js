@@ -14,21 +14,21 @@ export async function handleLivestockRegistration(req, res) {
   try {
     // Check if the ear tag exists
     const [earTagRows] = await db.query(
-      "SELECT earTagId FROM EarTags WHERE ear_tag = ? LIMIT 1",
+      "SELECT eartag_id FROM eartags WHERE ear_tag = ? LIMIT 1",
       [ear_tag]
     );
 
     if (earTagRows.length === 0) {
       const [insertResult] = await db.query(
-        "INSERT INTO EarTags (ear_tag) VALUES (?)",
+        "INSERT INTO eartags (ear_tag) VALUES (?)",
         [ear_tag]
       );
-      const earTagId = insertResult.insertId;
+      const eartag_id = insertResult.insertId;
 
       const lastInsertedId = await addLivestockData(db, payload);
 
-      const sql = "UPDATE Livestock SET earTagId = ? WHERE livestockId = ?";
-      const values = [earTagId, lastInsertedId];
+      const sql = "UPDATE Livestock SET eartag_id = ? WHERE livestock_id = ?";
+      const values = [eartag_id, lastInsertedId];
 
       await db.query(sql, values);
 
@@ -61,11 +61,11 @@ export async function handleGetLivestockInfo(req, res) {
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database" });
   }
-  const livestockId = req.params.livestockId;
+  const livestock_id = req.params.livestock_id;
   const sql =
-    "SELECT livestock.livestockId,type, category, breed, age, status, health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.earTagId = eartags.earTagId WHERE livestock.earTagId =? ";
+    "SELECT livestock.livestock_id,type, category, breed, age, status, health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id WHERE livestock.eartag_id =? ";
 
-  const values = [livestockId];
+  const values = [livestock_id];
   let rows;
 
   try {
@@ -94,7 +94,7 @@ export async function handleGetLivestockList(req, res) {
   }
 
   const sql =
-    "SELECT livestock.livestockId, type, category, breed , age, status, health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.earTagId = eartags.earTagId";
+    "SELECT livestock.livestock_id, type, category, breed , age, status, health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id";
 
   try {
     const [rows] = await db.query(sql);
@@ -118,7 +118,7 @@ export async function handleGetLivestockList(req, res) {
 
 export async function handleUpdateLivestockRecord(req, res) {
   const payload = req.body;
-  const livestockId = req.params.livestockId;
+  const livestock_id = req.params.livestock_id;
 
   const db = await connectDb("cityvet_program");
   if (!db) {
@@ -127,8 +127,8 @@ export async function handleUpdateLivestockRecord(req, res) {
 
   try {
     const [livestockRows] = await db.query(
-      "SELECT livestockId FROM Livestock WHERE livestockId = ?",
-      [livestockId]
+      "SELECT livestock_id FROM livestock WHERE livestock_id = ?",
+      [livestock_id]
     );
 
     if (livestockRows.length === 0) {
@@ -140,7 +140,7 @@ export async function handleUpdateLivestockRecord(req, res) {
 
     // Update livestock data
     const sql =
-      "UPDATE Livestock SET type = ?, category = ?, breed = ?, age = ?, status = ?, health = ?, isAlive = ? WHERE livestockId = ?";
+      "UPDATE Livestock SET type = ?, category = ?, breed = ?, age = ?, status = ?, health = ?, isAlive = ? WHERE livestock_id = ?";
     const values = [
       payload.livestockType,
       payload.category,
@@ -149,7 +149,7 @@ export async function handleUpdateLivestockRecord(req, res) {
       payload.status,
       payload.health,
       payload.isAlive,
-      livestockId,
+      livestock_id,
     ];
 
     await db.query(sql, values);
@@ -172,7 +172,7 @@ export async function handleUpdateLivestockRecord(req, res) {
 // handle livestock deletion
 
 export async function handleDeleteLivestockRecord(req, res) {
-  const livestockId = req.params.livestockId;
+  const livestock_id = req.params.livestock_id;
 
   const db = await connectDb("cityvet_program");
   if (!db) {
@@ -181,8 +181,8 @@ export async function handleDeleteLivestockRecord(req, res) {
 
   try {
     const [livestockRows] = await db.query(
-      "SELECT livestockId, earTagId FROM Livestock WHERE livestockId = ?",
-      [livestockId]
+      "SELECT livestock_id, eartag_id FROM livestock WHERE livestock_id = ?",
+      [livestock_id]
     );
 
     if (livestockRows.length === 0) {
@@ -192,19 +192,19 @@ export async function handleDeleteLivestockRecord(req, res) {
       });
     }
 
-    const earTagId = livestockRows[0].earTagId;
+    const eartag_id = livestockRows[0].eartag_id;
 
     const [otherLivestockRows] = await db.query(
-      "SELECT livestockId FROM Livestock WHERE earTagId = ? AND livestockId != ?",
-      [earTagId, livestockId]
+      "SELECT livestock_id FROM livestock WHERE eartag_id = ? AND livestock_id != ?",
+      [eartag_id, livestock_id]
     );
 
-    const sql = "DELETE FROM Livestock WHERE livestockId = ?";
-    await db.query(sql, [livestockId]);
+    const sql = "DELETE FROM livestock WHERE livestock_id = ?";
+    await db.query(sql, [livestock_id]);
 
     if (otherLivestockRows.length === 0) {
-      const deleteEarTagSql = "DELETE FROM EarTags WHERE earTagId = ?";
-      await db.query(deleteEarTagSql, [earTagId]);
+      const deleteEarTagSql = "DELETE FROM eartags WHERE eartag_id = ?";
+      await db.query(deleteEarTagSql, [eartag_id]);
     }
 
     return res.send({

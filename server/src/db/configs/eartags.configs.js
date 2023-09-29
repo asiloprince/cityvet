@@ -1,7 +1,7 @@
 import configs from "./global.configs.js";
 
 export default {
-  earTagId: {
+  eartag_id: {
     ...configs.id,
   },
   ear_tag: {

@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `livestock`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `livestock` (
-  `livestockId` int unsigned NOT NULL AUTO_INCREMENT,
+  `livestock_id` int unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(30) NOT NULL,
   `category` varchar(30) NOT NULL,
   `breed` varchar(100) DEFAULT NULL,
@@ -32,10 +32,10 @@ CREATE TABLE `livestock` (
   `health` varchar(30) DEFAULT NULL,
   `isAlive` tinyint(1) DEFAULT NULL,
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `earTagId` int DEFAULT NULL,
-  PRIMARY KEY (`livestockId`),
-  UNIQUE KEY `earTagId` (`earTagId`),
-  CONSTRAINT `livestock_ibfk_1` FOREIGN KEY (`earTagId`) REFERENCES `eartags` (`earTagId`)
+  `eartag_id` int DEFAULT NULL,
+  PRIMARY KEY (`livestock_id`),
+  UNIQUE KEY `eartag_id` (`eartag_id`),
+  CONSTRAINT `livestock_ibfk_1` FOREIGN KEY (`eartag_id`) REFERENCES `eartags` (`eartag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

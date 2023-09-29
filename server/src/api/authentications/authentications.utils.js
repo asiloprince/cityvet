@@ -76,9 +76,9 @@ export async function comparePasswords(hashed, plain) {
 }
 
 // generate/sign token
-export async function signToken(userId) {
+export async function signToken(user_id) {
   try {
-    return jwt.sign({ userId: userId }, process.env.TOKEN_SALT, {
+    return jwt.sign({ user_id: user_id }, process.env.TOKEN_SALT, {
       expiresIn: "24h",
     });
   } catch (err) {

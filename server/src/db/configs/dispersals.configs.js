@@ -1,17 +1,17 @@
 import configs from "./global.configs.js";
 
 export default {
-  dispersalId: {
+  dispersal_id: {
     ...configs.id,
   },
-  dispersalDate: {},
+  dispersal_date: {},
   status: {
     allowedValues: ["Yet to be Redispersed", "Redispersed"],
   },
-  contractDetails: {
+  contract_details: {
     maxLength: 500,
   },
-  redispersalDate: {},
+  redispersal_date: {},
   previousBeneficiaryId: {},
   redispersalBeneficiaryId: {},
   notes: {

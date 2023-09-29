@@ -20,10 +20,10 @@ router.post(
   handleLivestockRegistration
 );
 router.get("/", handleGetLivestockList);
-router.get("/details/:livestockId", handleGetLivestockInfo);
-router.delete("/delete/:livestockId", handleDeleteLivestockRecord);
+router.get("/details/:livestock_id", handleGetLivestockInfo);
+router.delete("/delete/:livestock_id", handleDeleteLivestockRecord);
 router.put(
-  "/update/:livestockId",
+  "/update/:livestock_id",
   validateLivestocksPayload,
   handleUpdateLivestockRecord
 );

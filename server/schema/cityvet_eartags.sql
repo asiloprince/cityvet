@@ -23,9 +23,9 @@ DROP TABLE IF EXISTS `eartags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `eartags` (
-  `earTagId` int NOT NULL AUTO_INCREMENT,
+  `eartag_id` int NOT NULL AUTO_INCREMENT,
   `ear_tag` varchar(7) NOT NULL,
-  PRIMARY KEY (`earTagId`),
+  PRIMARY KEY (`eartag_id`),
   UNIQUE KEY `ear_tag` (`ear_tag`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

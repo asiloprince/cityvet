@@ -1,7 +1,7 @@
 import configs from "./global.configs.js";
 
 export default {
-  livestockId: {
+  livestock_id: {
     ...configs.id,
   },
   breed: {

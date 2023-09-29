@@ -25,14 +25,14 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `userId` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(30) NOT NULL,
   `last_name` varchar(30) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(72) NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role_id` int NOT NULL,
-  PRIMARY KEY (`userId`),
+  PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`),
   KEY `role_id` (`role_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`)

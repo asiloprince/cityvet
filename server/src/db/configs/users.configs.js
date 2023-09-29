@@ -1,7 +1,7 @@
 import configs from "./global.configs.js";
 
 export default {
-  userId: {
+  user_id: {
     ...configs.id,
   },
   first_name: {

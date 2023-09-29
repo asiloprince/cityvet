@@ -1,11 +1,9 @@
 export default {
-  beneficiaryId: {}, // leave this field empty because it is auto increament
+  beneficiary_id: {}, // leave this field empty because it is auto increament
 
   fullName: { maxLength: 45 },
 
-  birthDate: {
-    type: Date,
-  },
+  birth_date: {},
 
   mobile: {
     minLength: 11,

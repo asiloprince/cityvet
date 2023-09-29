@@ -34,10 +34,10 @@ export function validateAuthCookie(req, res, next) {
 }
 
 export async function isVetOfficeMember(req, res, next) {
-  const userId = DecodeAuthToken(req.cookies.auth_token).userId;
+  const user_id = DecodeAuthToken(req.cookies.auth_token).user_id;
 
-  const sql = "SELECT 1 FROM users WHERE userId = ?";
-  const values = [userId];
+  const sql = "SELECT 1 FROM users WHERE user_id = ?";
+  const values = [user_id];
 
   const db = await connectDb("cityvet_program");
   if (!db) {
