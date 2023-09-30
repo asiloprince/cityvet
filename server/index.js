@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import beneficiaries from "./src/api/beneficiaries/beneficiaries.js";
 import livestocks from "./src/api/livestocks/livestocks.js";
+import dispersals from "./src/api/dispersals/dispersals.js";
 import auth from "./src/api/authentications/authentications.js";
 import accounts from "./src/api/accounts/accounts.js";
 const app = express();
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 // APIs
 app.use("/api", beneficiaries);
 app.use("/api/livestocks", livestocks);
+app.use("/api/dispersals", dispersals);
 app.use("/auth", auth);
 app.use("/accounts", accounts);
 
