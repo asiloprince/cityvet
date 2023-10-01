@@ -12,6 +12,16 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Table } from "@tanstack/react-table";
 import { downloadToExcel } from "../../lib/xlsx";
 
+// rename toggle column names
+const columnNames: { [key: string]: string } = {
+  barangay_name: "Barangay",
+  ear_tag: "Eartag",
+  category: "Receive Animals",
+  current_beneficiary: "Name",
+  status: "Status",
+  init_num_heads: "Initial Number of Heads",
+};
+
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
 }
@@ -60,7 +70,7 @@ export function DataTableViewOptions<TData>({
                   checked={column.getIsVisible()}
                   onCheckedChange={(value) => column.toggleVisibility(!!value)}
                 >
-                  {column.id}
+                  {columnNames[column.id] || column.id}
                 </DropdownMenuCheckboxItem>
               );
             })}

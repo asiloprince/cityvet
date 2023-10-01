@@ -5,6 +5,7 @@ import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter"
 import { barangays } from "../data-table/barangay-filter-utils";
 import { Button } from "../ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { statuses } from "../data-table/data-table-status-filter";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -27,13 +28,22 @@ export function DispersalToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
 
-        {table.getColumn("Barangay") && (
+        {table.getColumn("barangay_name") && (
           <DataTableFacetedFilter
-            column={table.getColumn("Barangay")}
+            column={table.getColumn("barangay_name")}
             title="Barangay"
             options={barangays}
           />
         )}
+
+        {table.getColumn("status") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("status")}
+            title="Status"
+            options={statuses}
+          />
+        )}
+
         {isFiltered && (
           <Button
             variant="ghost"
