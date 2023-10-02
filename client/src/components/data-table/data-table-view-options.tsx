@@ -20,6 +20,7 @@ const columnNames: { [key: string]: string } = {
   current_beneficiary: "Name",
   status: "Status",
   init_num_heads: "Initial Number of Heads",
+  dispersal_date: "Date",
 };
 
 interface DataTableViewOptionsProps<TData> {

@@ -1,5 +1,4 @@
 import { DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Recipients } from "../../sampledata/benefeciariesData";
 import {
   Table,
   TableBody,
@@ -8,33 +7,36 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { DispersalType } from "../../pages/dashboard/dispersal/single-dispersion/schema";
 
 type viewProps = {
-  recipient: Recipients;
+  dispersal: DispersalType;
 };
 
-export default function ViewDialog({ recipient }: viewProps) {
-  const entries = Object.entries(recipient);
+export default function ViewDialog({ dispersal }: viewProps) {
+  const entries = Object.entries(dispersal);
   return (
     <DialogHeader>
-      <DialogTitle>View Recipient Details</DialogTitle>
+      <DialogTitle>View Dispersal Details</DialogTitle>
       <DialogDescription className="py-4">
-        <Table className="border-2">
-          <TableHeader className="bg-muted">
-            <TableRow>
-              <TableHead>Key</TableHead>
-              <TableHead>Value</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {entries.map(([key, value], index) => (
-              <TableRow key={index}>
-                <TableCell>{key}</TableCell>
-                <TableCell>{value}</TableCell>
+        <div className="max-h-96 overflow-y-auto">
+          <Table className="border-2">
+            <TableHeader className="bg-muted">
+              <TableRow>
+                <TableHead>Key</TableHead>
+                <TableHead>Value</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {entries.map(([key, value], index) => (
+                <TableRow key={index}>
+                  <TableCell>{key}</TableCell>
+                  <TableCell>{value}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </DialogDescription>
     </DialogHeader>
   );

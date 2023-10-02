@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DisperseLivestock from "./disperse-redispersed-table/DisperseLivestock";
-import DisperseNonEarTag from "./dispersal-non-eartags-table/DisperseNonEarTag";
+import DisperseLivestock from "./single-dispersion/DisperseLivestock";
+import DisperseNonEarTag from "./multiple-dispersal/DisperseNonEarTag";
 import { Button } from "../../../components/ui/button";
 
 function LayoutDispersal() {

@@ -21,9 +21,15 @@ export function DispersalToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Search Name"
-          value={(table.getColumn("Name")?.getFilterValue() as string) || ""}
+          value={
+            (table
+              .getColumn("current_beneficiary")
+              ?.getFilterValue() as string) || ""
+          }
           onChange={(e) => {
-            table.getColumn("Name")?.setFilterValue(e.target.value);
+            table
+              .getColumn("current_beneficiary")
+              ?.setFilterValue(e.target.value);
           }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
