@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { Row } from "@tanstack/react-table";
-import {
-  FaEllipsisH,
-  FaRegCopy,
-  FaRegEye,
-  FaRegEdit,
-  FaRegTrashAlt,
-} from "react-icons/fa";
+import { Clipboard, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
+
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import {
@@ -19,9 +14,9 @@ import {
 } from "../ui/dropdown-menu";
 
 import { dispersalSchema } from "../../pages/dashboard/dispersal/single-dispersion/schema";
-// import DeleteDialog from "../dialogs/delete-dialog";
-import ViewDialog from "../dialogs/view-dialogs";
-import EditDialog from "../dialogs/edit-dialog";
+import DeleteDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/delete-dialog";
+import ViewDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/view-dialogs";
+import EditDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/edit-dialog";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -50,7 +45,7 @@ export function DataTableRowActions<TData>({
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
             <span className="sr-only">Open menu</span>
-            <FaEllipsisH className="h-4 w-4" />
+            <MoreHorizontal className="h-4 w-4 " />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
@@ -60,20 +55,20 @@ export function DataTableRowActions<TData>({
               navigator.clipboard.writeText(dispersal.dispersal_id.toString())
             }
           >
-            <FaRegCopy />
-            Copy dispersal ID
+            <Clipboard className="mr-2 h-4 w-4" />
+            Copy reference ID
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DialogTrigger asChild onClick={handleViewClick}>
             <DropdownMenuItem>
               {" "}
-              <FaRegEye />
+              <Eye className="mr-2 h-4 w-4" />
               View Details
             </DropdownMenuItem>
           </DialogTrigger>
           <DialogTrigger asChild onClick={handleEditClick}>
             <DropdownMenuItem>
-              <FaRegEdit />
+              <Edit className="mr-2 h-4 w-4" />
               Edit Details
             </DropdownMenuItem>
           </DialogTrigger>
@@ -82,17 +77,17 @@ export function DataTableRowActions<TData>({
             onSelect={() => setShowDeleteDialog(true)}
             className="text-red-600"
           >
-            <FaRegTrashAlt />
+            <Trash2 className="mr-2 h-4 w-4" />
             Delete Details
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       {dialogContent && <DialogContent>{dialogContent}</DialogContent>}
-      {/* <DeleteDialog
+      <DeleteDialog
         dispersal={dispersal}
         isOpen={showDeleteDialog}
         showActionToggle={setShowDeleteDialog}
-      /> */}
+      />
     </Dialog>
   );
 }

@@ -10,8 +10,9 @@ function formatDate(dateString: string) {
   const date = new Date(dateString);
   const year = date.getFullYear();
   const month = date.toLocaleString("default", { month: "long" });
+  const day = date.getDate();
 
-  return `${year} ${month}`;
+  return `${year} ${month} ${day}`;
 }
 
 export const columns: ColumnDef<DispersalType>[] = [
@@ -71,11 +72,23 @@ export const columns: ColumnDef<DispersalType>[] = [
       <DataTableColumnHeader column={column} title="Eartag" />
     ),
   },
+
   {
     accessorKey: "category",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Animal Recieved" />
     ),
+    cell: ({ row }) => {
+      const category = row.original.category;
+      const NumHeads = row.original.num_of_heads;
+      const combinedCategory = `${category} (${NumHeads})`;
+
+      return (
+        <div className="flex w-[150px] items-center">
+          <span>{combinedCategory}</span>
+        </div>
+      );
+    },
   },
 
   {
@@ -84,11 +97,11 @@ export const columns: ColumnDef<DispersalType>[] = [
       <DataTableColumnHeader column={column} title="Dispersal Date" />
     ),
     cell: ({ row }) => {
-      const dateValue: string = row.getValue("dispersal_date"); // Annotate dateValue as string
+      const dateValue: string = row.getValue("dispersal_date");
       const formattedDate = formatDate(dateValue);
 
       return (
-        <div className="flex w-[150px] items-center text-xs">
+        <div className="flex w-[150px] items-center ">
           <span>{formattedDate}</span>
         </div>
       );
@@ -110,6 +123,10 @@ export const columns: ColumnDef<DispersalType>[] = [
 
       return (
         <div className="flex w-[100px] items-center">
+          {status.icon && (
+            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+          )}
+
           <span>{status.label}</span>
         </div>
       );
@@ -118,12 +135,7 @@ export const columns: ColumnDef<DispersalType>[] = [
       return value.includes(row.getValue(id));
     },
   },
-  {
-    accessorKey: "init_num_heads",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Initial Heads" />
-    ),
-  },
+
   {
     id: "actions",
     header: () => <div>Actions</div>,

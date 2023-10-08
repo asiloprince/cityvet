@@ -1,5 +1,3 @@
-import { MixerHorizontalIcon } from "@radix-ui/react-icons";
-import { DownloadIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -11,6 +9,7 @@ import {
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Table } from "@tanstack/react-table";
 import { downloadToExcel } from "../../lib/xlsx";
+import { Download, SlidersHorizontal } from "lucide-react";
 
 // rename toggle column names
 const columnNames: { [key: string]: string } = {
@@ -39,7 +38,7 @@ export function DataTableViewOptions<TData>({
           className="ml-auto hidden h-8 lg:flex"
           onClick={() => downloadToExcel()}
         >
-          <DownloadIcon className="mr-2 h-4 w-4" />
+          <Download className="mr-2 h-4 w-4" />
           Export
         </Button>
       </div>
@@ -50,7 +49,7 @@ export function DataTableViewOptions<TData>({
             size="sm"
             className="ml-auto hidden h-8 lg:flex"
           >
-            <MixerHorizontalIcon className="mr-2 h-4 w-4" />
+            <SlidersHorizontal className="mr-2 h-4 w-4" />
             View
           </Button>
         </DropdownMenuTrigger>

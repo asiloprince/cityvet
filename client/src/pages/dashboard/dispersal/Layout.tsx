@@ -36,7 +36,7 @@ function LayoutDispersal() {
         </div>
         <div className="flex justify-between m-2">
           <Button
-            className="font-poppin text-white text-sm bg-cyan-600 rounded"
+            className="font-poppin text-white text-sm bg-cyan-600 rounded  hover:bg-cyan-700"
             onClick={disperseDirectHandler}
           >
             Disperse

@@ -11,11 +11,23 @@ export const dispersalSchema = z.object({
   previous_beneficiary: z.string().optional().nullable(),
   recipient: z.string().optional().nullable(),
   ear_tag: z.string(),
+  health: z.enum(["Excellent", "Good", "Fair", "Poor"]).optional().nullable(),
   category: z.enum(["Cattle", "CPDO Cattle", "Goat - Doe"]),
-  notes: z.string().optional(),
   contract_details: z.string().optional(),
   age: z.string(),
   init_num_heads: z.number(),
+  visits: z
+    .array(
+      z.object({
+        visit_date: z.string(),
+        remarks: z.string(),
+        visit_again: z.enum(["Yes", "No"]),
+      })
+    )
+    .optional(),
+  visit_date: z.string().optional().nullable(),
+  remarks: z.string().optional(),
+  visit_again: z.enum(["Yes", "No", "Not set"]).optional(),
   barangay_name: z.enum([
     "Barangay 1",
     "Barangay 2",
@@ -104,6 +116,7 @@ export const dispersalSchema = z.object({
     "Tulo",
     "Wawa",
   ]),
+  notes: z.string().optional(),
 });
 
 export type DispersalType = z.infer<typeof dispersalSchema>;

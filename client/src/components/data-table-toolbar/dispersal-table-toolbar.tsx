@@ -4,7 +4,7 @@ import { DataTableViewOptions } from "../data-table/data-table-view-options";
 import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter";
 import { barangays } from "../data-table/barangay-filter-utils";
 import { Button } from "../ui/button";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { X } from "lucide-react";
 import { statuses } from "../data-table/data-table-status-filter";
 
 interface DataTableToolbarProps<TData> {
@@ -57,7 +57,7 @@ export function DispersalToolbar<TData>({
             className="h-8 px-2 lg:px-3"
           >
             Reset
-            <Cross2Icon className="ml-2 h-4 w-4" />
+            <X className="ml-2 h-4 w-4" />
           </Button>
         )}
       </div>
