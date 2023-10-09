@@ -120,25 +120,25 @@ export async function validateLivestocksPayload(req, res, next) {
 
   //status
 
-  if (!isString(status)) {
-    return res.send({
-      success: false,
-      message: "Livestock status must be string.",
-    });
-  }
+  // if (!isString(status)) {
+  //   return res.send({
+  //     success: false,
+  //     message: "Livestock status must be string.",
+  //   });
+  // }
 
-  if (isStringEmpty(status)) {
-    return res.send({
-      success: false,
-      message: "Livestock status is required.",
-    });
-  }
-  if (!livestocksConfig.status.allowedValues.includes(status)) {
-    return res.send({
-      success: false,
-      message: `livestock status type ${status} is not valid.`,
-    });
-  }
+  // if (isStringEmpty(status)) {
+  //   return res.send({
+  //     success: false,
+  //     message: "Livestock status is required.",
+  //   });
+  // }
+  // if (!livestocksConfig.status.allowedValues.includes(status)) {
+  //   return res.send({
+  //     success: false,
+  //     message: `livestock status type ${status} is not valid.`,
+  //   });
+  // }
   next();
 }
 

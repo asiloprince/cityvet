@@ -18,7 +18,7 @@ app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", process.env.CLIENT_URL);
   res.set("Access-Control-Allow-Credentials", true);
   res.set("Access-Control-Allow-Headers", "Content-Type");
-  res.set("Access-Control-Allow-Methods", "GET, POST, DELETE");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 
   next();
 });
