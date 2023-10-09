@@ -1,13 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "../../../components/ui/checkbox";
 import { Recipients } from "../../../sampledata/benefeciariesData";
-import {
-  FaEllipsisH,
-  FaRegCopy,
-  FaRegEye,
-  FaRegEdit,
-  FaRegTrashAlt,
-} from "react-icons/fa";
+import { Clipboard, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -82,7 +76,7 @@ export const columns: ColumnDef<Recipients>[] = [
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="inline-flex items-center justify-center rounded-full w-8 h-8 text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
-              <FaEllipsisH />
+              <MoreHorizontal />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -92,19 +86,19 @@ export const columns: ColumnDef<Recipients>[] = [
                 navigator.clipboard.writeText(recipientId);
               }}
             >
-              <FaRegCopy className="mr-2 h-4 w-4" /> Copy recipient ID
+              <Clipboard className="mr-2 h-4 w-4" /> Copy recipient ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <FaRegEye className="mr-2 h-4 w-4" />
+              <Eye className="mr-2 h-4 w-4" />
               View Details
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <FaRegEdit className="mr-2 h-4 w-4" />
+              <Edit className="mr-2 h-4 w-4" />
               Edit Details
             </DropdownMenuItem>
             <DropdownMenuItem className="text-red-500">
-              <FaRegTrashAlt className="mr-2 h-4 w-4" />
+              <Trash2 className="mr-2 h-4 w-4" />
               Delete Details
             </DropdownMenuItem>
           </DropdownMenuContent>

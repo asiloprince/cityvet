@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DisperseLivestock from "./disperse-redispersed-table/DisperseLivestock";
-import DisperseNonEarTag from "./dispersal-non-eartags-table/DisperseNonEarTag";
+import DisperseLivestock from "./single-dispersion/DisperseLivestock";
+import DisperseNonEarTag from "./multiple-dispersal/DisperseNonEarTag";
 import { Button } from "../../../components/ui/button";
 
 function LayoutDispersal() {
@@ -36,7 +36,7 @@ function LayoutDispersal() {
         </div>
         <div className="flex justify-between m-2">
           <Button
-            className="font-poppin text-white text-sm bg-cyan-600 rounded"
+            className="font-poppin text-white text-sm bg-cyan-600 rounded  hover:bg-cyan-700"
             onClick={disperseDirectHandler}
           >
             Disperse

@@ -4,7 +4,8 @@ import { DataTableViewOptions } from "../data-table/data-table-view-options";
 import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter";
 import { barangays } from "../data-table/barangay-filter-utils";
 import { Button } from "../ui/button";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { X } from "lucide-react";
+import { statuses } from "../data-table/data-table-status-filter";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -20,20 +21,35 @@ export function DispersalToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Search Name"
-          value={(table.getColumn("Name")?.getFilterValue() as string) || ""}
+          value={
+            (table
+              .getColumn("current_beneficiary")
+              ?.getFilterValue() as string) || ""
+          }
           onChange={(e) => {
-            table.getColumn("Name")?.setFilterValue(e.target.value);
+            table
+              .getColumn("current_beneficiary")
+              ?.setFilterValue(e.target.value);
           }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
 
-        {table.getColumn("Barangay") && (
+        {table.getColumn("barangay_name") && (
           <DataTableFacetedFilter
-            column={table.getColumn("Barangay")}
+            column={table.getColumn("barangay_name")}
             title="Barangay"
             options={barangays}
           />
         )}
+
+        {table.getColumn("status") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("status")}
+            title="Status"
+            options={statuses}
+          />
+        )}
+
         {isFiltered && (
           <Button
             variant="ghost"
@@ -41,7 +57,7 @@ export function DispersalToolbar<TData>({
             className="h-8 px-2 lg:px-3"
           >
             Reset
-            <Cross2Icon className="ml-2 h-4 w-4" />
+            <X className="ml-2 h-4 w-4" />
           </Button>
         )}
       </div>

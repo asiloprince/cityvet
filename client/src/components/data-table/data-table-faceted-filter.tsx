@@ -13,7 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Separator } from "../ui/separator";
 import { cn } from "../../lib/utils";
 import { Column } from "@tanstack/react-table";
-import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
+import { Icons } from "../icons";
 
 interface DataTableFacetedFilter<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -21,6 +21,7 @@ interface DataTableFacetedFilter<TData, TValue> {
   options: {
     label: string;
     value: string;
+    icon?: React.ComponentType<{ className?: string }>;
   }[];
 }
 
@@ -36,7 +37,7 @@ export function DataTableFacetedFilter<TData, TValue>({
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="h-8 border-dashed">
-          <PlusCircledIcon className="mr-2 h-4 w-4" />
+          <Icons.plusCircle className="mr-2 h-4 w-4" />
           {title}
           {selectedValues?.size > 0 && (
             <>
@@ -104,9 +105,11 @@ export function DataTableFacetedFilter<TData, TValue>({
                           : "opacity-50 [&_svg]:invisible"
                       )}
                     >
-                      <CheckIcon className={cn("h-4 w-4")} />
+                      <Icons.check className={cn("h-4 w-4")} />
                     </div>
-
+                    {option.icon && (
+                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+                    )}
                     <span>{option.label}</span>
                     {facets?.get(option.value) && (
                       <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
