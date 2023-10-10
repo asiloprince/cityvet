@@ -1,51 +1,100 @@
-import {BsPersonBadge} from 'react-icons/bs'
+import { useState } from 'react';
 function TeamRole() {
+    const Roles = [
+        {
+            ID: 1,
+            Name: "Jerald Banalan",
+            Age: 10,
+            PhoneNumber: "090910102022",
+            Email: "try@yahoo.com",
+            ActiveLevel: "Staff",
+        },
+        {
+            ID: 2,
+            Name: "Maher Calingasan",
+            Age: 10,
+            PhoneNumber: "090910102022",
+            Email: "try@yahoo.com",
+            ActiveLevel: "User"
+        },
+        {
+            ID: 3,
+            Name: "Prince Asilo",
+            Age: 10,
+            PhoneNumber: "090910102022",
+            Email: "try@yahoo.com",
+            ActiveLevel: "Admin"
+        },
+        {
+            ID: 4,
+            Name: "Prince Pogi",
+            Age: 10,
+            PhoneNumber: "090910102022",
+            Email: "try@yahoo.com",
+            ActiveLevel: "Admin"
+        },
+        {
+            ID: 5,
+            Name: "Prince Gwapo",
+            Age: 10,
+            PhoneNumber: "090910102022",
+            Email: "try@yahoo.com",
+            ActiveLevel: "Admin"
+        },
+        {
+            ID: 6,
+            Name: "Prince Handsome",
+            Age: 10,
+            PhoneNumber: "090910102022",
+            Email: "try@yahoo.com",
+            ActiveLevel: "Admin"
+        },
+        {
+            ID: 7,
+            Name: "Prince Awesome",
+            Age: 10,
+            PhoneNumber: "090910102022",
+            Email: "try@yahoo.com",
+            ActiveLevel: "Admin"
+        },
+    ];
+
+    const [state, setState] =useState(false);
+    const toggle=()=>{
+        setState(!state);
+    }
 
   return (
-    <div className='p-5 h-screen  '>
-        <h1 className='text-xl font-bold'>User Clients</h1>
-        
-        <div className=''>
-            <table className='overflow-auto shadow-md'>
-                <thead className=' border-b-2 border-b-gray-300 text-left text-cyan-500'>
+    <div className='m-5'>
+        <h1 className='text-xl font-bold m-4'>Roles</h1>
+        <div className='shadow-md rounded-lg border-y-4 border-y-cyan-500 '> 
+            <table className='table-auto w-full '>
+                <thead className='h-10 border-b text-gray-500'>
                     <tr>
-                        <th className='p-3 text-md tracking-wide text-gray-500  '>ID</th>
-                        <th className='p-3 text-md tracking-wide text-gray-500  '>Name</th>
-                        <th className='p-3 text-md tracking-wide text-gray-500  '>Email Address</th>
-                        <th className='p-3 text-md tracking-wide text-gray-500  '>Designation</th>
-                        <th className='p-3 text-md tracking-wide text-gray-500  '>Contact</th>
-                        <th className='p-3 text-md tracking-wide text-gray-500  '>Action</th>
+                        <th className='text-start p-4'>ID</th>
+                        <th className='text-start p-4'>Name</th>
+                        <th className='text-start p-4'>Age</th>
+                        <th className='text-start p-4'>Phone Number</th>
+                        <th className='text-start p-4'>Email</th>
+                        <th className='text-start p-4'>Active Level</th>
                     </tr>
                 </thead>
-                <tbody className=''>
-                    <tr className='bg-white text-xs text-gray-500 '>
-                        <td className='p-10 text-cyan-600 font-bold '>202301</td>
-                        <td className='p-10 flex '><span><BsPersonBadge size={20}/></span>Jerald Banalan</td>
-                        <td className='p-10 '>IkawLangWalaNgIba#10@yahu.kom</td>
-                        <td className='p-10 '><span className='bg-cyan-600 text-white font-bold p-1 rounded-lg'>Chief technology officer CTO</span></td>
-                        <td className='p-10 '>09********</td>
-                        <td className='p-10 '></td>
-
-                    </tr>
-                    <tr className='bg-gray-200 text-xs text-gray-500'>
-                        <td className='p-10 text-cyan-600 font-bold'>202302</td>
-                        <td className='p-10 flex '><span><BsPersonBadge size={20}/></span> Prince Gerald Asilo</td>
-                        <td className='p-10 '>IkawLangWalaNgIba#25@yahu.kom</td>
-                        <td className='p-10 '><span className='bg-cyan-600 text-white font-bold p-1 rounded-lg'>Chief executive officer CEO</span></td>
-                        <td className='p-10 '>09********</td>
-                        <td className='p-10 '></td>
-                    </tr>
-                    <tr className='bg-white text-xs text-gray-500'>
-                        <td className='p-10 text-cyan-600 font-bold'>202303</td>
-                        <td className='p-10 flex '> <span><BsPersonBadge size={20}/></span>Maher Calingasan</td>
-                        <td className='p-10 '>IkawLangWalaNgIba#2@yahu.kom</td>
-                        <td className='p-10'><span className='bg-cyan-600 text-white font-bold p-1 rounded-lg'>Chief financial officer CFO</span></td>
-                        <td className='p-10 '>09********</td>
-                        <td className='p-10 '></td>
-                    </tr>
+                <tbody>
+                    {
+                        Roles.map((roles, i) =>(
+                            <tr key={i} className='hover:bg-gray-100 border-b font-semibold text-xs text-gray-500'>
+                                <td className='p-3 text-left'><p className='bg-cyan-100 text-cyan-500 text-center rounded-md font-bold'>{roles.ID}</p></td>
+                                <td className='p-3 text-left border-l'>{roles.Name}</td>
+                                <td className='p-3 text-left'>{roles.Age}</td>
+                                <td className='p-3 text-left'>{roles.PhoneNumber}</td>
+                                <td className='p-3 text-left border-r'>{roles.Email}</td>
+                                <td className='p-3 text-left'><button onClick={toggle} className='border-r-cyan-500 w-full bg-cyan-100 rounded-lg text-cyan-500 p-2'>{roles.ActiveLevel}</button></td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
-        </div>
+        </div>       
     </div>
   )
 
