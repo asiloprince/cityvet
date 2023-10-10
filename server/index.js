@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 // APIs
-app.use("/api", beneficiaries);
+app.use("/api/beneficiaries", beneficiaries);
 app.use("/api/livestocks", livestocks);
 app.use("/api/dispersals", dispersals);
 app.use("/auth", auth);

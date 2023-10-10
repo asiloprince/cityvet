@@ -473,7 +473,7 @@ export async function handleDeleteDispersalRecord(req, res) {
     });
   } catch (err) {
     await db.query("ROLLBACK");
-    console.error("[DB Error", err);
+    console.error("[DB Error]", err);
     return res.send({
       success: false,
     });
