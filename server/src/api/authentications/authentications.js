@@ -18,6 +18,8 @@ router.post(
   handleUserRegistration
 );
 
+router.get("/is-auth", handleIsAuth);
 router.post("/login", validateLoginPayload, handleLogin);
 router.delete("/logout", handleLogout);
+
 export default router;

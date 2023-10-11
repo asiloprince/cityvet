@@ -10,6 +10,7 @@ import {
   validateLivestocksPayload,
   validateEartagPayload,
 } from "./livestocks.middlewares.js";
+import { validateAuthCookie } from "../../global/middlewares/authorizations.js";
 
 const router = express.Router();
 
@@ -19,11 +20,20 @@ router.post(
   validateLivestocksPayload,
   handleLivestockRegistration
 );
-router.get("/", handleGetLivestockList);
-router.get("/details/:livestock_id", handleGetLivestockInfo);
-router.delete("/delete/:livestock_id", handleDeleteLivestockRecord);
+router.get("/", validateAuthCookie, handleGetLivestockList);
+router.get(
+  "/details/:livestock_id",
+  validateAuthCookie,
+  handleGetLivestockInfo
+);
+router.delete(
+  "/delete/:livestock_id",
+  validateAuthCookie,
+  handleDeleteLivestockRecord
+);
 router.put(
   "/update/:livestock_id",
+  validateAuthCookie,
   validateLivestocksPayload,
   handleUpdateLivestockRecord
 );
