@@ -41,6 +41,18 @@ export async function handleLivestockDispersal(req, res) {
   try {
     const [rows] = await db.query(sql, values);
     lastInsertedId = rows.insertId;
+
+    // insert dispersal default value to visit tables
+    const sql2 =
+      "INSERT INTO visits (dispersal_id, visit_date, remarks, visit_again, is_default) VALUES (?, ?, ?, ?, ?)";
+    const visitValues = [
+      lastInsertedId,
+      new Date(),
+      "(No Remarks)",
+      "Not set",
+      true,
+    ];
+    await db.query(sql2, visitValues);
   } catch (err) {
     await db.query("ROLLBACK");
     db.end();
@@ -120,8 +132,21 @@ export async function handleRedispersalStarter(req, res) {
       dispersal.beneficiary_id,
       notes,
     ];
+
     const [insertRows] = await db.query(sql4, insertValues);
     const newdispersal_id = insertRows.insertId;
+
+    // insert redispersal default values for visit tables
+    const sql5 =
+      "INSERT INTO visits (dispersal_id, visit_date, remarks, visit_again, is_default) VALUES (?, ?, ?, ?, ?)";
+    const visitValues = [
+      newdispersal_id,
+      new Date(),
+      "(No Remarks)",
+      "Not set",
+      true,
+    ];
+    await db.query(sql5, visitValues);
 
     // Transfer the livestock and create new dispersal
     const transferPayload = {
@@ -160,6 +185,7 @@ export async function handleRedispersalOffspring(req, res) {
     redispersalDate,
     previousBeneficiaryId,
     notes,
+    livestockId,
   } = payload;
 
   const db = await connectDb("cityvet_program");
@@ -171,6 +197,18 @@ export async function handleRedispersalOffspring(req, res) {
 
   try {
     await db.query("START TRANSACTION");
+
+    // Check if livestock_id already exists
+    const checkSql = "SELECT * FROM single_dispersion WHERE livestock_id = ?";
+    const [checkRows] = await db.query(checkSql, [livestockId]);
+
+    if (checkRows.length > 0) {
+      return res.status(400).send({
+        success: false,
+        message:
+          "Livestock ID already exists. Try Livestock Redisperse Transfer.",
+      });
+    }
   } catch (err) {
     console.error("[DB Error]", err);
     return res.status(500).send({
@@ -206,6 +244,18 @@ export async function handleRedispersalOffspring(req, res) {
   try {
     const [rows] = await db.query(sql, values);
     lastInsertedId = rows.insertId;
+
+    // Insert dispersal default values for visit tables
+    const sql2 =
+      "INSERT INTO visits (dispersal_id, visit_date, remarks, visit_again, is_default) VALUES (?, ?, ?, ?, ?)";
+    const visitValues = [
+      lastInsertedId,
+      new Date(),
+      "(No Remarks)",
+      "Not set",
+      true,
+    ];
+    await db.query(sql2, visitValues);
   } catch (err) {
     await db.query("ROLLBACK");
     db.end();
@@ -215,6 +265,7 @@ export async function handleRedispersalOffspring(req, res) {
       message: "There was an error initializing dispersal data.",
     });
   }
+
   try {
     payload.dispersal_id = lastInsertedId;
     await transferLivestock(db, payload);
@@ -247,7 +298,8 @@ export async function handleGetDispersalInfo(req, res) {
   }
 
   const sql =
-    "SELECT d.dispersal_id, d.dispersal_date, d.num_of_heads, d.status, d.redispersal_date, b.full_name AS current_beneficiary, pb.full_name AS previous_beneficiary,  rb.full_name AS recipient,  e.ear_tag, l.category, l.age, sd.init_num_heads, br.barangay_name FROM dispersals d  JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id JOIN livestock l ON sd.livestock_id = l.livestock_id JOIN EarTags e ON l.eartag_id = e.eartag_id JOIN barangays br ON b.barangay_id = br.barangay_id WHERE d.dispersal_id = ?;";
+    "SELECT d.*, b.full_name AS current_beneficiary, pb.full_name AS previous_beneficiary, rb.full_name AS recipient, e.ear_tag, l.category, l.age, sd.init_num_heads, br.barangay_name, v.visit_date, v.remarks, v.visit_again FROM dispersals d JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id JOIN livestock l ON sd.livestock_id = l.livestock_id JOIN EarTags e ON l.eartag_id = e.eartag_id JOIN barangays br ON b.barangay_id = br.barangay_id JOIN visits v ON d.dispersal_id = v.dispersal_id WHERE d.dispersal_id = ? ORDER BY v.visit_date DESC;";
+
   try {
     const [rows] = await db.query(sql, [dispersal_id]);
 
@@ -258,10 +310,18 @@ export async function handleGetDispersalInfo(req, res) {
       });
     }
 
-    const dispersal = rows[0];
+    const dispersalData = rows[0];
+    const visits = rows.map((row) => ({
+      visit_date: row.visit_date,
+      remarks: row.remarks,
+      visit_again: row.visit_again,
+    }));
+
+    dispersalData.visits = visits;
+
     return res.send({
       success: true,
-      dispersal,
+      dispersal: dispersalData,
     });
   } catch (err) {
     console.error("[DB Error]", err);
@@ -284,7 +344,7 @@ export async function handleGetDispersalList(req, res) {
   }
 
   const sql =
-    "SELECT d.dispersal_id, d.dispersal_date, d.num_of_heads, d.status, d.redispersal_date,  b.full_name AS current_beneficiary,   pb.full_name AS previous_beneficiary,  rb.full_name AS recipient,  e.ear_tag, l.category, l.age, sd.init_num_heads, br.barangay_name FROM dispersals d JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id JOIN livestock l ON sd.livestock_id = l.livestock_id JOIN EarTags e ON l.eartag_id = e.eartag_id JOIN barangays br ON b.barangay_id = br.barangay_id;";
+    "SELECT d.dispersal_id, d.dispersal_date, d.num_of_heads, d.status, d.contract_details,d.notes,  b.full_name AS current_beneficiary,  e.ear_tag, l.category, l.age, sd.init_num_heads, br.barangay_name,  v.visit_date, v.remarks, v.visit_again FROM dispersals d JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id JOIN livestock l ON sd.livestock_id = l.livestock_id JOIN EarTags e ON l.eartag_id = e.eartag_id JOIN barangays br ON b.barangay_id = br.barangay_id LEFT JOIN visits v ON d.dispersal_id = v.dispersal_id;";
 
   try {
     const [rows] = await db.query(sql);
@@ -316,28 +376,19 @@ export async function handleUpdateDispersalData(req, res) {
     await db.query("START TRANSACTION");
 
     const sql =
-      "UPDATE dispersals SET beneficiary_id = ?, dispersal_date = ? , status = ?, contract_details = ? , redispersal_date = ?, num_of_heads = ? , prev_ben_id = ? , recipient_id = ? , notes = ? WHERE dispersal_id = ?";
+      "UPDATE dispersals SET  contract_details = ? ,  num_of_heads = ? , notes = ? WHERE dispersal_id = ?";
     const {
-      beneficiaryId,
-      dispersal_date,
-      status,
       contract_details,
-      redispersal_date,
       num_of_heads,
-      prev_ben_id,
-      recipient_id,
       notes,
+      visit_date,
+      remarks,
+      visit_again,
     } = payload;
 
     const values = [
-      beneficiaryId,
-      dispersal_date,
-      status,
-      contract_details || null,
-      redispersal_date || null,
+      contract_details,
       num_of_heads,
-      prev_ben_id || null,
-      recipient_id || null,
       notes || null,
       dispersal_id,
     ];
@@ -352,6 +403,27 @@ export async function handleUpdateDispersalData(req, res) {
         dispersal_id,
       ];
       await db.query(sql2, single_dispersionValues);
+    }
+
+    if (visit_date && remarks && visit_again) {
+      const sql3 =
+        "SELECT * FROM visits WHERE dispersal_id = ? AND is_default = 0";
+      const [rows] = await db.query(sql3, [dispersal_id]);
+
+      if (rows.length > 0) {
+        // if isDefault is false exist , insert new visit records
+        const sql4 =
+          "INSERT INTO visits (dispersal_id, visit_date, remarks, visit_again) VALUES (?,?,?,?)";
+
+        await db.query(sql4, [dispersal_id, visit_date, remarks, visit_again]);
+      } else {
+        //if isDefault record is true exiat, update dwfault one and set default to false
+
+        const sql5 =
+          "UPDATE visits SET visit_date = ? , remarks = ?, visit_again =?, is_default = 0 WHERE dispersal_id = ? AND is_default=1";
+
+        await db.query(sql5, [visit_date, remarks, visit_again, dispersal_id]);
+      }
     }
     await db.query("COMMIT");
 
@@ -384,12 +456,14 @@ export async function handleDeleteDispersalRecord(req, res) {
   }
 
   const sql = "DELETE FROM single_dispersion WHERE dispersal_id = ?";
-  const sql2 = "DELETE FROM dispersals WHERE dispersal_id = ?";
+  const sql2 = "DELETE FROM visits WHERE dispersal_id = ?";
+  const sql3 = "DELETE FROM dispersals WHERE dispersal_id = ?";
 
   try {
     await db.query("START TRANSACTION");
     await db.query(sql, [dispersal_id]);
     await db.query(sql2, [dispersal_id]);
+    await db.query(sql3, [dispersal_id]);
 
     await db.query("COMMIT");
 
@@ -399,7 +473,7 @@ export async function handleDeleteDispersalRecord(req, res) {
     });
   } catch (err) {
     await db.query("ROLLBACK");
-    console.error("[DB Error", err);
+    console.error("[DB Error]", err);
     return res.send({
       success: false,
     });

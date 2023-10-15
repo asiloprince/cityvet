@@ -70,7 +70,7 @@ export async function comparePasswords(hashed, plain) {
   try {
     return await bcrypt.compare(plain, hashed);
   } catch (err) {
-    console.error("[Compare Password Error]", error);
+    console.error("[Compare Password Error]", err);
     throw new Error("Error occured in comparing password");
   }
 }

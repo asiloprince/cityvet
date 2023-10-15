@@ -63,7 +63,7 @@ export async function handleGetLivestockInfo(req, res) {
   }
   const livestock_id = req.params.livestock_id;
   const sql =
-    "SELECT livestock.livestock_id,type, category, breed, age, status, health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id WHERE livestock.eartag_id =? ";
+    "SELECT livestock.livestock_id,type, category, breed, age,  health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id WHERE livestock.eartag_id =? ";
 
   const values = [livestock_id];
   let rows;
@@ -94,7 +94,7 @@ export async function handleGetLivestockList(req, res) {
   }
 
   const sql =
-    "SELECT livestock.livestock_id, type, category, breed , age, status, health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id";
+    "SELECT livestock.livestock_id, type, category, breed , age,  health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id";
 
   try {
     const [rows] = await db.query(sql);
@@ -140,19 +140,28 @@ export async function handleUpdateLivestockRecord(req, res) {
 
     // Update livestock data
     const sql =
-      "UPDATE Livestock SET type = ?, category = ?, breed = ?, age = ?, status = ?, health = ?, isAlive = ? WHERE livestock_id = ?";
+      "UPDATE Livestock SET type = ?, category = ?, breed = ?, age = ?, health = ?, isAlive = ? WHERE livestock_id = ?";
     const values = [
       payload.livestockType,
       payload.category,
       payload.breed,
       payload.age,
-      payload.status,
       payload.health,
       payload.isAlive,
       livestock_id,
     ];
 
     await db.query(sql, values);
+
+    if (
+      payload.isAlive === "Deceased" &&
+      livestockRows[0].isAlive !== "Deceased"
+    ) {
+      const sql2 =
+        "UPDATE dispersals SET num_of_heads = 0 WHERE dispersal_id IN (SELECT dispersal_id FROM single_dispersion WHERE livestock_id = ?)";
+
+      await db.query(sql2, [livestock_id]);
+    }
 
     return res.send({
       success: true,
