@@ -83,7 +83,6 @@ export async function handleNewBeneficiaries(req, res) {
 }
 
 // update beneficiaries
-// update beneficiaries
 export async function handleUpdateBeneficiaries(req, res) {
   const payload = req.body;
   const { beneficiary_id } = req.params;

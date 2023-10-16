@@ -1,33 +1,72 @@
+import { FcGoogle } from 'react-icons/fc';
+import { BiLogoGmail, BiLogoFacebookCircle } from 'react-icons/bi';
+import RegImg from '../../assets/RegisterImg.jpg';
 function Register() {
   return (
-    <div className=' grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 md:h-screen lg:h-screen'>
-        <div className=' bg-cyan-600 '>
-            <section className='text-white text-center grid grid-cols-1'>
-                <label className='text-1xl md:text-5xl lg:text-5xl font-bold mt-8 sm:mt-8 md:mt-56'>Welcome Back!</label>
-                <label className='text-xs md:text-md lg:text-lg text-[#e5e7eb] font-bold mt-4'>To keep connected with us please<br></br>login your personal info.</label>
-                <button type='submit' className='invisible sm:visible md:visible lg:visible xl:visible m-24 mt-8 sm:mt-8 md:mt-52 md:m-[100px] h-8 md:h-12 lg:-12 rounded-full border-2 font-bold hover:bg-white hover:text-cyan-600'>SIGN IN</button>
-            </section>
+    <div className="sm:grid sm:grid-cols-2">
+    <div className="sm:m-2 sm:mt-4 sm:max-w-[500px] sm:mx-auto">
+      <form className="sm:rounded-md sm:grid sm:justify-center mt-8 sm:mt-10 text-gray-400">
+        <div className="text-center m-12">
+          <label className="m-4 sm:m-0 text-3xl font-bold sm:text-4xl sm:font-bold text-cyan-600">Welcome!!<br/></label>
+          <label className="sm:m-0 text-sm">Sign up for your Account</label>
         </div>
 
-        <div className='col-span-2 max-w-[600px] mx-auto'>
-                <form className='grid md:grid-cols-1 text-[#9ca3af] mt-4 md:mt-20'>
-                    <label className=' text-center text-2xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-6xl font-bold text-cyan-600 '>Create Account</label>
-                    <label className='text-center mt-4 text-xs sm:text-xl md:text-xl lg:text-xl xl:text-xl'>Enter the field below to get started</label>
+        <div className="sm:flex">
+          <div className="grid grid-cols-1 m-2">
+            <label className="font-bold">First Name <span className="text-cyan-600">*</span></label>
+            <input type="text" required placeholder="Enter First Name" className="p-2 border-b-2 sm:border-2 sm:rounded-lg outline-none focus:border-cyan-600" />
+          </div>
 
-                    <label className='mt-4 mb-2 text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl'>Full name<span className='text-[#0ea5e9]'> *</span></label>
-                    <input type='text' placeholder='Enter name' className='p-2 sm:p-4 md:p-2 lg:p-2 xl:p-2 border-b-2 sm:border-2 md:border-2 lg:border-2 xl:border-2 sm:rounded-lg md:rounded-lg lg:rounded-lg xl:rounded-lg'></input>
-
-                    <label className='mt-2 mb-2 text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl'>Email address<span className='text-[#0ea5e9]'> *</span></label>
-                    <input type='email' placeholder='Enter email' className='p-2 sm:p-4 md:p-2 lg:p-2 xl:p-2 border-b-2 sm:border-2 md:border-2 lg:border-2 xl:border-2 sm:rounded-lg md:rounded-lg lg:rounded-lg xl:rounded-lg'></input>
-
-                    <label className='mt-2 mb-2 text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl'>Password <span className='text-[#0ea5e9]'> *</span></label>
-                    <input type='password' placeholder='Create a password' className='p-2 sm:p-2 md:p-2 lg:p-2 xl:p-2 border-b-2 sm:border-2 md:border-2 lg:border-2 xl:border-2 sm:rounded-lg md:rounded-lg lg:rounded-lg xl:rounded-lg'></input>
-
-                    <button type='submit' className=' h-10 sm:h-12 md:h-12 lg:h-12 xl:h-12 mt-8 font-bold text-[white] rounded-full bg-cyan-600'>Create account</button>
-                    
-                </form>
+          <div className="grid grid-cols-1 m-2">
+            <label className="font-bold">Last Name <span className="text-cyan-600">*</span></label>
+            <input type="text" required placeholder="Enter Last Name" className="p-2 border-b-2 sm:border-2 sm:rounded-lg outline-none focus:border-cyan-600" />
+          </div>
         </div>
+
+        <div className="grid grid-cols-1 m-2">
+          <label className="font-bold">Email Address <span className="text-cyan-600">*</span></label>
+          <input type="text" required placeholder="Enter Email" className="p-2 border-b-2 sm:border-2 sm:rounded-lg outline-none focus:border-cyan-600" />
+        </div>
+
+        <div className="sm:flex">
+          <div className="grid grid-cols-1 m-2">
+            <label className="font-bold">Create Password<span className="text-cyan-600">*</span></label>
+            <input type="password" required placeholder="Enter Password" className="p-2 border-b-2 sm:border-2 sm:rounded-lg outline-none focus:border-cyan-600" />
+          </div>
+
+          <div className="grid grid-cols-1 m-2">
+            <label className="font-bold">Confirm Password  <span className="text-cyan-600">*</span></label>
+            <input type="password" required placeholder="Enter Confirm Password" className="p-2 border-b-2 sm:border-2 sm:rounded-lg outline-none focus:border-cyan-600" />
+          </div>
+        </div>
+
+        <div className="text-center text-white h-10 m-2 p-2 bg-cyan-600 rounded-full">
+          <button type="submit" className="font-bold">Sign Up</button>
+        </div>
+
+        {/*<hr className="mx-14 bg-black dark:bg-gray-700" />
+
+        <div className="text-center">
+          <label>Sign In With</label>
+        </div>
+
+        <div className="flex place-content-center m-4 p-2 border-2 rounded-full">
+          <button className="flex"><FcGoogle size={25} />Google</button>
+</div>*/}
+      </form>
     </div>
+
+    <div className="hidden sm:contents">
+      <div className="h-screen text-center text-[#42406F] text-xs font-bold">
+        <img src={RegImg} className="mt-20" alt="Registration" />
+        <label>@ Livestock Dispersal Program / Team Roles</label>
+        <div className="flex justify-center m-2">
+          <BiLogoFacebookCircle size={30} className="m-2" />
+          <BiLogoGmail size={30} className="m-2" />
+        </div>
+      </div>
+    </div>
+  </div>
   )
 }
 

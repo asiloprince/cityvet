@@ -12,39 +12,88 @@ import {
   authorizeRoles,
   validateAuthCookie,
 } from "../../global/middlewares/authorizations.js";
+import {
+  handleBatchDispersal,
+  handleBatchRedispersals,
+  handleDeleteBatchDispersal,
+  handleGetBatchDispersalInfo,
+  handleGetBatchDispersalList,
+  handleUpdateBatchDispersalData,
+} from "./batch.dispersals.handlers.js";
 
 const router = express.Router();
 
-router.get("/", validateAuthCookie, handleGetDispersalList);
-router.get("/:dispersal_id", validateAuthCookie, handleGetDispersalInfo);
+// single dispersion
+router.get("/single-dispersions/", validateAuthCookie, handleGetDispersalList);
+router.get(
+  "/single-dispersions/:dispersal_id",
+  validateAuthCookie,
+  handleGetDispersalInfo
+);
 router.post(
-  "/add",
+  "/single-dispersions/disperse",
   validateAuthCookie,
   authorizeRoles(["Admin", "Program Manager"]),
   handleLivestockDispersal
 );
 router.post(
-  "/redisperse/:dispersal_id",
+  "/single-dispersions/redisperse/:dispersal_id",
   validateAuthCookie,
   authorizeRoles(["Admin", "Program Manager"]),
   handleRedispersalStarter
 );
 router.post(
-  "/redisperse",
+  "/single-dispersions/redisperse",
   validateAuthCookie,
   authorizeRoles(["Admin", "Program Manager"]),
   handleRedispersalOffspring
 );
 router.put(
-  "/update/:dispersal_id",
+  "/single-dispersions/update/:dispersal_id",
   authorizeRoles(["Admin", "Program Manager"]),
   handleUpdateDispersalData
 );
 router.delete(
-  "/delete/:dispersal_id",
+  "/single-dispersions/delete/:dispersal_id",
   validateAuthCookie,
   authorizeRoles(["Admin", "Program Manager"]),
   handleDeleteDispersalRecord
+);
+
+// batch dispersals
+router.get(
+  "/batch-dispersals/",
+  validateAuthCookie,
+  handleGetBatchDispersalList
+);
+router.get(
+  "/batch-dispersal/:batch_id",
+  validateAuthCookie,
+  handleGetBatchDispersalInfo
+);
+router.post(
+  "/batch-dispersals/disperse",
+  validateAuthCookie,
+  authorizeRoles(["Admin", "Program Manager"]),
+  handleBatchDispersal
+);
+router.post(
+  "/batch-dispersals/redisperse",
+  validateAuthCookie,
+  authorizeRoles(["Admin", "Program Manager"]),
+  handleBatchRedispersals
+);
+router.put(
+  "/batch-dispersals/update/:batch_id",
+  validateAuthCookie,
+  authorizeRoles(["Admin", "Program Manager"]),
+  handleUpdateBatchDispersalData
+);
+router.delete(
+  "/batch-dispersals/delete/:dispersal_id",
+  validateAuthCookie,
+  authorizeRoles(["Admin", "Program Manager"]),
+  handleDeleteBatchDispersal
 );
 
 export default router;
