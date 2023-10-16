@@ -1,17 +1,42 @@
+import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 // import { FcGoogle } from "react-icons/fc";
 
 function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_PUBLIC_API_URL}/auth/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+
+      if (!response.data.success) {
+        return alert(response.data.message);
+      }
+
+      return navigate("/auth");
+    } catch (error) {
+      return alert("An error occured while signing you in.");
+    }
+  };
   return (
     <div className="grid grid-cols-1 sm:h-screen md:grid-cols-3 lg:grid-cols-3 md:h-screen lg:h-screen">
       <div className=" bg-cyan-600 h-44 lg:h-auto  ">
         <section className="text-white text-center grid grid-cols-1">
-          <label className="text-1xl md:text-3xl lg:text-2xl font-bold mt-8 sm:mt-4 md:mt-56 font-poppin">
+          <h1 className="text-1xl md:text-3xl lg:text-2xl font-bold mt-8 sm:mt-4 md:mt-56 font-poppin">
             Hi, Welcome !
-          </label>
-          <label className="text-xs md:text-sm lg:text-base text-[#e5e7eb]  mt-4 font-poppin">
+          </h1>
+          <p className="text-xs md:text-sm lg:text-base text-[#e5e7eb]  mt-4 font-poppin">
             To keep connected with us please<br></br>login your personal info.
-          </label>
+          </p>
           <div className="mt-4 sm:mt-4 md:mt-8 lg:mt-12 flex justify-center">
             <Button
               variant={"outline"}
@@ -24,9 +49,9 @@ function Login() {
       </div>
       <div className="col-span-2 max-w-[600px] mx-auto">
         <form className=" grid sm:grid-cols-1 p-4 sm:justify-center text-[#9ca3af] ">
-          <label className="text-center text-2xl text-cyan-600 font-bold mt-12 font-poppin">
+          <h1 className="text-center text-2xl text-cyan-600 font-bold mt-12 font-poppin">
             Sign in
-          </label>
+          </h1>
 
           <div className="mt-8 grid md:grid-cols-1 text-center items-center border-b-2 ">
             {/* <button className="indent-5 mt-4 flex justify-center m-4 border-2 p-1 sm:p-4 md:p-4 lg:p-4 xl:p-4 rounded-full font-bold text-[black] text-lg">
@@ -39,18 +64,27 @@ function Login() {
             </div>
           </div>
 
-          <label className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base mt-8 ">
-            Email or Username<span className="text-[#0ea5e9]"> *</span>
+          <label
+            htmlFor="email"
+            className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base mt-8 "
+          >
+            Email<span className="text-[#0ea5e9]"> *</span>
           </label>
           <input
             type="text"
-            placeholder="Enter Username"
+            placeholder="Email Address"
             required
             id="email"
+            value={email}
+            onChange={(evt) => setEmail(evt.target.value)}
             className="p-2 border-2 rounded-lg text-sm"
+            autoComplete="email"
           ></input>
 
-          <label className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base mt-4">
+          <label
+            htmlFor="password"
+            className="text-sm sm:text-sm md:text-base lg:text-base xl:text-base mt-4"
+          >
             Password<span className="text-[#0ea5e9]"> *</span>
           </label>
           <input
@@ -58,12 +92,18 @@ function Login() {
             placeholder="Enter Password"
             required
             id="password"
+            value={password}
+            onChange={(evt) => setPassword(evt.target.value)}
             className="p-2 border-2 rounded-lg text-sm"
+            autoComplete="current-password"
           ></input>
 
           <div className="mt-2 flex">
-            <input type="checkbox" />
-            <label className="indent-2 sm:indent-4   md:indent-4   lg:indent-4   xlindent-4  : font-semibold text-sm">
+            <input id="rememberMe" type="checkbox" />
+            <label
+              htmlFor="rememberMe"
+              className="indent-2 sm:indent-4   md:indent-4   lg:indent-4   xlindent-4  : font-semibold text-sm"
+            >
               Remember Me
             </label>
             <a
@@ -75,12 +115,13 @@ function Login() {
           </div>
 
           <button
-            type="submit"
+            type="button"
             className="items-center h-8  mt-8 text-[white] rounded-full bg-cyan-600 font-poppin"
+            onClick={handleLogin}
           >
             Login
           </button>
-          <label className="text-center text-xs  mt-4">
+          <p className="text-center text-xs  mt-4">
             By continuing, you agree to the{" "}
             <a href="" className="underline underline-offset-1">
               Terms of use
@@ -89,7 +130,7 @@ function Login() {
             <a href="" className="underline underline-offset-1">
               Privacy Policy.
             </a>
-          </label>
+          </p>
         </form>
       </div>
     </div>
