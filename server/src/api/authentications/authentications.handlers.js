@@ -5,7 +5,7 @@ import {
   saveUsersData,
   signToken,
 } from "./authentications.utils.js";
-import { isStringEmpty } from "../../global/utils/validator.js";
+import { isString, isStringEmpty } from "../../global/utils/validator.js";
 
 export async function handleUserRegistration(req, res) {
   const payload = req.body;
@@ -136,6 +136,6 @@ export function handleIsAuth(req, res) {
   return res.send({
     success: true,
     message: "You are now authorized",
-    isAuth: false,
+    isAuth: true,
   });
 }
