@@ -5,6 +5,46 @@ import {
   hashPassword,
 } from "../authentications/authentications.utils.js";
 
+export async function handleGetRole(req, res) {
+  const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
+
+  if (!userID) {
+    console.error("Invalid auth token");
+    return res.status(401).send({ message: "Invalid auth token." });
+  }
+
+  const db = await connectDb("cityvet_program");
+  if (!db) {
+    return res.status(500).send({ message: "Cannot connect to the database." });
+  }
+
+  const sql =
+    "SELECT role_name AS role FROM roles INNER JOIN users ON roles.role_id = users.role_id WHERE users.user_id = ?;";
+  const value = [userID];
+
+  let rows;
+
+  try {
+    [rows] = await db.query(sql, value);
+  } catch (error) {
+    console.error("[DB Error]", error);
+    return res.status(500).send({
+      success: false,
+      message: "An error occurred while getting role.",
+    });
+  } finally {
+    db.end();
+  }
+
+  const fetchedData = rows[0];
+
+  return res.send({
+    success: true,
+    message: "Success fetching role.",
+    role: fetchedData.role,
+  });
+}
+
 export async function handleGetUserInfo(req, res) {
   const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
 

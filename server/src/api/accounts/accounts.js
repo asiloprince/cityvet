@@ -6,6 +6,7 @@ import {
 } from "../../global/middlewares/authorizations.js";
 import {
   handleDeleteUserAccount,
+  handleGetRole,
   handleGetUserInfo,
   handleGetUsersList,
   handleUpdateUserInfo,
@@ -14,6 +15,7 @@ import {
 
 const router = express.Router();
 
+router.get("/role", handleGetRole);
 router.get(
   "/",
   validateAuthCookie,
