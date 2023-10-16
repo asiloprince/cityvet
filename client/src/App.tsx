@@ -12,6 +12,7 @@ import {
   TeamRole,
   DispersalType,
 } from "./pages/dashboard";
+import Auth from "./pages/auth/Auth";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
 
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/auth" element={<Auth />}></Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>
     </BrowserRouter>
