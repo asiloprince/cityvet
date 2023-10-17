@@ -343,8 +343,25 @@ export async function handleGetDispersalList(req, res) {
     });
   }
 
-  const sql =
-    "SELECT d.dispersal_id, d.dispersal_date, d.num_of_heads, d.status, d.contract_details,d.notes,  b.full_name AS current_beneficiary,  e.ear_tag, l.category, l.age, sd.init_num_heads, br.barangay_name,  v.visit_date, v.remarks, v.visit_again FROM dispersals d JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id JOIN livestock l ON sd.livestock_id = l.livestock_id JOIN EarTags e ON l.eartag_id = e.eartag_id JOIN barangays br ON b.barangay_id = br.barangay_id LEFT JOIN visits v ON d.dispersal_id = v.dispersal_id;";
+  const sql = `SELECT d.dispersal_id, d.dispersal_date, d.num_of_heads, d.status, d.contract_details,d.notes,  b.full_name AS current_beneficiary,  e.ear_tag, l.category, l.age, sd.init_num_heads, br.barangay_name,  v.visit_date, v.remarks, v.visit_again 
+  FROM dispersals d 
+  JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id 
+  LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id 
+  LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id 
+  JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id 
+  JOIN livestock l ON sd.livestock_id = l.livestock_id 
+  JOIN EarTags e ON l.eartag_id = e.eartag_id 
+  JOIN barangays br ON b.barangay_id = br.barangay_id 
+  LEFT JOIN (
+    SELECT dispersal_id, visit_date, remarks, visit_again 
+    FROM visits 
+    WHERE (dispersal_id, visit_date) IN (
+      SELECT dispersal_id, MAX(visit_date) 
+      FROM visits 
+      GROUP BY dispersal_id
+    )
+  ) v ON d.dispersal_id = v.dispersal_id;
+  `;
 
   try {
     const [rows] = await db.query(sql);
@@ -405,26 +422,54 @@ export async function handleUpdateDispersalData(req, res) {
       await db.query(sql2, single_dispersionValues);
     }
 
-    if (visit_date && remarks && visit_again) {
-      const sql3 =
-        "SELECT * FROM visits WHERE dispersal_id = ? AND is_default = 0";
-      const [rows] = await db.query(sql3, [dispersal_id]);
+    // Fetch the latest visit record
+    const sql3 =
+      "SELECT * FROM visits WHERE dispersal_id = ? ORDER BY visit_date DESC LIMIT 1";
+    const [rows] = await db.query(sql3, [dispersal_id]);
+    const latestVisit = rows[0];
+
+    if (visit_date) {
+      // Check if a record with the same visit_date already exists
+      const sq4 =
+        "SELECT * FROM visits WHERE dispersal_id = ? AND visit_date = ?";
+      const [rows] = await db.query(sq4, [dispersal_id, visit_date]);
 
       if (rows.length > 0) {
-        // if isDefault is false exist , insert new visit records
-        const sql4 =
+        // if a record with the same date exists, update that record
+        const sql5 =
+          "UPDATE visits SET remarks = ?, visit_again = ? WHERE dispersal_id = ? AND visit_date = ?";
+
+        await db.query(sql5, [
+          remarks || latestVisit.remarks,
+          visit_again || latestVisit.visit_again,
+          dispersal_id,
+          visit_date,
+        ]);
+      } else {
+        // if no record with the same date exists, insert new visit records
+        const sql6 =
           "INSERT INTO visits (dispersal_id, visit_date, remarks, visit_again) VALUES (?,?,?,?)";
 
-        await db.query(sql4, [dispersal_id, visit_date, remarks, visit_again]);
-      } else {
-        //if isDefault record is true exiat, update dwfault one and set default to false
-
-        const sql5 =
-          "UPDATE visits SET visit_date = ? , remarks = ?, visit_again =?, is_default = 0 WHERE dispersal_id = ? AND is_default=1";
-
-        await db.query(sql5, [visit_date, remarks, visit_again, dispersal_id]);
+        await db.query(sql6, [
+          dispersal_id,
+          visit_date,
+          remarks || latestVisit.remarks,
+          visit_again || latestVisit.visit_again,
+        ]);
       }
+    } else {
+      // if visit_date is not provided, update the latest visit record
+      const sql5 =
+        "UPDATE visits SET remarks = ?, visit_again = ? WHERE dispersal_id = ? AND visit_date = ?";
+
+      await db.query(sql5, [
+        remarks || latestVisit.remarks,
+        visit_again || latestVisit.visit_again,
+        dispersal_id,
+        latestVisit.visit_date,
+      ]);
     }
+
     await db.query("COMMIT");
 
     return res.send({
