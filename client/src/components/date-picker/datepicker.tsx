@@ -17,13 +17,15 @@ export function DatePicker({
   id?: string;
 }) {
   const dateValue = React.useMemo(
-    () => (value ? new Date(value) : undefined),
+    () => (value ? format(new Date(value), "yyyy-MM-dd") : undefined),
     [value]
   );
-  const [date, setDate] = React.useState<Date | undefined>(dateValue);
+  const [date, setDate] = React.useState<Date | undefined>(
+    dateValue ? new Date(dateValue) : undefined
+  );
 
   React.useEffect(() => {
-    setDate(dateValue);
+    setDate(dateValue ? new Date(dateValue) : undefined);
   }, [dateValue]);
 
   const handleSelect = (selectedDate: Date | undefined) => {
@@ -31,7 +33,8 @@ export function DatePicker({
     if (selectedDate) {
       onChange(format(selectedDate, "yyyy-MM-dd")); // pass the Date object as a formatted string
     } else {
-      onChange(null);
+      // Format the default date value from your database/API
+      onChange(value ? format(new Date(value), "yyyy-MM-dd") : null);
     }
   };
 

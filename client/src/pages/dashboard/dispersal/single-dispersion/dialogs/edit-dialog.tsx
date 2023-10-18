@@ -59,8 +59,11 @@ export default function EditDialog({ dispersal }: EditProps) {
   async function onSubmit(values: editSchemaType) {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/dispersals/update/${dispersal.dispersal_id}`,
-        values
+        `${
+          import.meta.env.VITE_PUBLIC_API_URL
+        }/api/dispersals/single-dispersions/update/${dispersal.dispersal_id}`,
+        values,
+        { withCredentials: true }
       );
       if (res.status === 200) {
         console.log("Update successful!");

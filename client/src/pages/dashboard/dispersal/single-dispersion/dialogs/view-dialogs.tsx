@@ -15,7 +15,10 @@ export default function ViewDialog({ dispersal }: viewProps) {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/dispersals/${dispersal.dispersal_id}`
+          `${
+            import.meta.env.VITE_PUBLIC_API_URL
+          }/api/dispersals/single-dispersions/${dispersal.dispersal_id},`,
+          { withCredentials: true }
         );
         if (res.data.success) {
           setDispersalDetails(res.data.dispersal);

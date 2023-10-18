@@ -11,7 +11,12 @@ export default function DispersalTable() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get("http://localhost:5000/api/dispersals/");
+        const res = await axios.get(
+          `${
+            import.meta.env.VITE_PUBLIC_API_URL
+          }/api/dispersals/single-dispersions`,
+          { withCredentials: true }
+        );
 
         if (res.status !== 200) {
           throw new Error("Failed to fetch data");

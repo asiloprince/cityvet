@@ -18,7 +18,10 @@ export default function DeleteDialog({
   const handleDelete = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:5000/api/dispersals/delete/${dispersal.dispersal_id}`
+        `${
+          import.meta.env.VITE_PUBLIC_API_URL
+        }/api/dispersals/single-dispersions/delete/${dispersal.dispersal_id}`,
+        { withCredentials: true }
       );
 
       if (!res.data.success) {
