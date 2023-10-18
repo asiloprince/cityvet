@@ -1,4 +1,5 @@
 import connectDb from "../../db/connection.js";
+import moment from "moment";
 import {
   saveDispersalLivestock,
   transferLivestock,
@@ -403,6 +404,10 @@ export async function handleUpdateDispersalData(req, res) {
       visit_again,
     } = payload;
 
+    const formattedDate = visit_date
+      ? moment(visit_date).format("YYYY-MM-DD")
+      : null;
+
     const values = [
       contract_details,
       num_of_heads,
@@ -428,11 +433,11 @@ export async function handleUpdateDispersalData(req, res) {
     const [rows] = await db.query(sql3, [dispersal_id]);
     const latestVisit = rows[0];
 
-    if (visit_date) {
+    if (formattedDate) {
       // Check if a record with the same visit_date already exists
       const sq4 =
         "SELECT * FROM visits WHERE dispersal_id = ? AND visit_date = ?";
-      const [rows] = await db.query(sq4, [dispersal_id, visit_date]);
+      const [rows] = await db.query(sq4, [dispersal_id, formattedDate]);
 
       if (rows.length > 0) {
         // if a record with the same date exists, update that record
@@ -443,7 +448,7 @@ export async function handleUpdateDispersalData(req, res) {
           remarks || latestVisit.remarks,
           visit_again || latestVisit.visit_again,
           dispersal_id,
-          visit_date,
+          formattedDate,
         ]);
       } else {
         // if no record with the same date exists, insert new visit records

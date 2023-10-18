@@ -1,4 +1,5 @@
 import connectDb from "../../db/connection.js";
+import moment from "moment";
 import {
   saveBatchDispersal,
   transferBatchLivestock,
@@ -318,51 +319,55 @@ export async function handleUpdateBatchDispersalData(req, res) {
     const { num_of_heads, notes, age, visit_date, remarks, visit_again } =
       payload;
 
+    const formattedDate = visit_date
+      ? moment(visit_date).format("YYYY-MM-DD")
+      : null;
+
     const values = [num_of_heads, notes, age || null, batch_id];
 
     await db.query(sql, values);
 
     // Fetch the latest visit record
-    const sql3 =
+    const sql2 =
       "SELECT * FROM visits WHERE dispersal_id IN (SELECT dispersal_id FROM batch_dispersal WHERE batch_id = ?) ORDER BY visit_date DESC LIMIT 1";
-    const [rows] = await db.query(sql3, [batch_id]);
+    const [rows] = await db.query(sql2, [batch_id]);
     const latestVisit = rows[0];
 
-    if (visit_date) {
+    if (formattedDate) {
       // Check if a record with the same visit_date already exists
-      const sql7 =
+      const sql3 =
         "SELECT * FROM visits WHERE dispersal_id IN (SELECT dispersal_id FROM batch_dispersal WHERE batch_id = ?) AND visit_date = ?";
-      const [rows] = await db.query(sql7, [batch_id, visit_date]);
+      const [rows] = await db.query(sql3, [batch_id, formattedDate]);
 
       if (rows.length > 0) {
         // if a record with the same date exists, update that record
-        const sql5 =
+        const sql4 =
           "UPDATE visits SET remarks = ?, visit_again = ? WHERE dispersal_id IN (SELECT dispersal_id FROM batch_dispersal WHERE batch_id = ?) AND visit_date = ?";
 
-        await db.query(sql5, [
+        await db.query(sql4, [
           remarks || latestVisit.remarks,
           visit_again || latestVisit.visit_again,
           batch_id,
-          visit_date,
+          formattedDate,
         ]);
       } else {
         // if no record with the same date exists, insert new visit records
-        const sql4 =
+        const sql5 =
           "INSERT INTO visits (dispersal_id, visit_date, remarks, visit_again) VALUES ((SELECT dispersal_id FROM batch_dispersal WHERE batch_id = ?),?,?,?)";
 
-        await db.query(sql4, [
+        await db.query(sql5, [
           batch_id,
-          visit_date,
+          formattedDate,
           remarks || latestVisit.remarks,
           visit_again || latestVisit.visit_again,
         ]);
       }
     } else {
       // if visit_date is not provided, update the latest visit record
-      const sql5 =
+      const sql6 =
         "UPDATE visits SET remarks = ?, visit_again = ? WHERE dispersal_id IN (SELECT dispersal_id FROM batch_dispersal WHERE batch_id = ?) AND visit_date = ?";
 
-      await db.query(sql5, [
+      await db.query(sql6, [
         remarks || latestVisit.remarks,
         visit_again || latestVisit.visit_again,
         batch_id,
