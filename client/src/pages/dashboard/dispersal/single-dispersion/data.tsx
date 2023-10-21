@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { DispersalType } from "./schema";
+import { DispersalType } from "../../../schema";
 import { columns } from "./column";
 import { DispersalDataTable } from "./data-table";
 

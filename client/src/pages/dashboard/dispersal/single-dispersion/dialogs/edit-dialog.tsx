@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { DispersalType } from "../../single-dispersion/schema";
+import { DispersalType } from "../../../../schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -57,6 +57,7 @@ export default function EditDialog({ dispersal }: EditProps) {
   });
 
   async function onSubmit(values: editSchemaType) {
+    console.log("Form Values:", values);
     try {
       const res = await axios.put(
         `${

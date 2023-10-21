@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "../../../../components/ui/checkbox";
 import { DataTableColumnHeader } from "../../../../components/data-table/data-table-column-header";
-import { DispersalType } from "./schema";
+import { DispersalType } from "../../../schema";
 import { barangays } from "../../../../components/data-table/barangay-filter-utils";
 import { statuses } from "../../../../components/data-table/data-table-status-filter";
 import { DataTableRowActions } from "../../../../components/data-table/data-table-row-actions";

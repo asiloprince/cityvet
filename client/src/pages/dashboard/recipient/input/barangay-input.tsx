@@ -1,422 +1,422 @@
-export const barangays = [
+export const inputBarangays = [
   {
-    value: "Barangay 1",
+    value: 1,
     label: "Barangay 1",
   },
   {
-    value: "Barangay 2",
+    value: 2,
     label: "Barangay 2",
   },
   {
-    value: "Barangay 3",
+    value: 3,
     label: "Barangay 3",
   },
   {
-    value: "Barangay 4",
+    value: 4,
     label: "Barangay 4",
   },
   {
-    value: "Barangay 5",
+    value: 5,
     label: "Barangay 5",
   },
   {
-    value: "Barangay 6",
+    value: 6,
     label: "Barangay 6",
   },
   {
-    value: "Barangay 7",
+    value: 7,
     label: "Barangay 7",
   },
   {
-    value: "Barangay 8",
+    value: 8,
     label: "Barangay 8",
   },
   {
-    value: "Barangay 9",
+    value: 9,
     label: "Barangay 9",
   },
   {
-    value: "Banaba South",
+    value: 10,
     label: "Banaba South",
   },
   {
-    value: "Barangay 11",
+    value: 11,
     label: "Barangay 11",
   },
   {
-    value: "Barangay 12",
+    value: 12,
     label: "Barangay 12",
   },
   {
-    value: "Barangay 13",
+    value: 13,
     label: "Barangay 13",
   },
   {
-    value: "Barangay 14",
+    value: 14,
     label: "Barangay 14",
   },
   {
-    value: "Barangay 15",
+    value: 15,
     label: "Barangay 15",
   },
   {
-    value: "Barangay 16",
+    value: 16,
     label: "Barangay 16",
   },
   {
-    value: "Barangay 17",
+    value: 17,
     label: "Barangay 17",
   },
   {
-    value: "Barangay 18",
+    value: 18,
     label: "Barangay 18",
   },
   {
-    value: "Barangay 19",
+    value: 19,
     label: "Barangay 19",
   },
   {
-    value: "Barangay 20",
+    value: 20,
     label: "Barangay 20",
   },
   {
-    value: "Barangay 21",
+    value: 21,
     label: "Barangay 21",
   },
   {
-    value: "Barangay 22",
+    value: 22,
     label: "Barangay 22",
   },
   {
-    value: "Barangay 23",
+    value: 23,
     label: "Barangay 23",
   },
   {
-    value: "Barangay 24",
+    value: 24,
     label: "Barangay 24",
   },
   {
-    value: "Alangilan",
+    value: 25,
     label: "Alangilan",
   },
   {
-    value: "Balagtas",
+    value: 26,
     label: "Balagtas",
   },
   {
-    value: "Balete",
+    value: 27,
     label: "Balete",
   },
   {
-    value: "Banaba Center",
+    value: 28,
     label: "Banaba Center",
   },
   {
-    value: "Banaba West",
+    value: 29,
     label: "Banaba West",
   },
   {
-    value: "Banaba East",
+    value: 30,
     label: "Banaba East",
   },
   {
-    value: "Gulod Labac",
+    value: 31,
     label: "Gulod Labac",
   },
   {
-    value: "Bilogo",
+    value: 32,
     label: "Bilogo",
   },
   {
-    value: "Bolbok",
+    value: 33,
     label: "Bolbok",
   },
   {
-    value: "Bucal",
+    value: 34,
     label: "Bucal",
   },
   {
-    value: "Calicanto",
+    value: 35,
     label: "Calicanto",
   },
   {
-    value: "Catandala",
+    value: 36,
     label: "Catandala",
   },
   {
-    value: "Concepcion",
+    value: 37,
     label: "Concepcion",
   },
   {
-    value: "Conde Itaas",
+    value: 38,
     label: "Conde Itaas",
   },
   {
-    value: "Conde Labac",
+    value: 39,
     label: "Conde Labac",
   },
   {
-    value: "Cumba",
+    value: 40,
     label: "Cumba",
   },
   {
-    value: "Cuta",
+    value: 41,
     label: "Cuta",
   },
   {
-    value: "Dalig",
+    value: 42,
     label: "Dalig",
   },
   {
-    value: "Dela Paz Proper",
+    value: 43,
     label: "Dela Paz Proper",
   },
   {
-    value: "Dela Paz Pulot Aplaya",
+    value: 44,
     label: "Dela Paz Pulot Aplaya",
   },
   {
-    value: "Dela Paz Pulot Itaas",
+    value: 45,
     label: "Dela Paz Pulot Itaas",
   },
   {
-    value: "Dumuclay",
+    value: 46,
     label: "Dumuclay",
   },
   {
-    value: "Dumantay",
+    value: 47,
     label: "Dumantay",
   },
   {
-    value: "Gulod Itaas",
+    value: 48,
     label: "Gulod Itaas",
   },
   {
-    value: "Gulod Labac",
+    value: 49,
     label: "Gulod Labac",
   },
   {
-    value: "Haligue Kanluran",
+    value: 50,
     label: "Haligue Kanluran",
   },
   {
-    value: "Haligue Silangan",
+    value: 51,
     label: "Haligue Silangan",
   },
   {
-    value: "Ilijan",
+    value: 52,
     label: "Ilijan",
   },
   {
-    value: "Kumintang Ibaba",
+    value: 53,
     label: "Kumintang Ibaba",
   },
   {
-    value: "Kumintang Ilaya",
+    value: 54,
     label: "Kumintang Ilaya",
   },
   {
-    value: "Libjo",
+    value: 55,
     label: "Libjo",
   },
   {
-    value: "Liponpon Isla Verde",
+    value: 56,
     label: "Liponpon Isla Verde",
   },
   {
-    value: "Maapaz",
+    value: 57,
     label: "Maapaz",
   },
   {
-    value: "Mahabang Dahilig",
+    value: 58,
     label: "Mahabang Dahilig",
   },
   {
-    value: "Mahabang Parang",
+    value: 59,
     label: "Mahabang Parang",
   },
   {
-    value: "Mahacot Silangan",
+    value: 60,
     label: "Mahacot Silangan",
   },
   {
-    value: "Mahacot Silangan",
+    value: 61,
     label: "Mahacot Silangan",
   },
   {
-    value: "Malalim",
+    value: 62,
     label: "Malalim",
   },
   {
-    value: "Malibayo",
+    value: 63,
     label: "Malibayo",
   },
   {
-    value: "Malitam",
+    value: 64,
     label: "Malitam",
   },
   {
-    value: "Maruclap",
+    value: 65,
     label: "Maruclap",
   },
   {
-    value: "Mabacong",
+    value: 66,
     label: "Mabacong",
   },
   {
-    value: "Pagkilatan",
+    value: 67,
     label: "Pagkilatan",
   },
   {
-    value: "Paharang Kanluran",
+    value: 68,
     label: "Paharang Kanluran",
   },
   {
-    value: "Paharang Silangan",
+    value: 69,
     label: "Paharang Silangan",
   },
   {
-    value: "Pallocan Kanluran",
+    value: 70,
     label: "Pallocan Kanluran",
   },
   {
-    value: "Pallocan Silangan",
+    value: 71,
     label: "Pallocan Silangan",
   },
   {
-    value: "Pinamucan Ibaba",
+    value: 72,
     label: "Pinamucan Ibaba",
   },
   {
-    value: "Pinamucan Proper",
+    value: 73,
     label: "Pinamucan Proper",
   },
   {
-    value: "Pinamucan Silangan",
+    value: 74,
     label: "Pinamucan Silangan",
   },
   {
-    value: "Sampaga",
+    value: 75,
     label: "Sampaga",
   },
   {
-    value: "San Agapito Isla Verde",
+    value: 76,
     label: "San Agapito Isla Verde",
   },
   {
-    value: "San Agustin Kanluran",
+    value: 77,
     label: "San Agustin Kanluran",
   },
   {
-    value: "San Agustin Silangan",
+    value: 78,
     label: "San Agustin Silangan",
   },
   {
-    value: "San Andres Isla Verde",
+    value: 79,
     label: "San Andres Isla Verde",
   },
   {
-    value: "San Antonio Isla Verde",
+    value: 80,
     label: "San Antonio Isla Verde",
   },
   {
-    value: "San Isidro",
+    value: 81,
     label: "San Isidro",
   },
   {
-    value: "San Jose Sico",
+    value: 82,
     label: "San Jose Sico",
   },
   {
-    value: "San Miguel",
+    value: 83,
     label: "San Miguel",
   },
   {
-    value: "San Pedro",
+    value: 84,
     label: "San Pedro",
   },
   {
-    value: "Sta. Clara",
-    label: "Sta. Clara",
+    value: 85,
+    label: "Santa Clara",
   },
   {
-    value: "Sta. Rita Aplaya",
-    label: "Sta. Rita Aplaya",
+    value: 86,
+    label: "Santa Rita Aplaya",
   },
   {
-    value: "Sta. Rita Karsada",
-    label: "Sta. Rita Karsada",
+    value: 87,
+    label: "Santa Rita Karsada",
   },
   {
-    value: "Sto. Domingo",
-    label: "Sto. Domingo",
+    value: 88,
+    label: "Santo Domingo",
   },
   {
-    value: "Sto. Niño",
+    value: 89,
     label: "Sto. Niño",
   },
   {
-    value: "Simlong",
+    value: 90,
     label: "Simlong",
   },
   {
-    value: "Sirang Lupa",
+    value: 91,
     label: "Sirang Lupa",
   },
   {
-    value: "Sorosoro Ibaba",
+    value: 92,
     label: "Sorosoro Ibaba",
   },
   {
-    value: "Sorosoro Ilaya",
+    value: 93,
     label: "Sorosoro Ilaya",
   },
   {
-    value: "Sorosoro Karsada",
+    value: 94,
     label: "Sorosoro Karsada",
   },
   {
-    value: "Tabangao Aplaya",
+    value: 95,
     label: "Tabangao Aplaya",
   },
   {
-    value: "Tabangao Ambulong",
+    value: 96,
     label: "Tabangao Ambulong",
   },
   {
-    value: "Tabangao Dao",
+    value: 97,
     label: "Tabangao Dao",
   },
   {
-    value: "Talahib Pandayan",
+    value: 98,
     label: "Talahib Pandayan",
   },
   {
-    value: "Talahib Payapa",
+    value: 99,
     label: "Talahib Payapa",
   },
   {
-    value: "Talumpok Kanluran",
+    value: 100,
     label: "Talumpok Kanluran",
   },
   {
-    value: "Talumpok Silangan",
+    value: 101,
     label: "Talumpok Silangan",
   },
   {
-    value: "Tingga Itaas",
+    value: 102,
     label: "Tingga Itaas",
   },
   {
-    value: "Tingga Labac",
+    value: 103,
     label: "Tingga Labac",
   },
   {
-    value: "Tulo",
+    value: "104",
     label: "Tulo",
   },
   {
-    value: "Wawa",
+    value: "105",
     label: "Wawa",
   },
 ];

@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Row } from "@tanstack/react-table";
 import { Clipboard, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 
-import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "../../../components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,33 +14,34 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../../components/ui/dropdown-menu";
 
-import { dispersalSchema } from "../../pages/schema";
-import DeleteDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/delete-dialog";
-import ViewDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/view-dialogs";
-import EditDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/edit-dialog";
+import { Button } from "../../../components/ui/button";
+import LivestockViewDialog from "./dialogs/view-dialogs";
+// import LivestockEditDialog from "./dialogs/edit-dialogs";
+import LivestockDeleteDialog from "./dialogs/delete-dialogs";
+import { livestockSchema } from "../../schema";
 
-interface DataTableRowActionsProps<TData> {
+interface LivestockDataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function DataTableRowActions<TData>({
+export function LivestockDataTableRowActions<TData>({
   row,
-}: DataTableRowActionsProps<TData>) {
+}: LivestockDataTableRowActionsProps<TData>) {
   const [dialogContent, setDialogContent] = useState<React.ReactNode | null>(
     null
   );
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
-  const dispersal = dispersalSchema.parse(row.original);
+  const livestock = livestockSchema.parse(row.original);
 
   const handleViewClick = () => {
-    setDialogContent(<ViewDialog dispersal={dispersal} />);
+    setDialogContent(<LivestockViewDialog livestock={livestock} />);
   };
 
-  const handleEditClick = () => {
-    setDialogContent(<EditDialog dispersal={dispersal} />);
-  };
+  //   const handleEditClick = () => {
+  //     setDialogContent(<LivestockEditDialog livestock={livestock} />);
+  //   };
 
   return (
     <Dialog>
@@ -52,7 +56,7 @@ export function DataTableRowActions<TData>({
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() =>
-              navigator.clipboard.writeText(dispersal.dispersal_id.toString())
+              navigator.clipboard.writeText(livestock.livestock_id.toString())
             }
           >
             <Clipboard className="mr-2 h-4 w-4" />
@@ -66,12 +70,12 @@ export function DataTableRowActions<TData>({
               View Details
             </DropdownMenuItem>
           </DialogTrigger>
-          <DialogTrigger asChild onClick={handleEditClick}>
+          {/* <DialogTrigger asChild onClick={handleEditClick}>
             <DropdownMenuItem>
               <Edit className="mr-2 h-4 w-4" />
               Edit Details
             </DropdownMenuItem>
-          </DialogTrigger>
+          </DialogTrigger> */}
 
           <DropdownMenuItem
             onSelect={() => setShowDeleteDialog(true)}
@@ -83,8 +87,8 @@ export function DataTableRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
       {dialogContent && <DialogContent>{dialogContent}</DialogContent>}
-      <DeleteDialog
-        dispersal={dispersal}
+      <LivestockDeleteDialog
+        livestock={livestock}
         isOpen={showDeleteDialog}
         showActionToggle={setShowDeleteDialog}
       />

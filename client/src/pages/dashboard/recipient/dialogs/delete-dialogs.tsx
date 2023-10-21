@@ -1,26 +1,26 @@
-import { DispersalType } from "../../../../schema";
-import { Button } from "../../../../../components/ui/button";
-import throwImg from "../../../../../assets/throw-away.svg";
-import AlertDialog from "../../../../../components/alert-dialog/alertDialog";
+import { RecipientsType } from "../../../schema";
+import throwImg from "../../../../assets/throw-away.svg";
 import axios from "axios";
+import AlertDialog from "../../../../components/alert-dialog/alertDialog";
+import { Button } from "../../../../components/ui/button";
 
 type DeleteProps = {
-  dispersal: DispersalType;
+  recipient: RecipientsType;
   isOpen: boolean;
   showActionToggle: (open: boolean) => void;
 };
 
-export default function DeleteDialog({
-  dispersal,
+export default function RecipientDeleteDialog({
+  recipient,
   isOpen,
   showActionToggle,
 }: DeleteProps) {
   const handleDelete = async () => {
     try {
       const res = await axios.delete(
-        `${
-          import.meta.env.VITE_PUBLIC_API_URL
-        }/api/dispersals/single-dispersions/delete/${dispersal.dispersal_id}`,
+        `${import.meta.env.VITE_PUBLIC_API_URL}/api/beneficiaries/delete/${
+          recipient.beneficiary_id
+        }`,
         { withCredentials: true }
       );
 
@@ -46,8 +46,9 @@ export default function DeleteDialog({
           Are you sure absolutely sure?
         </h3>
         <p className="text-sm text-gray-500">
-          Please note, this action can’t be undone. You’re about to delete the
-          dispersal details of <b>{dispersal.current_beneficiary}</b>
+          Please note, this action can’t be undone. You can’t delete{" "}
+          <b>{recipient.full_name}</b> if there is a dispersal associated with
+          it.
         </p>
         <div className="flex justify-between mx-12 my-4">
           <Button

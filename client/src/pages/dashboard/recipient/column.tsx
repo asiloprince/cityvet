@@ -1,19 +1,21 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "../../../components/ui/checkbox";
-import { Recipients } from "../../../sampledata/benefeciariesData";
-import { Clipboard, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
+import { RecipientsType } from "../../schema";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu";
 import { DataTableColumnHeader } from "../../../components/data-table/data-table-column-header";
+import { barangays } from "../../../components/data-table/barangay-filter-utils";
+import { RecipientDataTableRowActions } from "./dialogs/data-table-recipient-actions";
 
-export const columns: ColumnDef<Recipients>[] = [
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = date.toLocaleString("default", { month: "long" });
+  const day = date.getDate();
+
+  return `${year} ${month} ${day}`;
+}
+
+export const columns: ColumnDef<RecipientsType>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -33,77 +35,62 @@ export const columns: ColumnDef<Recipients>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Recipient ID" />;
-    },
 
-    accessorKey: "ID",
-  },
   {
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Full Name" />;
     },
-    accessorKey: "Name",
+    accessorKey: "full_name",
   },
   {
-    header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Barangay" />;
+    accessorKey: "barangay_name",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Barangay" />
+    ),
+    cell: ({ row }) => {
+      const barangay_name = barangays.find(
+        (barangay_name) => barangay_name.value === row.getValue("barangay_name")
+      );
+
+      if (!barangay_name) {
+        return null;
+      }
+
+      return (
+        <div className="flex w-[100px] items-center">
+          <span>{barangay_name.label}</span>
+        </div>
+      );
     },
-    accessorKey: "Barangay",
-    filterFn: (row, value) => {
-      return value.includes(row.getValue(value));
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
     },
   },
   {
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Birthdate" />;
     },
-    accessorKey: "Birthdate",
+    accessorKey: "birth_date",
+    cell: ({ row }) => {
+      const dateValue: string = row.getValue("birth_date");
+      const formattedDate = formatDate(dateValue);
+
+      return (
+        <div className="flex w-[150px] items-center ">
+          <span>{formattedDate}</span>
+        </div>
+      );
+    },
   },
   {
-    header: "Contact",
-    accessorKey: "ContactNumber",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Contact" />;
+    },
+    accessorKey: "mobile",
   },
   {
     header: "Actions",
     id: "actions",
-    cell: ({ row }) => {
-      const recipient = row.original;
-      const recipientId = recipient.ID;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="inline-flex items-center justify-center rounded-full w-8 h-8 text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
-              <MoreHorizontal />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                navigator.clipboard.writeText(recipientId);
-              }}
-            >
-              <Clipboard className="mr-2 h-4 w-4" /> Copy recipient ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Eye className="mr-2 h-4 w-4" />
-              View Details
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Edit className="mr-2 h-4 w-4" />
-              Edit Details
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500">
-              <Trash2 className="mr-2 h-4 w-4" />
-              Delete Details
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <RecipientDataTableRowActions row={row} />,
   },
 ];

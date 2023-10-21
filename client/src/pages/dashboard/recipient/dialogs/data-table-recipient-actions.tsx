@@ -2,8 +2,12 @@ import { useState } from "react";
 import { Row } from "@tanstack/react-table";
 import { Clipboard, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 
-import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Button } from "../../../../components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "../../../../components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,32 +15,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../../../components/ui/dropdown-menu";
 
-import { dispersalSchema } from "../../pages/schema";
-import DeleteDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/delete-dialog";
-import ViewDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/view-dialogs";
-import EditDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/edit-dialog";
+import { recipientInfoSchema } from "../../../schema";
+import RecipientViewDialog from "./view-dialogs";
+import RecipientEditDialog from "./edit-dialogs";
+import RecipientDeleteDialog from "./delete-dialogs";
 
-interface DataTableRowActionsProps<TData> {
+interface RecipientDataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function DataTableRowActions<TData>({
+export function RecipientDataTableRowActions<TData>({
   row,
-}: DataTableRowActionsProps<TData>) {
+}: RecipientDataTableRowActionsProps<TData>) {
   const [dialogContent, setDialogContent] = useState<React.ReactNode | null>(
     null
   );
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
-  const dispersal = dispersalSchema.parse(row.original);
+  const recipient = recipientInfoSchema.parse(row.original);
 
   const handleViewClick = () => {
-    setDialogContent(<ViewDialog dispersal={dispersal} />);
+    setDialogContent(<RecipientViewDialog recipient={recipient} />);
   };
 
   const handleEditClick = () => {
-    setDialogContent(<EditDialog dispersal={dispersal} />);
+    setDialogContent(<RecipientEditDialog recipient={recipient} />);
   };
 
   return (
@@ -52,7 +56,7 @@ export function DataTableRowActions<TData>({
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() =>
-              navigator.clipboard.writeText(dispersal.dispersal_id.toString())
+              navigator.clipboard.writeText(recipient.beneficiary_id.toString())
             }
           >
             <Clipboard className="mr-2 h-4 w-4" />
@@ -83,8 +87,8 @@ export function DataTableRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
       {dialogContent && <DialogContent>{dialogContent}</DialogContent>}
-      <DeleteDialog
-        dispersal={dispersal}
+      <RecipientDeleteDialog
+        recipient={recipient}
         isOpen={showDeleteDialog}
         showActionToggle={setShowDeleteDialog}
       />

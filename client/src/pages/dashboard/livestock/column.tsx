@@ -2,10 +2,10 @@ import { ColumnDef } from "@tanstack/react-table";
 // import { Button } from "../../../components/ui/button";
 import { Checkbox } from "../../../components/ui/checkbox";
 import { DataTableColumnHeader } from "../../../components/data-table/data-table-column-header";
+import { LivestockDataTableRowActions } from "./data-table-livestock-actions";
+import { LivestocksType } from "../../schema";
 
-import { Livestock } from "../../../sampledata/livestockData";
-
-export const columns: ColumnDef<Livestock>[] = [
+export const columns: ColumnDef<LivestocksType>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -26,37 +26,32 @@ export const columns: ColumnDef<Livestock>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "ID",
+    accessorKey: "ear_tag",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Ear Tag" />;
     },
   },
   {
-    accessorKey: "AnimalType",
+    accessorKey: "type",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Animal" />;
     },
   },
   {
-    accessorKey: "Age",
+    accessorKey: "age",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Age" />;
     },
   },
   {
-    accessorKey: "StatusAlive",
+    accessorKey: "isAlive",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Alive" />;
     },
   },
   {
-    accessorKey: "Health",
-    header: ({ column }) => {
-      return <DataTableColumnHeader column={column} title="Health" />;
-    },
-  },
-  {
     id: "actions",
     header: () => <div>Actions</div>,
+    cell: ({ row }) => <LivestockDataTableRowActions row={row} />,
   },
 ];

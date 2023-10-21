@@ -1,6 +1,4 @@
-import { LivestockDataTable } from "./data-table";
-import { livestocks } from "../../../sampledata/livestockData";
-import { columns } from "./column";
+import LivestockTable from "./data";
 
 function Livestock() {
   return (
@@ -12,7 +10,7 @@ function Livestock() {
         </button>
       </div>
       <div>
-        <LivestockDataTable columns={columns} data={livestocks} />
+        <LivestockTable />
       </div>
     </div>
   );

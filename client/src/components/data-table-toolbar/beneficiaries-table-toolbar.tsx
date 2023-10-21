@@ -20,16 +20,18 @@ export function BeneficiariesToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Search Name"
-          value={(table.getColumn("Name")?.getFilterValue() as string) || ""}
+          value={
+            (table.getColumn("full_name")?.getFilterValue() as string) || ""
+          }
           onChange={(e) => {
-            table.getColumn("Name")?.setFilterValue(e.target.value);
+            table.getColumn("full_name")?.setFilterValue(e.target.value);
           }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
 
-        {table.getColumn("Barangay") && (
+        {table.getColumn("barangay_name") && (
           <DataTableFacetedFilter
-            column={table.getColumn("Barangay")}
+            column={table.getColumn("barangay_name")}
             title="Barangay"
             options={barangays}
           />

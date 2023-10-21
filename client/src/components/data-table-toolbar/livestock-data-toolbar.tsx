@@ -1,8 +1,8 @@
 import { Input } from "../ui/input";
 import { Table } from "@tanstack/react-table";
 import { DataTableViewOptions } from "../data-table/data-table-view-options";
-import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter";
-import { barangays } from "../data-table/barangay-filter-utils";
+// import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter";
+// import { barangays } from "../data-table/barangay-filter-utils";
 import { Button } from "../ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
@@ -20,20 +20,20 @@ export function LivestockToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Search Name"
-          value={(table.getColumn("ID")?.getFilterValue() as string) || ""}
+          value={(table.getColumn("ear_tag")?.getFilterValue() as string) || ""}
           onChange={(e) => {
-            table.getColumn("ID")?.setFilterValue(e.target.value);
+            table.getColumn("ear_tag")?.setFilterValue(e.target.value);
           }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
-
+        {/* 
         {table.getColumn("Barangay") && (
           <DataTableFacetedFilter
             column={table.getColumn("Barangay")}
             title="Type"
             options={barangays}
           />
-        )}
+        )} */}
         {isFiltered && (
           <Button
             variant="ghost"
