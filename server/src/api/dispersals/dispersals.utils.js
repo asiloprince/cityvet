@@ -1,6 +1,6 @@
 export async function saveDispersalLivestock(db, payload) {
   const sql = "SELECT * FROM single_dispersion WHERE livestock_id = ?";
-  const [checkRows] = await db.query(sql, [payload.livestockId]);
+  const [checkRows] = await db.query(sql, [payload.livestock_id]);
 
   if (checkRows.length > 0) {
     throw new Error(
@@ -13,7 +13,7 @@ export async function saveDispersalLivestock(db, payload) {
 
   const values = [
     payload.dispersal_id,
-    payload.livestockId,
+    payload.livestock_id,
     payload.initialNumberOfHeads,
   ];
 
@@ -32,7 +32,7 @@ export async function transferLivestock(db, payload) {
 
   const values = [
     payload.dispersal_id,
-    payload.livestockId,
+    payload.livestock_id,
     payload.initialNumberOfHeads,
   ];
 
@@ -71,7 +71,7 @@ export async function transferBatchLivestock(db, payload) {
 
   const values = [
     payload.dispersal_id,
-    payload.livestockRecieved,
+    payload.livestock_recieved,
     payload.age,
     payload.initialNumberOfHeads,
   ];

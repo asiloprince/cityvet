@@ -114,6 +114,34 @@ export async function handleGetLivestockList(req, res) {
   }
 }
 
+// handle disperse Livestock list
+export async function handleDispersedLivestockList(req, res) {
+  const db = await connectDb("cityvet_program");
+  if (!db) {
+    return res.status(500).send({ message: "Cannot connect to the database." });
+  }
+
+  const sql =
+    "SELECT eartags.ear_tag, livestock.type, livestock.category, livestock.is_dispersed FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id WHERE livestock.is_dispersed = false";
+
+  try {
+    const [rows] = await db.query(sql);
+    res.send({
+      success: true,
+      message: "Success fetching dispersed livestock list",
+      data: rows,
+    });
+  } catch (err) {
+    console.error("[DB Error]", err);
+    res.status(500).send({
+      success: false,
+      message: "Error fetching dispersed livestock list",
+    });
+  } finally {
+    db.end();
+  }
+}
+
 // handles updating livestock info
 
 export async function handleUpdateLivestockRecord(req, res) {

@@ -5,6 +5,7 @@ import {
   handleGetLivestockList,
   handleUpdateLivestockRecord,
   handleDeleteLivestockRecord,
+  handleDispersedLivestockList,
 } from "./livestocks.handlers.js";
 import {
   validateLivestocksPayload,
@@ -21,6 +22,7 @@ router.post(
   handleLivestockRegistration
 );
 router.get("/", validateAuthCookie, handleGetLivestockList);
+router.get("/undispersed", validateAuthCookie, handleDispersedLivestockList);
 router.get(
   "/details/:livestock_id",
   validateAuthCookie,

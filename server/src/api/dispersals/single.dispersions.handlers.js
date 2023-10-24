@@ -8,7 +8,7 @@ import {
 // handle dispersals record creation
 export async function handleLivestockDispersal(req, res) {
   const payload = req.body;
-  const { beneficiaryId, dispersalDate, contractDetails, notes } = payload;
+  const { beneficiary_id, dispersal_date, contract_details, notes } = payload;
 
   const db = await connectDb("cityvet_program");
   if (!db) {
@@ -32,9 +32,9 @@ export async function handleLivestockDispersal(req, res) {
   const sql =
     "INSERT INTO dispersals (beneficiary_id, dispersal_date, status, contract_details, num_of_heads, notes) VALUES (?, ?, 'Dispersed', ?, ?, ?)";
   const values = [
-    beneficiaryId,
-    dispersalDate,
-    contractDetails || null,
+    beneficiary_id,
+    dispersal_date,
+    contract_details || null,
     payload.initialNumberOfHeads,
     notes || null,
   ];
@@ -67,6 +67,12 @@ export async function handleLivestockDispersal(req, res) {
   try {
     payload.dispersal_id = lastInsertedId;
     await saveDispersalLivestock(db, payload);
+
+    // Update is_dispersed status to dispersed
+    const sql3 =
+      "UPDATE livestock SET is_dispersed = true WHERE livestock_id = ?";
+    await db.query(sql3, [payload.livestock_id]);
+
     await db.query("COMMIT");
   } catch (err) {
     await db.query("ROLLBACK");
@@ -90,9 +96,9 @@ export async function handleRedispersalStarter(req, res) {
   const { dispersal_id } = req.params;
   const payload = req.body;
   const {
-    beneficiaryId,
-    dispersalDate,
-    contractDetails,
+    beneficiary_id,
+    dispersal_date,
+    contract_details,
     notes,
     initialNumberOfHeads,
   } = payload;
@@ -119,16 +125,17 @@ export async function handleRedispersalStarter(req, res) {
     // Update the previous dispersal
     const sql3 =
       "UPDATE dispersals SET recipient_id = ?, status = 'Archived', num_of_heads = 0, redispersal_date = NOW() WHERE dispersal_id = ?";
-    const updateValues = [beneficiaryId, dispersal.dispersal_id];
+    const updateValues = [beneficiary_id, dispersal.dispersal_id];
     await db.query(sql3, updateValues);
 
     // Insert new dispersal
     const sql4 =
       "INSERT INTO dispersals (beneficiary_id, dispersal_date, status, contract_details, redispersal_date, num_of_heads, prev_ben_id, notes) VALUES (?, ?, 'Dispersed', ?, NULL, ?, ?, ?)";
+    s;
     const insertValues = [
-      beneficiaryId,
-      dispersalDate,
-      contractDetails,
+      beneficiary_id,
+      dispersal_date,
+      contract_details,
       initialNumberOfHeads,
       dispersal.beneficiary_id,
       notes,
@@ -152,7 +159,7 @@ export async function handleRedispersalStarter(req, res) {
     // Transfer the livestock and create new dispersal
     const transferPayload = {
       dispersal_id: newdispersal_id,
-      livestockId: livestock.livestock_id,
+      livestock_id: livestock.livestock_id,
       initialNumberOfHeads: initialNumberOfHeads,
     };
     await transferLivestock(db, transferPayload);
@@ -180,13 +187,13 @@ export async function handleRedispersalOffspring(req, res) {
   const payload = req.body;
 
   const {
-    beneficiaryId,
-    dispersalDate,
-    contractDetails,
-    redispersalDate,
-    previousBeneficiaryId,
+    beneficiary_id,
+    dispersal_date,
+    contract_details,
+    redispersal_date,
+    prev_ben_id,
     notes,
-    livestockId,
+    livestock_id,
   } = payload;
 
   const db = await connectDb("cityvet_program");
@@ -201,7 +208,7 @@ export async function handleRedispersalOffspring(req, res) {
 
     // Check if livestock_id already exists
     const checkSql = "SELECT * FROM single_dispersion WHERE livestock_id = ?";
-    const [checkRows] = await db.query(checkSql, [livestockId]);
+    const [checkRows] = await db.query(checkSql, [livestock_id]);
 
     if (checkRows.length > 0) {
       return res.status(400).send({
@@ -220,11 +227,11 @@ export async function handleRedispersalOffspring(req, res) {
 
   // if previous beneficiary is specified. update recipient_id of their dispersal
 
-  if (previousBeneficiaryId) {
+  if (prev_ben_id) {
     const updateSql =
       "UPDATE dispersals SET recipient_id = ?, status = 'Redispersed', redispersal_date =  NOW() WHERE beneficiary_id = ? ";
 
-    const updateValues = [beneficiaryId, previousBeneficiaryId];
+    const updateValues = [beneficiary_id, prev_ben_id];
 
     await db.query(updateSql, updateValues);
   }
@@ -234,12 +241,12 @@ export async function handleRedispersalOffspring(req, res) {
   const sql =
     "INSERT INTO dispersals (beneficiary_id, dispersal_date, status, contract_details, redispersal_date, num_of_heads, prev_ben_id, notes) VALUES (?, ?, 'Dispersed', ?, ?, ?, ?, ?)";
   const values = [
-    beneficiaryId,
-    dispersalDate,
-    contractDetails || null,
-    redispersalDate || null,
+    beneficiary_id,
+    dispersal_date,
+    contract_details || null,
+    redispersal_date || null,
     payload.initialNumberOfHeads,
-    previousBeneficiaryId || null,
+    prev_ben_id || null,
     notes || null,
   ];
   try {
@@ -270,6 +277,12 @@ export async function handleRedispersalOffspring(req, res) {
   try {
     payload.dispersal_id = lastInsertedId;
     await transferLivestock(db, payload);
+
+    // update status
+    const sql3 =
+      "UPDATE livestock SET is_dispersed = true WHERE livestock_id = ?";
+    await db.query(sql3, [payload.livestock_id]);
+
     await db.query("COMMIT");
   } catch (err) {
     await db.query("ROLLBACK");

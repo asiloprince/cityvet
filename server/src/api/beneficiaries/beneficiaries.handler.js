@@ -1,4 +1,5 @@
 import connectDb from "../../db/connection.js";
+import moment from "moment";
 
 // get beneficiaries info
 export async function handleGetBeneficiariesInfo(req, res) {
@@ -46,7 +47,7 @@ export async function handleGetBeneficiariesList(req, res) {
 
   try {
     const [rows] = await db.query(
-      "SELECT beneficiaries.beneficiary_id, full_name, birth_date, mobile, barangays.barangay_name FROM beneficiaries INNER JOIN barangays ON beneficiaries.barangay_id = barangays.barangay_id"
+      "SELECT beneficiaries.beneficiary_id, full_name, birth_date, mobile, barangays.barangay_id, barangays.barangay_name FROM beneficiaries INNER JOIN barangays ON beneficiaries.barangay_id = barangays.barangay_id"
     );
     res.json(rows);
   } catch (err) {
@@ -110,11 +111,14 @@ export async function handleUpdateBeneficiaries(req, res) {
     const sql2 =
       "UPDATE beneficiaries SET full_name = ? , birth_date = ?, mobile = ? , barangay_id = ? WHERE beneficiary_id = ?";
 
+    const date = moment(payload.birth_date);
+    const formattedBirthDate = date.format("YYYY-MM-DD");
+
     const values = [
-      payload.fullName,
-      payload.birthDate,
+      payload.full_name,
+      formattedBirthDate,
       payload.mobile,
-      payload.barangayId,
+      payload.barangay_id,
       beneficiary_id,
     ];
 
