@@ -8,6 +8,8 @@ import TeamRole from "./team/TeamRole";
 import LayoutDispersal from "./dispersal/Layout";
 import DispersalType from "./dispersal/DisperseType";
 
+import SingleDispersions from "./dispersal/single-dispersion/add/disperse";
+
 export {
   Overview,
   Beneficiaries,
@@ -18,4 +20,5 @@ export {
   TeamRole,
   LayoutDispersal,
   DispersalType,
+  SingleDispersions,
 };

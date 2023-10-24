@@ -11,6 +11,7 @@ import {
   Profile,
   TeamRole,
   DispersalType,
+  SingleDispersions,
 } from "./pages/dashboard";
 import Auth from "./pages/auth/Auth";
 import {
@@ -39,7 +40,9 @@ function App() {
           <Route path="Profile" element={<Profile />}></Route>
           <Route path="Roles" element={<TeamRole />}></Route>
           <Route path="dispersal" element={<LayoutDispersal />}></Route>
+
           <Route path="dispersal-type" element={<DispersalType />}></Route>
+          <Route path="disperse" element={<SingleDispersions />}></Route>
         </Route>
 
         <Route

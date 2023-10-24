@@ -11,7 +11,7 @@ function LayoutDispersal() {
   };
 
   const disperseDirectHandler = () => {
-    window.location.href = "dispersal-type";
+    window.location.href = "disperse";
   };
 
   return (
@@ -36,10 +36,13 @@ function LayoutDispersal() {
         </div>
         <div className="flex justify-between m-2">
           <Button
-            className="font-poppin text-white text-sm bg-cyan-600 rounded  hover:bg-cyan-700"
+            className="font-poppin text-white text-sm mr-2 bg-cyan-600 rounded  hover:bg-cyan-700"
             onClick={disperseDirectHandler}
           >
             Disperse
+          </Button>
+          <Button className="font-poppin text-white text-sm ml-2 bg-cyan-600 rounded  hover:bg-cyan-700">
+            Batch Disperse
           </Button>
         </div>
       </div>
