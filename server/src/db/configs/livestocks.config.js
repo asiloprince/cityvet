@@ -24,7 +24,7 @@ export default {
     maxLength: 30,
   },
   health: {
-    allowedValues: ["Excellent", "Good", "Fair", "Poor"],
+    allowedValues: ["Excellent", "Good", "Fair", "Poor", "Not set"],
   },
   status: {
     allowedValues: ["Dispersed", "Redispersed", "Not Dispersed"],

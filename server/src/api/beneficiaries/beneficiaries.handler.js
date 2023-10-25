@@ -60,7 +60,7 @@ export async function handleGetBeneficiariesList(req, res) {
 
 // handle beneficiaris data creation
 export async function handleNewBeneficiaries(req, res) {
-  const { fullName, birthDate, mobile, barangayId } = req.body;
+  const { full_name, birth_date, mobile, barangay_id } = req.body;
   const db = await connectDb("cityvet_program");
 
   if (!db) {
@@ -72,7 +72,7 @@ export async function handleNewBeneficiaries(req, res) {
   try {
     await db.query(
       "INSERT INTO beneficiaries (full_name, birth_date, mobile, barangay_id) VALUES (?,?,?,?)",
-      [fullName, birthDate, mobile, barangayId]
+      [full_name, birth_date, mobile, barangay_id]
     );
     res.status(201).send("New beneficiaries added successfully!");
   } catch (err) {

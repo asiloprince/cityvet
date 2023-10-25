@@ -5,26 +5,26 @@ import validator from "validator";
 import { isString, isStringEmpty } from "../../global/utils/validator.js";
 
 export async function validateLivestocksPayload(req, res, next) {
-  const { livestockType, category, breed, age, health, status } = req.body;
+  const { type, category, breed, age, health, status } = req.body;
 
   //  type
-  if (!isString(livestockType)) {
+  if (!isString(type)) {
     return res.send({
       success: false,
       message: "Livestock type must be string.",
     });
   }
 
-  if (isStringEmpty(livestockType)) {
+  if (isStringEmpty(type)) {
     return res.send({
       success: false,
       message: "Livestock Type is required.",
     });
   }
-  if (!livestocksConfig.type.allowedValues.includes(livestockType)) {
+  if (!livestocksConfig.type.allowedValues.includes(type)) {
     return res.send({
       success: false,
-      message: `livestock type ${livestockType} is not valid.`,
+      message: `livestock type ${type} is not valid.`,
     });
   }
   //  category

@@ -170,7 +170,7 @@ export async function handleUpdateLivestockRecord(req, res) {
     const sql =
       "UPDATE Livestock SET type = ?, category = ?, breed = ?, age = ?, health = ?, isAlive = ? WHERE livestock_id = ?";
     const values = [
-      payload.livestockType,
+      payload.type,
       payload.category,
       payload.breed,
       payload.age,

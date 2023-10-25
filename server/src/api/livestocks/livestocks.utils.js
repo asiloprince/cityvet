@@ -3,7 +3,7 @@ export async function addLivestockData(db, livestockPayload) {
     "INSERT INTO livestock (type, category, breed, age) VALUES (?,?,?,?)";
 
   const values = [
-    livestockPayload.livestockType,
+    livestockPayload.type,
     livestockPayload.category,
     livestockPayload.breed,
     livestockPayload.age,
