@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Row } from "@tanstack/react-table";
 import { Clipboard, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
 
-import { Button } from "../../../../components/ui/button";
+import { Button } from "../../../components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
-} from "../../../../components/ui/dialog";
+} from "../../../components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,12 +15,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../../components/ui/dropdown-menu";
+} from "../../../components/ui/dropdown-menu";
 
-import { recipientInfoSchema } from "../../../schema";
-import RecipientViewDialog from "./view-dialogs";
-import RecipientEditDialog from "./edit-dialogs";
-import RecipientDeleteDialog from "./delete-dialogs";
+import { recipientInfoSchema } from "../../schema";
+import RecipientViewDialog from "./dialogs/view-dialogs";
+import RecipientEditDialog from "./dialogs/edit-dialogs";
+import RecipientDeleteDialog from "./dialogs/delete-dialogs";
 
 interface RecipientDataTableRowActionsProps<TData> {
   row: Row<TData>;

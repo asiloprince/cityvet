@@ -4,7 +4,7 @@ import { RecipientsType } from "../../schema";
 
 import { DataTableColumnHeader } from "../../../components/data-table/data-table-column-header";
 import { barangays } from "../../../components/data-table/barangay-filter-utils";
-import { RecipientDataTableRowActions } from "./dialogs/data-table-recipient-actions";
+import { RecipientDataTableRowActions } from "./data-table-recipient-actions";
 
 function formatDate(dateString: string) {
   const date = new Date(dateString);

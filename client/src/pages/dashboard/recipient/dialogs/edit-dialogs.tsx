@@ -134,8 +134,9 @@ export default function EditDialog({ recipient }: EditProps) {
               name="barangay_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Barangay ID</FormLabel>
+                  <FormLabel htmlFor="barangay_id">Barangay ID</FormLabel>
                   <Select
+                    inputId="barangay_id"
                     value={options.find(
                       (option) => option.value === field.value
                     )}
