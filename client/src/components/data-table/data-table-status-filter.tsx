@@ -12,9 +12,9 @@ export const statuses = [
     icon: Icons.share2,
   },
   {
-    value: "Archived",
-    label: "Archived",
-    icon: Icons.archive,
+    value: "Transferred",
+    label: "Transferred",
+    icon: Icons.arrowRight,
   },
 ];
 export const visitStatus = [

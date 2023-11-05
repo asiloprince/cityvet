@@ -1,6 +1,6 @@
 import { Input } from "../ui/input";
 import { Table } from "@tanstack/react-table";
-import { DataTableViewOptions } from "../data-table/data-table-view-options";
+import { DataTableViewOptionsBeneficiaries } from "../data-table/data-table-view-options-beneficiaries";
 import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter";
 import { barangays } from "../data-table/barangay-filter-utils";
 import { Button } from "../ui/button";
@@ -47,7 +47,7 @@ export function BeneficiariesToolbar<TData>({
           </Button>
         )}
       </div>
-      <DataTableViewOptions table={table} />
+      <DataTableViewOptionsBeneficiaries table={table} />
     </div>
   );
 }

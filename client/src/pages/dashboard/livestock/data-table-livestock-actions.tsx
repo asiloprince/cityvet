@@ -18,9 +18,9 @@ import {
 
 import { Button } from "../../../components/ui/button";
 import LivestockViewDialog from "./dialogs/view-dialogs";
-// import LivestockEditDialog from "./dialogs/edit-dialogs";
 import LivestockDeleteDialog from "./dialogs/delete-dialogs";
 import { livestockSchema } from "../../schema";
+import LivestockEditDialog from "./dialogs/edit-dialogs";
 
 interface LivestockDataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -39,9 +39,9 @@ export function LivestockDataTableRowActions<TData>({
     setDialogContent(<LivestockViewDialog livestock={livestock} />);
   };
 
-  //   const handleEditClick = () => {
-  //     setDialogContent(<LivestockEditDialog livestock={livestock} />);
-  //   };
+  const handleEditClick = () => {
+    setDialogContent(<LivestockEditDialog livestock={livestock} />);
+  };
 
   return (
     <Dialog>
@@ -70,12 +70,12 @@ export function LivestockDataTableRowActions<TData>({
               View Details
             </DropdownMenuItem>
           </DialogTrigger>
-          {/* <DialogTrigger asChild onClick={handleEditClick}>
+          <DialogTrigger asChild onClick={handleEditClick}>
             <DropdownMenuItem>
               <Edit className="mr-2 h-4 w-4" />
               Edit Details
             </DropdownMenuItem>
-          </DialogTrigger> */}
+          </DialogTrigger>
 
           <DropdownMenuItem
             onSelect={() => setShowDeleteDialog(true)}

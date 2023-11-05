@@ -4,7 +4,7 @@ import axios from "axios";
 import { columns } from "./column";
 import { LivestockDataTable } from "./data-table";
 
-import { LivestocksType } from "./livestockschema";
+import { LivestocksType } from "../../schema";
 
 export default function LivestockTable() {
   const [livestocksData, setLivestocksData] = useState<LivestocksType[]>([]);
@@ -21,7 +21,6 @@ export default function LivestockTable() {
           throw new Error("Failed to fetch data");
         }
         const { data } = res.data;
-        console.log(data);
         setLivestocksData(data);
       } catch (error) {
         console.error("Error fetching data:", error);

@@ -1,7 +1,11 @@
-
+import BatchDispersalTable from "./data";
 
 function DisperseNonEarTag() {
-  return <div>DisperseNonEarTag</div>;
+  return (
+    <div>
+      <BatchDispersalTable />
+    </div>
+  );
 }
 
 export default DisperseNonEarTag;

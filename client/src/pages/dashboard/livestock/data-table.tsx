@@ -66,7 +66,7 @@ export function LivestockDataTable<TData, TValue>({
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 my-3 overflow-auto">
       <LivestockToolbar table={table} />
       <div className="rounded-md border">
         <Table>

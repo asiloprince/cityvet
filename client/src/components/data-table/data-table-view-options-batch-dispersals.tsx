@@ -8,7 +8,7 @@ import {
 } from "../ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Table } from "@tanstack/react-table";
-import { downloadToExcel } from "../../lib/xlsx";
+import { downloadToExcelBatchDispersals } from "../../lib/xlsx";
 import { Download, SlidersHorizontal } from "lucide-react";
 
 // rename toggle column names
@@ -26,7 +26,7 @@ interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
 }
 
-export function DataTableViewOptions<TData>({
+export function DataTableViewOptionsBatchDispersals<TData>({
   table,
 }: DataTableViewOptionsProps<TData>) {
   return (
@@ -36,7 +36,7 @@ export function DataTableViewOptions<TData>({
           variant="outline"
           size="sm"
           className="ml-auto hidden h-8 lg:flex"
-          onClick={() => downloadToExcel()}
+          onClick={() => downloadToExcelBatchDispersals()}
         >
           <Download className="mr-2 h-4 w-4" />
           Export

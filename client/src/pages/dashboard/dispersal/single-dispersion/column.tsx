@@ -4,7 +4,7 @@ import { DataTableColumnHeader } from "../../../../components/data-table/data-ta
 import { DispersalType } from "../../../schema";
 import { barangays } from "../../../../components/data-table/barangay-filter-utils";
 import { statuses } from "../../../../components/data-table/data-table-status-filter";
-import { DataTableRowActions } from "../../../../components/data-table/data-table-row-actions";
+import { DataTableRowActions } from "./data-table-row-actions";
 
 function formatDate(dateString: string) {
   const date = new Date(dateString);

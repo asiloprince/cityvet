@@ -17,7 +17,7 @@ export default function ViewDialog({ dispersal }: viewProps) {
         const res = await axios.get(
           `${
             import.meta.env.VITE_PUBLIC_API_URL
-          }/api/dispersals/single-dispersions/${dispersal.dispersal_id},`,
+          }/api/dispersals/single-dispersions/${dispersal.dispersal_id}`,
           { withCredentials: true }
         );
         if (res.data.success) {

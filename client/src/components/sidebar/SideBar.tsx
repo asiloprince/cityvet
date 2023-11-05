@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import taskImg from "../../assets/task.png";
 import links from "./link";
-import { FaBars, FaCog, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
+import axios from "axios";
 
 function SideBar() {
   // for mobile navigation responsiveness
@@ -11,6 +12,27 @@ function SideBar() {
   const navigationHandler = () => {
     setSideBar(!sideBar);
   };
+
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    const getRole = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_PUBLIC_API_URL}/accounts/role`,
+          { withCredentials: true }
+        );
+
+        const result = res.data;
+        setUserRole(result.role);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getRole();
+  }, []);
+
   return (
     <div>
       <div
@@ -24,38 +46,69 @@ function SideBar() {
             Cityvet
           </h1>
         </div>
-        <div className="flex flex-col justify-between h-[530px]">
+        <div className="flex flex-col justify-between h-[550px]">
           {/* navigation sidebar */}
           <nav>
             <ul>
-              {links.map((link) => (
-                <div key={link.id}>
-                  <p className="text-xs text-gray-500 pt-4">{link.title}</p>
-                  {link.listLinks.map((listLink) => (
-                    <li key={listLink.id}>
-                      <Link
-                        to={listLink.url}
-                        className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors ml-1"
-                      >
-                        {listLink.icon}
-                        {listLink.title}
-                      </Link>
-                    </li>
-                  ))}
-                </div>
-              ))}
+              {links.map((link) => {
+                if (link.id === 4 && userRole !== "Admin") {
+                  return null;
+                }
+                if (link.id === 3 && userRole === "Admin") {
+                  return null;
+                }
+                if (link.id === 5 && userRole !== "Admin") {
+                  return null;
+                }
+
+                return (
+                  <div key={link.id}>
+                    <p className="text-xs text-gray-500 pt-4">{link.title}</p>
+                    {link.listLinks.map((listLink) => {
+                      if (
+                        listLink.title === "Dispersal" &&
+                        userRole === "Coordinator"
+                      ) {
+                        return null;
+                      }
+                      return (
+                        <li key={listLink.id}>
+                          <Link
+                            to={listLink.url}
+                            className="flex items-center gap-4 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors ml-1"
+                          >
+                            {listLink.icon}
+                            {listLink.title}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </div>
+                );
+              })}
             </ul>
           </nav>
 
           {/* logout */}
-          <div className="flex flex-col gap-4">
-            <Link
-              to="#"
-              className="flex items-center gap-4 ml-1 hover:bg-cyan-600 p-2 hover:text-white text-sm text-gray-700 font-semibold rounded-lg transition-colors"
-            >
-              <FaCog />
-              Settings
-            </Link>
+          <div className="flex flex-col gap-2 mt-4">
+            <div className="flex flex-col gap-2">
+              <img
+                src={taskImg}
+                alt="Image"
+                className="w-32 h-28 mx-auto block"
+              />
+
+              <div className="bg-purple-50 p-2 flex flex-col gap-2 rounded-2xl">
+                <h3 className="text-base text-center font-poppin ">
+                  {" "}
+                  Optimize{" "}
+                </h3>
+                <p className="text-gray-500 text-center"></p>
+                <button className="bg-cyan-600 text-white text-sm p-2 rounded-lg">
+                  Your Operations
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

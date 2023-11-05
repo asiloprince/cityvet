@@ -8,10 +8,13 @@ import {
   Overview,
   Layout,
   Livestock,
-  Profile,
+  Settings,
   TeamRole,
-  DispersalType,
+  Calendar,
   SingleDispersions,
+  BatchDispersals,
+  Statistics,
+  DispersalPredictions,
 } from "./pages/dashboard";
 import Auth from "./pages/auth/Auth";
 import {
@@ -35,14 +38,17 @@ function App() {
           }
         >
           <Route index element={<Overview />}></Route>
-          <Route path="benefeciaries" element={<Beneficiaries />}></Route>
+          <Route path="beneficiaries" element={<Beneficiaries />}></Route>
           <Route path="livestocks" element={<Livestock />}></Route>
-          <Route path="Profile" element={<Profile />}></Route>
-          <Route path="Roles" element={<TeamRole />}></Route>
+          <Route path="settings" element={<Settings />}></Route>
+          <Route path="roles" element={<TeamRole />}></Route>
           <Route path="dispersal" element={<LayoutDispersal />}></Route>
+          <Route path="statistics" element={<Statistics />}></Route>
+          <Route path="predictions" element={<DispersalPredictions />}></Route>
+          <Route path="calendar" element={<Calendar />}></Route>
 
-          <Route path="dispersal-type" element={<DispersalType />}></Route>
           <Route path="disperse" element={<SingleDispersions />}></Route>
+          <Route path="batch-disperse" element={<BatchDispersals />}></Route>
         </Route>
 
         <Route

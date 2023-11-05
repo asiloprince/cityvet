@@ -1,18 +1,31 @@
 import { useFormState } from "../../pages/dashboard/dispersal/context/form-context";
+import { Icons } from "../icons";
 
 const SideNavigator = () => {
   const { step } = useFormState();
 
   const steps = [
-    { number: 1, title: "Livestock Info" },
-    { number: 2, title: "Recipient Info" },
-    { number: 3, title: "Dispersal Info" },
+    {
+      icon: Icons.livestockInfo,
+      title: "Livestock Info",
+      message: "Let's begin with the livestock information.",
+    },
+    {
+      icon: Icons.recipientInfo,
+      title: "Recipient Info",
+      message: "Provide us with the recipient's information.",
+    },
+    {
+      icon: Icons.dispersalInfo,
+      title: "Dispersal Info",
+      message: "Give us the details of the dispersal.",
+    },
   ];
 
   return (
-    <div className="w-full md:w-1/4 bg-gray-100 p-4">
-      <div className="mb-4 text-2xl font-semibold text-cyan-700">
-        Step Navigator
+    <div className="w-full md:w-1/4 bg-gray-100 p-4 rounded-md">
+      <div className="mb-4 text-2xl font-semibold text-cyan-700 py-2 px-4 font-poppin">
+        {steps[step - 1].message}
       </div>
       <ul className="flex justify-between md:block md:space-y-2 space-x-2 lg:space-y-8 md:space-x-0 relative">
         <div
@@ -29,17 +42,21 @@ const SideNavigator = () => {
           } md:hidden `}
         />
 
-        {steps.map((s) => (
+        {steps.map((s, index) => (
           <li
-            key={s.number}
+            key={index}
             className={`py-2 px-4 rounded-full md:rounded cursor-pointer z-10 ${
-              s.number <= step ? "bg-cyan-500 text-white" : "bg-gray-200"
+              index + 1 <= step
+                ? "bg-cyan-500 text-white icon-white"
+                : "bg-gray-200 text-cyan-600 icon-cyan"
             }`}
           >
-            <span className="md:hidden">{s.number}</span>
-            <span className="hidden md:inline">
-              Step {s.number}: {s.title}
-            </span>
+            <div className="flex items-center space-x-2">
+              <s.icon size={24} />
+              <span className="hidden md:inline font-semibold">
+                : {s.title}
+              </span>
+            </div>
           </li>
         ))}
       </ul>

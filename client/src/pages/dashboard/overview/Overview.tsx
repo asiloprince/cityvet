@@ -1,4 +1,3 @@
-import CardWidget from "../../../components/card-widgets/CardWidget";
 import RecentActivity from "../../../components/activity/RecentActivity";
 
 import {
@@ -8,6 +7,11 @@ import {
   chartBoxUser,
 } from "../../../components/card-widgets/keyMetrics";
 import CardWidgetPie from "../../../components/card-widgets/CardWidgetPie";
+import BeneficiariesWidgets from "../../../components/card-widgets/BeneficiariesWidgets";
+import TotalBeneficiariesWidgets from "../../../components/card-widgets/TotalBeneficiariesWidgets";
+import TotalLivestoksWidgets from "../../../components/card-widgets/TotalLivestocksWidgets";
+import TotalDisperseLivestocksWidgets from "../../../components/card-widgets/TotalDisperseLivestocksWidgets";
+import TotalRedisperseLivestocksWidgets from "../../../components/card-widgets/TotalRedisperseLivestocksWidgets";
 
 function Overview() {
   return (
@@ -16,11 +20,11 @@ function Overview() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-teal-400 text-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto">
-          <CardWidget {...chartBoxUser} />
+          <TotalBeneficiariesWidgets {...chartBoxUser} />
         </div>
 
         <div className="bg-gray-800 text-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto border-r-4 border-teal-500">
-          <CardWidget {...chartBoxLivestocks} />
+          <TotalLivestoksWidgets {...chartBoxLivestocks} />
         </div>
 
         <div className="bg-white rounded-lg p-4 col-span-3 md:col-span-1 row-span-2 shadow h-auto">
@@ -28,19 +32,20 @@ function Overview() {
         </div>
 
         <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto">
-          <CardWidget {...chartBoxDispersal} />
+          <TotalDisperseLivestocksWidgets {...chartBoxDispersal} />
         </div>
-
         <div className="bg-white rounded-lg p-4 shadow col-span-3 md:col-span-1 h-auto border-r-4 border-teal-500">
-          <CardWidget {...chartBoxRedispersal} />
+          <TotalRedisperseLivestocksWidgets {...chartBoxRedispersal} />
         </div>
 
-        <div className="bg-white rounded-lg p-4 col-span-3 row-span-4 lg:col-span-2 lg:row-span-6  h-auto shadow">
-          <RecentActivity />
+        <div className="flex col-span-full md:col-span-2">
+          <div className="bg-white rounded-lg p-6 w-full min-h-[24rem] max-h-auto shadow">
+            <RecentActivity />
+          </div>
         </div>
 
-        <div className="bg-white rounded-lg p-4 col-span-3 md:col-span-1 row-span-4 h-auto shadow">
-          Box 7
+        <div className="bg-white rounded-lg p-6 col-span-full md:col-span-1 min-h-[24rem] max-h-auto shadow">
+          <BeneficiariesWidgets />
         </div>
       </div>
     </div>

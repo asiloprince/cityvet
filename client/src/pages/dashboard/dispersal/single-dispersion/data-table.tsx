@@ -66,7 +66,7 @@ export function DispersalDataTable<TData, TValue>({
   });
 
   return (
-    <div className="space-y-4 my-3">
+    <div className="space-y-4 my-3 overflow-auto">
       <DispersalToolbar table={table} />
       <div className="rounded-md border">
         <Table>

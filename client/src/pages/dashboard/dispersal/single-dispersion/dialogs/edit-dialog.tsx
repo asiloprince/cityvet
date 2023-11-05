@@ -78,10 +78,6 @@ export default function EditDialog({ dispersal }: EditProps) {
       alert("An error occurred. Please try again.");
     }
   }
-  console.log("contract_details:", dispersal.contract_details);
-  console.log("contract_details:", dispersal.num_of_heads);
-  console.log("contract_details:", dispersal.status);
-  console.log("contract_details:", dispersal.notes);
   return (
     <div>
       <DialogHeader>
@@ -100,7 +96,10 @@ export default function EditDialog({ dispersal }: EditProps) {
                     <Input
                       type="number"
                       {...field}
-                      onChange={(e) => field.onChange(parseInt(e.target.value))}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        field.onChange(isNaN(value) ? 0 : value);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />

@@ -6,8 +6,7 @@ import axios from "axios";
 type TFormValues = {
   dispersal_date: string;
   contract_details: string;
-  notes: string;
-  initialNumberOfHeads: number;
+  init_num_heads: number;
 };
 
 type DispersalFormProps = {
@@ -83,27 +82,15 @@ export function DispersalForm({ onHandleBack }: DispersalFormProps) {
       </div>
 
       <div className="flex flex-col space-y-2">
-        <label htmlFor="notes" className="text-sm font-medium text-gray-600">
-          Notes
-        </label>
-        <input
-          id="notes"
-          {...register("notes")}
-          type="text"
-          className="border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      <div className="flex flex-col space-y-2">
         <label
-          htmlFor="initialNumberOfHeads"
+          htmlFor="init_num_heads"
           className="text-sm font-medium text-gray-600"
         >
           Initial Number of Heads
         </label>
         <input
           id="initialNumberOfHeads"
-          {...register("initialNumberOfHeads")}
+          {...register("init_num_heads")}
           type="number"
           required={true}
           className="border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"

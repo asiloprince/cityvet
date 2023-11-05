@@ -3,7 +3,7 @@ import {
   FaUserFriends,
   FaPiggyBank,
   FaChartLine,
-  FaFileAlt,
+  // FaFileAlt,
   FaCalendarCheck,
   FaEdit,
 } from "react-icons/fa";
@@ -41,7 +41,7 @@ const links = [
       {
         id: 2,
         title: "Benefeciaries",
-        url: "/benefeciaries",
+        url: "/beneficiaries",
         icon: <FaUserFriends />,
       },
     ],
@@ -52,12 +52,6 @@ const links = [
     listLinks: [
       {
         id: 1,
-        title: "Notes",
-        url: "/notes",
-        icon: <FaEdit />,
-      },
-      {
-        id: 2,
         title: "Calendar",
         url: "/calendar",
         icon: <FaCalendarCheck />,
@@ -66,6 +60,18 @@ const links = [
   },
   {
     id: 4,
+    title: "Manage Team",
+    listLinks: [
+      {
+        id: 1,
+        title: "Team",
+        url: "/roles",
+        icon: <FaEdit />,
+      },
+    ],
+  },
+  {
+    id: 5,
     title: "Analytics",
     listLinks: [
       {
@@ -74,12 +80,12 @@ const links = [
         url: "/statistics",
         icon: <FaChartLine />,
       },
-      {
-        id: 2,
-        title: "Logs",
-        url: "/logs",
-        icon: <FaFileAlt />,
-      },
+      // {
+      //   id: 2,
+      //   title: "Logs",
+      //   url: "/logs",
+      //   icon: <FaFileAlt />,
+      // },
     ],
   },
 ];

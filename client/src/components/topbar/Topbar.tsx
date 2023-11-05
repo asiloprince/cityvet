@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { FaRegBell, FaCog, FaSearch, FaCheckCircle } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { UserNav } from "./UserNav";
 function Topbar() {
   return (
     <div className="col-span-5 ml-4">
@@ -18,21 +18,8 @@ function Topbar() {
         {/* notifiction */}
         <nav className="w-[70%] flex justify-end">
           <ul className="flex items-center gap-4">
-            <li>
-              <Link to="#" className="relative">
-                <FaRegBell />
-                <FaCheckCircle className="absolute -right-2 -top-1 text-xs text-green-500" />
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="flex items-center gap-2">
-                Admin
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="flex items-center gap-2">
-                <FaCog />
-              </Link>
+            <li className="flex items-center gap-2 ml-6 ">
+              <UserNav />
             </li>
           </ul>
         </nav>

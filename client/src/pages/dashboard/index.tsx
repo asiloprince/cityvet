@@ -3,12 +3,14 @@ import Beneficiaries from "./recipient/Beneficiaries";
 import Notes from "./note/Notes";
 import Layout from "./Layout";
 import Livestock from "./livestock/Livestock";
-import Profile from "./profile/Profile";
+import Settings from "./settings/Settings";
 import TeamRole from "./team/TeamRole";
 import LayoutDispersal from "./dispersal/Layout";
-import DispersalType from "./dispersal/DisperseType";
-
+import Calendar from "./calendar/Calendar";
 import SingleDispersions from "./dispersal/single-dispersion/add/disperse";
+import BatchDispersals from "./dispersal/multiple-dispersal/add/batch-disperse";
+import Statistics from "./statistics/Statistics";
+import DispersalPredictions from "./statistics/DispersalPredictions";
 
 export {
   Overview,
@@ -16,9 +18,12 @@ export {
   Notes,
   Layout,
   Livestock,
-  Profile,
+  Settings,
   TeamRole,
   LayoutDispersal,
-  DispersalType,
+  Calendar,
   SingleDispersions,
+  BatchDispersals,
+  Statistics,
+  DispersalPredictions,
 };

@@ -17,31 +17,41 @@ import { inputBarangays } from "../input/barangay-input";
 import axios from "axios";
 
 const addSchema = z.object({
-    full_name: z.string().min(1, { message: "Full Name Required" }),
-    birth_date: z.string(),
-    mobile: z.string(),
-    barangay_id: z.number().min(1).max(105),
+  full_name: z.string().min(1, { message: "Full Name Required" }),
+  birth_date: z.string(),
+  gender: z.string(),
+  mobile: z.string(),
+  barangay_id: z.number().min(1).max(105),
 });
 
 type AddSchemaType = z.infer<typeof addSchema>;
+
+interface Option {
+  label: string;
+  value: string;
+}
 
 export default function AddNewBeneficiaryForm() {
   const form = useForm<AddSchemaType>({
     resolver: zodResolver(addSchema),
     defaultValues: {
-      full_name: '',
-      birth_date: '',
-      mobile: '',
+      full_name: "",
+      birth_date: "",
+      mobile: "",
+      gender: "",
       barangay_id: 0,
     },
   });
-  
+
+  const genderOptions: Option[] = [
+    { value: "Male", label: "Male" },
+    { value: "Female", label: "Female" },
+  ];
 
   const options = inputBarangays.map((barangay) => ({
     value: barangay.value,
     label: barangay.label,
   }));
-  
 
   const onSubmit = async (data: AddSchemaType) => {
     console.log("Form Values:", data);
@@ -73,29 +83,24 @@ export default function AddNewBeneficiaryForm() {
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
-                {form.formState.errors.full_name && (
-                  <FormMessage/>
-                )}
+                {form.formState.errors.full_name && <FormMessage />}
               </FormItem>
             )}
           />
 
-<FormField
-  control={form.control}
-  name="birth_date"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Date of Birth</FormLabel>
-      <FormControl>
-        <Input {...field} type="date" />
-      </FormControl>
-      {form.formState.errors.birth_date && (
-        <FormMessage/>
-      )}
-    </FormItem>
-  )}
-/>
-
+          <FormField
+            control={form.control}
+            name="birth_date"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Date of Birth</FormLabel>
+                <FormControl>
+                  <Input {...field} type="date" />
+                </FormControl>
+                {form.formState.errors.birth_date && <FormMessage />}
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}
@@ -106,35 +111,59 @@ export default function AddNewBeneficiaryForm() {
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
-                {form.formState.errors.mobile && (
-                  <FormMessage/>
-                )}
+                {form.formState.errors.mobile && <FormMessage />}
               </FormItem>
             )}
           />
-<FormField
-  control={form.control}
-  name="barangay_id"
-  render={({ field }) => (
-    <FormItem>
-    <FormLabel htmlFor="barangay_id">Barangay ID</FormLabel>
-    <FormControl>
-      <Select
-        inputId="barangay_id"
-        value={options.find((option) => option.value === field.value)}
-        onChange={(option) => field.onChange(option?.value)}
-        options={options}
-      />
-    </FormControl>
-    <FormMessage />
-  </FormItem>
-  
-  )}
-/>
-<div className="flex justify-end">
-<Button type="submit" className="mt-4 bg-cyan-600 hover:bg-cyan-700 text-white">Submit</Button>
-</div>
+          <FormField
+            control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="gender">Gender</FormLabel>
+                <FormControl>
+                  <Select
+                    inputId="gender"
+                    value={genderOptions.find(
+                      (option) => option.value === field.value
+                    )}
+                    onChange={(option) => field.onChange(option?.value)}
+                    options={genderOptions as any}
+                  />
+                </FormControl>
+                {form.formState.errors.gender && <FormMessage />}
+              </FormItem>
+            )}
+          />
 
+          <FormField
+            control={form.control}
+            name="barangay_id"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="barangay_id">Barangay ID</FormLabel>
+                <FormControl>
+                  <Select
+                    inputId="barangay_id"
+                    value={options.find(
+                      (option) => option.value === field.value
+                    )}
+                    onChange={(option) => field.onChange(option?.value)}
+                    options={options}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              className="mt-4 bg-cyan-600 hover:bg-cyan-700 text-white"
+            >
+              Submit
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

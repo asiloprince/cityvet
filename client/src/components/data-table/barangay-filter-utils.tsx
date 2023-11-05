@@ -120,10 +120,6 @@ export const barangays = [
     label: "Banaba East",
   },
   {
-    value: "Gulod Labac",
-    label: "Gulod Labac",
-  },
-  {
     value: "Bilogo",
     label: "Bilogo",
   },
@@ -239,10 +235,7 @@ export const barangays = [
     value: "Mahacot Silangan",
     label: "Mahacot Silangan",
   },
-  {
-    value: "Mahacot Silangan",
-    label: "Mahacot Silangan",
-  },
+
   {
     value: "Malalim",
     label: "Malalim",

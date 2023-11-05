@@ -1,22 +1,41 @@
 import { useState } from "react";
 import { Row } from "@tanstack/react-table";
-import { Clipboard, Edit, Eye, MoreHorizontal, Trash2 } from "lucide-react";
+import {
+  ArrowRight,
+  Clipboard,
+  Edit,
+  Eye,
+  MoreHorizontal,
+  Package,
+  RefreshCw,
+  Trash2,
+} from "lucide-react";
 
-import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Button } from "../../../../components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "../../../../components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "../../../../components/ui/dropdown-menu";
 
-import { dispersalSchema } from "../../pages/schema";
-import DeleteDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/delete-dialog";
-import ViewDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/view-dialogs";
-import EditDialog from "../../pages/dashboard/dispersal/single-dispersion/dialogs/edit-dialog";
+import { dispersalSchema } from "../../../schema";
+import DeleteDialog from "./dialogs/delete-dialog";
+import ViewDialog from "./dialogs/view-dialogs";
+import EditDialog from "./dialogs/edit-dialog";
+import FormsModal from "../../../../components/modal/FormsModal";
+import TransferLivestockForm from "./dialogs/transfer-dialog";
+import LivestockRedispersalForm from "./dialogs/redisperse-dialog";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -29,6 +48,9 @@ export function DataTableRowActions<TData>({
     null
   );
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [showTransferDialog, setShowTransferDialog] = useState<boolean>(false);
+  const [showRedispersalDialog, setShowRedispersalDialog] =
+    useState<boolean>(false);
   const dispersal = dispersalSchema.parse(row.original);
 
   const handleViewClick = () => {
@@ -39,6 +61,13 @@ export function DataTableRowActions<TData>({
     setDialogContent(<EditDialog dispersal={dispersal} />);
   };
 
+  const handleTransferClick = () => {
+    setShowTransferDialog(true);
+  };
+
+  const handleRedispersalClick = () => {
+    setShowRedispersalDialog(true);
+  };
   return (
     <Dialog>
       <DropdownMenu>
@@ -73,6 +102,25 @@ export function DataTableRowActions<TData>({
             </DropdownMenuItem>
           </DialogTrigger>
 
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              {" "}
+              <Package className="mr-2 h-4 w-4" />
+              Redispersal
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem onSelect={handleTransferClick}>
+                <ArrowRight className="mr-2 h-4 w-4" />
+                Transfer
+              </DropdownMenuItem>
+              {/* Add your Re-dispersal action here */}
+              <DropdownMenuItem onSelect={handleRedispersalClick}>
+                <RefreshCw className="mr-2 h-4 w-4" />
+                Re-disperse
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+
           <DropdownMenuItem
             onSelect={() => setShowDeleteDialog(true)}
             className="text-red-600"
@@ -88,6 +136,24 @@ export function DataTableRowActions<TData>({
         isOpen={showDeleteDialog}
         showActionToggle={setShowDeleteDialog}
       />
+
+      {showTransferDialog && (
+        <FormsModal
+          isOpen={showTransferDialog}
+          setIsOpen={setShowTransferDialog}
+        >
+          <TransferLivestockForm dispersal={dispersal} />
+        </FormsModal>
+      )}
+
+      {showRedispersalDialog && (
+        <FormsModal
+          isOpen={showRedispersalDialog}
+          setIsOpen={setShowRedispersalDialog}
+        >
+          <LivestockRedispersalForm dispersal={dispersal} />
+        </FormsModal>
+      )}
     </Dialog>
   );
 }

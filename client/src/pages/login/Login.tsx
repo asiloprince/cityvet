@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { FcGoogle } from "react-icons/fc";
 
@@ -38,12 +38,14 @@ function Login() {
             To keep connected with us please<br></br>login your personal info.
           </p>
           <div className="mt-4 sm:mt-4 md:mt-8 lg:mt-12 flex justify-center">
-            <Button
-              variant={"outline"}
-              className="border bg-cyan-600 w-48 center font-poppin"
-            >
-              SIGN UP
-            </Button>
+            <Link to={"/register"}>
+              <Button
+                variant={"outline"}
+                className="border bg-cyan-600 w-48 center font-poppin"
+              >
+                SIGN UP
+              </Button>
+            </Link>
           </div>
         </section>
       </div>

@@ -4,6 +4,7 @@ import { Checkbox } from "../../../components/ui/checkbox";
 import { DataTableColumnHeader } from "../../../components/data-table/data-table-column-header";
 import { LivestockDataTableRowActions } from "./data-table-livestock-actions";
 import { LivestocksType } from "../../schema";
+import { category } from "./livestock-status";
 
 export const columns: ColumnDef<LivestocksType>[] = [
   {
@@ -32,9 +33,27 @@ export const columns: ColumnDef<LivestocksType>[] = [
     },
   },
   {
-    accessorKey: "type",
+    accessorKey: "category",
     header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Animal" />;
+    },
+    cell: ({ row }) => {
+      const categories = category.find(
+        (categories) => categories.value === row.getValue("category")
+      );
+
+      if (!categories) {
+        return null;
+      }
+
+      return (
+        <div className="flex w-[100px] items-center">
+          <span>{categories.label}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
     },
   },
   {

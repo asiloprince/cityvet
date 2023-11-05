@@ -2,6 +2,7 @@ import { useState } from "react";
 import DisperseLivestock from "./single-dispersion/DisperseLivestock";
 import DisperseNonEarTag from "./multiple-dispersal/DisperseNonEarTag";
 import { Button } from "../../../components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 function LayoutDispersal() {
   const [currentTable, setCurrentTable] = useState("dispersal");
@@ -10,28 +11,33 @@ function LayoutDispersal() {
     setCurrentTable(table);
   };
 
+  const navigate = useNavigate();
+
   const disperseDirectHandler = () => {
-    window.location.href = "disperse";
+    navigate("/disperse");
+  };
+  const batchDisperseDirectHandler = () => {
+    navigate("/batch-disperse");
   };
 
   return (
     <div className="max-w-7x1 m-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between">
         <div className="flex justify-between mr-4">
-          <h1 className="text-2xl font-bold mr-3">Dispersal</h1>
+          <h1 className="text-2xl font-bold mb-4">Dispersal</h1>
           <Button
             variant={"outline"}
             className="mx-2"
             onClick={() => tableHandlers("dispersal")}
           >
-            Tagged Records
+            Single Entries
           </Button>
           <Button
             variant={"outline"}
             className="mx-2"
             onClick={() => tableHandlers("non-earTag")}
           >
-            Untagged Records
+            Batch Entries
           </Button>
         </div>
         <div className="flex justify-between m-2">
@@ -41,7 +47,10 @@ function LayoutDispersal() {
           >
             Disperse
           </Button>
-          <Button className="font-poppin text-white text-sm ml-2 bg-cyan-600 rounded  hover:bg-cyan-700">
+          <Button
+            className="font-poppin text-white text-sm ml-2 bg-cyan-600 rounded  hover:bg-cyan-700"
+            onClick={batchDisperseDirectHandler}
+          >
             Batch Disperse
           </Button>
         </div>

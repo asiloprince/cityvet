@@ -7,7 +7,7 @@ interface Option {
 }
 
 interface SelectProps {
-  label: string;
+  label?: string;
   value?: Option[];
   onChange: (value: MultiValue<Option>, actionMeta: ActionMeta<Option>) => void;
   options: Option[];
@@ -15,11 +15,12 @@ interface SelectProps {
   className?: string;
   required?: boolean;
   id?: string;
+  placeholder?: string;
 }
 
 const Select: React.FC<SelectProps> = forwardRef<HTMLDivElement, SelectProps>(
   (
-    { label, value, onChange, options, disabled, id }: SelectProps,
+    { label, value, onChange, options, disabled, id, placeholder }: SelectProps,
     ref: React.Ref<HTMLDivElement>
   ) => {
     return (
@@ -38,15 +39,16 @@ const Select: React.FC<SelectProps> = forwardRef<HTMLDivElement, SelectProps>(
         </label>
         <div className="mt-2">
           <ReactSelect
-            inputId={id} // Use 'inputId' instead of 'id'
+            inputId={id}
             isDisabled={disabled}
             value={value}
+            placeholder={placeholder}
             onChange={onChange}
             isMulti
             options={options}
             menuPortalTarget={document.body}
             styles={{
-              menuPortal: (base) => ({ ...base, zIndex: 1 }),
+              menuPortal: (base) => ({ ...base, zIndex: 1000 }),
             }}
             classNames={{
               control: () => "text-sm",

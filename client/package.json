@@ -10,6 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.9",
+    "@fullcalendar/daygrid": "^6.1.9",
+    "@fullcalendar/interaction": "^6.1.9",
+    "@fullcalendar/list": "^6.1.9",
+    "@fullcalendar/react": "^6.1.9",
+    "@fullcalendar/timegrid": "^6.1.9",
     "@hookform/resolvers": "^3.3.1",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.4",
@@ -21,6 +27,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-table": "^8.9.7",
+    "@types/regression": "^2.0.4",
     "axios": "^1.5.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -28,6 +35,7 @@
     "date-fns": "^2.30.0",
     "json-as-xlsx": "^2.5.4",
     "lucide-react": "^0.274.0",
+    "moment": "^2.29.4",
     "prop-types": "^15.6.0",
     "react": "^18.2.0",
     "react-day-picker": "^8.8.2",
@@ -37,6 +45,7 @@
     "react-router-dom": "^6.15.0",
     "react-select": "^5.7.7",
     "recharts": "^2.8.0",
+    "regression": "^2.0.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.2"

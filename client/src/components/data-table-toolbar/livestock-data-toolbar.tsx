@@ -1,10 +1,11 @@
 import { Input } from "../ui/input";
 import { Table } from "@tanstack/react-table";
-import { DataTableViewOptions } from "../data-table/data-table-view-options";
-// import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter";
-// import { barangays } from "../data-table/barangay-filter-utils";
+import { DataTableViewOptionsLivestocks } from "../data-table/data-table-view-options-livestocks";
+import { DataTableFacetedFilter } from "../data-table/data-table-faceted-filter";
+
 import { Button } from "../ui/button";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { category } from "../../pages/dashboard/livestock/livestock-status";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -26,14 +27,14 @@ export function LivestockToolbar<TData>({
           }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {/* 
-        {table.getColumn("Barangay") && (
+
+        {table.getColumn("category") && (
           <DataTableFacetedFilter
-            column={table.getColumn("Barangay")}
-            title="Type"
-            options={barangays}
+            column={table.getColumn("category")}
+            title="Category"
+            options={category}
           />
-        )} */}
+        )}
         {isFiltered && (
           <Button
             variant="ghost"
@@ -45,7 +46,7 @@ export function LivestockToolbar<TData>({
           </Button>
         )}
       </div>
-      <DataTableViewOptions table={table} />
+      <DataTableViewOptionsLivestocks table={table} />
     </div>
   );
 }

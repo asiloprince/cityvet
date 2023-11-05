@@ -84,6 +84,12 @@ export const columns: ColumnDef<RecipientsType>[] = [
   },
   {
     header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Gender" />;
+    },
+    accessorKey: "gender",
+  },
+  {
+    header: ({ column }) => {
       return <DataTableColumnHeader column={column} title="Contact" />;
     },
     accessorKey: "mobile",

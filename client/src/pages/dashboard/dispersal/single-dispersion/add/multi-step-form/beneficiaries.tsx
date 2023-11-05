@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Select from "../../../../../../components/inputs/select";
-import { useFormState } from "../../../context/form-context"; 
+import { useFormState } from "../../../context/form-context";
 
 type TFormValues = {
   beneficiary_id: string;
@@ -28,7 +28,7 @@ export function DispersalRecipient({
   onHandleBack,
 }: DispersalRecipientProps) {
   const { register, handleSubmit, setValue } = useForm<TFormValues>();
-  const { setFormData } = useFormState(); 
+  const { setFormData, formData } = useFormState();
   const [isLoading, setIsLoading] = useState(false);
   const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([]);
   const [selectedBeneficiary, setSelectedBeneficiary] = useState<Option[]>([]);
@@ -43,8 +43,26 @@ export function DispersalRecipient({
       .then((response) => {
         if (response.data && response.data) {
           setBeneficiaries(response.data);
+
+          const storedBeneficiaryId = formData.beneficiary_id;
+          if (storedBeneficiaryId) {
+            // Find the corresponding beneficiary object
+            const storedBeneficiary = response.data.find(
+              (beneficiary: Beneficiary) =>
+                beneficiary.beneficiary_id === storedBeneficiaryId
+            );
+            if (storedBeneficiary) {
+              setSelectedBeneficiary([
+                {
+                  value: storedBeneficiary.beneficiary_id,
+                  label: storedBeneficiary.full_name,
+                },
+              ]);
+              setValue("beneficiary_id", storedBeneficiary.beneficiary_id);
+            }
+          }
         } else {
-          console.error("Unexpected API response structure");
+          console.error("Unexpected api errors");
         }
         setIsLoading(false);
       })
@@ -52,7 +70,7 @@ export function DispersalRecipient({
         console.error(error);
         setIsLoading(false);
       });
-  }, []);
+  }, [formData.beneficiary_id, setValue]);
 
   const onHandleFormSubmit = (data: TFormValues) => {
     if (!data.beneficiary_id) {
@@ -67,14 +85,14 @@ export function DispersalRecipient({
   };
 
   return (
-    <div className="bg-cyan-100 p-4 rounded-md shadow-md">
+    <div className=" p-4 rounded-md gap-4 ">
       <form onSubmit={handleSubmit(onHandleFormSubmit)} className="space-y-4">
         <div>
           <label
             htmlFor="beneficiary_id"
-            className="block text-cyan-500 font-semibold"
+            className="block text-cyan-500 font-semibold mb-4"
           >
-            Beneficiary
+            Recipients Name
           </label>
           <Select
             id="beneficiary_id"

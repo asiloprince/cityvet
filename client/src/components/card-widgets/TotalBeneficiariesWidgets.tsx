@@ -1,16 +1,29 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import { ResponsiveContainer, LineChart, Line, Tooltip } from "recharts";
+import axios from "axios";
 
 type Props = {
   title: string;
-  number: number | string;
   dataKey: string;
   percentage: number;
   chartData: object[];
 };
 
-function CardWidget(props: Props) {
+function TotalBeneficiariesWidgets(props: Props) {
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_PUBLIC_API_URL}/api/beneficiaries`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setTotal(response.data.length);
+        console.log(response.data);
+      });
+  }, []);
+
   return (
     <div className="flex h-full ">
       <div className="flex-grow flex flex-col justify-between">
@@ -20,7 +33,7 @@ function CardWidget(props: Props) {
           </span>
         </div>
         <h1 className="font-bold text-2xl font-poppin">
-          {props.number}
+          {total}
           {/* <span className="font-bold text-sm">{props.percentage}</span> */}
         </h1>
         <Link to="/" className="text-xs">
@@ -56,4 +69,4 @@ function CardWidget(props: Props) {
   );
 }
 
-export default CardWidget;
+export default TotalBeneficiariesWidgets;

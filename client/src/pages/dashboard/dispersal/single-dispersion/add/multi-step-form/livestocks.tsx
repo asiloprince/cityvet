@@ -20,7 +20,7 @@ interface Option {
 interface Livestock {
   livestock_id: string;
   ear_tag: string;
-  type: string;
+  category: string;
 }
 
 export function DisperseLivestock({ onHandleNext }: DisperseLivestockProps) {
@@ -37,11 +37,14 @@ export function DisperseLivestock({ onHandleNext }: DisperseLivestockProps) {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${import.meta.env.VITE_PUBLIC_API_URL}/api/livestocks`, {
-        withCredentials: true,
-      }) 
+      .get(
+        `${import.meta.env.VITE_PUBLIC_API_URL}/api/livestocks/undispersed`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
-        setLivestocks(response.data.data); 
+        setLivestocks(response.data.data);
         setIsLoading(false);
 
         if (formData.livestock_id) {
@@ -49,7 +52,6 @@ export function DisperseLivestock({ onHandleNext }: DisperseLivestockProps) {
             (livestock: Livestock) =>
               livestock.livestock_id === formData.livestock_id
           );
-
 
           if (selectedLivestock) {
             setSelectedLivestock([
@@ -80,15 +82,15 @@ export function DisperseLivestock({ onHandleNext }: DisperseLivestockProps) {
 
   return (
     <form
-      className="flex flex-col gap-4 bg-cyan-100 p-4 rounded-md shadow-md"
+      className="flex flex-col gap-4 p-4 rounded-md "
       onSubmit={handleSubmit(onHandleFormSubmit)}
     >
       <div className="flex gap-1 flex-col">
         <label
           htmlFor="livestock_id"
-          className="block text-cyan-500 font-semibold"
+          className="block text-cyan-500 font-semibold mb-4"
         >
-          Livestock
+          Livestock to recieved
         </label>
         <Select
           id="livestock_id"
@@ -98,11 +100,16 @@ export function DisperseLivestock({ onHandleNext }: DisperseLivestockProps) {
           label="Livestock"
           options={livestocks.map((livestock) => ({
             value: livestock.livestock_id,
-            label: `${livestock.type} - ${livestock.ear_tag}`,
+            label: `${livestock.category} - ${livestock.ear_tag}`,
           }))}
           onChange={(value) => {
-            setSelectedLivestock([...value]);
-            setValue("livestock_id", value[0].value);
+            if (value[0]) {
+              setSelectedLivestock([...value]);
+              setValue("livestock_id", value[0].value);
+            } else {
+              setSelectedLivestock([]);
+              setValue("livestock_id", "");
+            }
           }}
           value={selectedLivestock}
         />

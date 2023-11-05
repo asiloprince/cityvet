@@ -63,7 +63,7 @@ export function RecipientsDataTable<TData, TValue>({
   });
 
   return (
-    <div className="w-auto space-y-2 overflow-auto">
+    <div className="space-y-4 my-3 overflow-auto">
       {/* toolbar */}
       <BeneficiariesToolbar table={table} />
       {/* table */}
