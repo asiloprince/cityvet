@@ -89,7 +89,7 @@ export async function handleGetUsersList(req, res) {
   }
 
   const sql =
-    "SELECT users.user_id, first_name, last_name, email, registration_date, roles.role_name FROM users INNER JOIN roles ON users.role_id = roles.role_id;";
+    "SELECT users.user_id, first_name, last_name, email, registration_date, roles.role_name FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE roles.role_name IN ('Program Manager', 'Coordinator');";
 
   let rows;
 
@@ -123,6 +123,7 @@ export async function handleUpdateUserInfo(req, res) {
   }
 
   // check if the provided password is correct
+  if (new_password) {
   let [rows] = await db.query("SELECT password FROM users WHERE user_id = ?", [
     userID,
   ]);
@@ -136,6 +137,7 @@ export async function handleUpdateUserInfo(req, res) {
   if (!isPasswordCorrect) {
     return res.status(403).send({ message: "Incorrect password." });
   }
+}
 
   // If the password is correct, we can proceed to update the user data
   let sql = "UPDATE users SET ";

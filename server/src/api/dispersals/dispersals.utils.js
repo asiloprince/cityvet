@@ -14,7 +14,7 @@ export async function saveDispersalLivestock(db, payload) {
   const values = [
     payload.dispersal_id,
     payload.livestock_id,
-    payload.initialNumberOfHeads,
+    payload.init_num_heads,
   ];
 
   try {
@@ -33,7 +33,7 @@ export async function transferLivestock(db, payload) {
   const values = [
     payload.dispersal_id,
     payload.livestock_id,
-    payload.initialNumberOfHeads,
+    payload.init_num_heads,
   ];
 
   try {
@@ -47,13 +47,13 @@ export async function transferLivestock(db, payload) {
 
 export async function saveBatchDispersal(db, payload) {
   const sql =
-    "INSERT INTO batch_dispersal (dispersal_id,  livestock_recieved, age, init_num_heads) VALUES (?,?,?,?)";
+    "INSERT INTO batch_dispersal (dispersal_id,  livestock_received, age, init_num_heads) VALUES (?,?,?,?)";
 
   const values = [
     payload.dispersal_id,
-    payload.livestockReceived,
+    payload.livestock_received,
     payload.age,
-    payload.initialNumberOfHeads,
+    payload.init_num_heads,
   ];
 
   try {
@@ -67,13 +67,13 @@ export async function saveBatchDispersal(db, payload) {
 
 export async function transferBatchLivestock(db, payload) {
   const sql =
-    "INSERT INTO batch_dispersal (dispersal_id, livestock_recieved, age, init_num_heads) VALUES (?,?,?,?)";
+    "INSERT INTO batch_dispersal (dispersal_id, livestock_received, age, init_num_heads) VALUES (?,?,?,?)";
 
   const values = [
     payload.dispersal_id,
-    payload.livestock_recieved,
+    payload.livestock_received,
     payload.age,
-    payload.initialNumberOfHeads,
+    payload.init_num_heads,
   ];
 
   try {

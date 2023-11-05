@@ -11,7 +11,7 @@ export async function handleGetBeneficiariesInfo(req, res) {
   }
 
   const sql =
-    "SELECT beneficiaries.beneficiary_id, full_name, birth_date, mobile, barangays.barangay_name FROM beneficiaries INNER JOIN barangays ON beneficiaries.barangay_id = barangays.barangay_id WHERE beneficiaries.beneficiary_id =?";
+    "SELECT beneficiaries.beneficiary_id, full_name, birth_date,gender, mobile, barangays.barangay_name FROM beneficiaries INNER JOIN barangays ON beneficiaries.barangay_id = barangays.barangay_id WHERE beneficiaries.beneficiary_id =?";
 
   const values = [beneficiary_id];
   let rows;
@@ -47,7 +47,7 @@ export async function handleGetBeneficiariesList(req, res) {
 
   try {
     const [rows] = await db.query(
-      "SELECT beneficiaries.beneficiary_id, full_name, birth_date, mobile, barangays.barangay_id, barangays.barangay_name FROM beneficiaries INNER JOIN barangays ON beneficiaries.barangay_id = barangays.barangay_id"
+      "SELECT beneficiaries.beneficiary_id, full_name, birth_date, mobile, registration_date, gender, barangays.barangay_id, barangays.barangay_name FROM beneficiaries INNER JOIN barangays ON beneficiaries.barangay_id = barangays.barangay_id"
     );
     res.json(rows);
   } catch (err) {
@@ -60,7 +60,7 @@ export async function handleGetBeneficiariesList(req, res) {
 
 // handle beneficiaris data creation
 export async function handleNewBeneficiaries(req, res) {
-  const { full_name, birth_date, mobile, barangay_id } = req.body;
+  const { full_name, birth_date, gender, mobile, barangay_id } = req.body;
   const db = await connectDb("cityvet_program");
 
   if (!db) {
@@ -71,8 +71,8 @@ export async function handleNewBeneficiaries(req, res) {
 
   try {
     await db.query(
-      "INSERT INTO beneficiaries (full_name, birth_date, mobile, barangay_id) VALUES (?,?,?,?)",
-      [full_name, birth_date, mobile, barangay_id]
+      "INSERT INTO beneficiaries (full_name, birth_date, gender, mobile, barangay_id) VALUES (?,?,?,?,?)",
+      [full_name, birth_date, gender, mobile, barangay_id]
     );
     res.status(201).send("New beneficiaries added successfully!");
   } catch (err) {

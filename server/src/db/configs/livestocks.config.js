@@ -17,6 +17,7 @@ export default {
       "Cattle",
       "Goat - Doe",
       "Goat - Buck",
+      "Goat",
       "Swine",
     ],
   },

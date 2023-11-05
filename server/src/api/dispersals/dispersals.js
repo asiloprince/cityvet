@@ -7,6 +7,7 @@ import {
   handleUpdateDispersalData,
   handleRedispersalStarter,
   handleRedispersalOffspring,
+  handleGetDispersalsActivityRecords,
 } from "./single.dispersions.handlers.js";
 import {
   authorizeRoles,
@@ -59,6 +60,9 @@ router.delete(
   authorizeRoles(["Admin", "Program Manager"]),
   handleDeleteDispersalRecord
 );
+
+// activity
+router.get("/activity", validateAuthCookie, handleGetDispersalsActivityRecords);
 
 // batch dispersals
 router.get(

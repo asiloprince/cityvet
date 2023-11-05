@@ -8,7 +8,7 @@ import {
 // handle batch dispersal creations
 export async function handleBatchDispersal(req, res) {
   const payload = req.body;
-  const { beneficiaryId, dispersalDate, contractDetails, notes } = payload;
+  const { beneficiary_id, dispersal_date, contract_details, notes } = payload;
 
   const db = await connectDb("cityvet_program");
   if (!db) {
@@ -30,12 +30,12 @@ export async function handleBatchDispersal(req, res) {
   let lastInsertedId;
 
   const sql =
-    "INSERT INTO dispersals (beneficiary_id, dispersal_date, status, contract_details, num_of_heads, notes) VALUES (?, ?, 'Dispersed', ?, ?, ?)";
+    "INSERT INTO dispersals (beneficiary_id, dispersal_date, status, contract_details, num_of_heads, notes) VALUES (?, ?, 'Dispersed', ?, ?, 'Enter your notes here!')";
   const values = [
-    beneficiaryId,
-    dispersalDate,
-    contractDetails || null,
-    payload.initialNumberOfHeads,
+    beneficiary_id,
+    dispersal_date,
+    contract_details || null,
+    payload.init_num_heads,
     notes || null,
   ];
 
@@ -90,13 +90,12 @@ export async function handleBatchRedispersals(req, res) {
   const payload = req.body;
 
   const {
-    beneficiaryId,
-    dispersalDate,
-    contractDetails,
-    redispersalDate,
-    previousBeneficiaryId,
+    beneficiary_id,
+    dispersal_date,
+    contract_details,
+    redispersal_date,
+    prev_ben_id,
     notes,
-    livestockRecieved,
   } = payload;
 
   const db = await connectDb("cityvet_program");
@@ -109,17 +108,21 @@ export async function handleBatchRedispersals(req, res) {
   try {
     await db.query("START TRANSACTION");
 
-    // Check if livestock_recieved already exists
-    const checkSql =
-      "SELECT * FROM batch_dispersal WHERE livestock_recieved = ?";
-    const [checkRows] = await db.query(checkSql, [livestockRecieved]);
+    // Fetch current num_of_heads for prev_ben_id
+    if (prev_ben_id) {
+      const fetchSql =
+        "SELECT num_of_heads FROM dispersals WHERE beneficiary_id = ?";
+      const [fetchRows] = await db.query(fetchSql, [prev_ben_id]);
+      const currentNumOfHeads = fetchRows[0].num_of_heads;
 
-    if (checkRows.length > 0) {
-      return res.status(400).send({
-        success: false,
-        message:
-          "Livestock Recieved already exists. Try Livestock Redisperse Transfer.",
-      });
+      // Subtract initial livestock to recieve from current number of heads
+      const newNumOfHeads = currentNumOfHeads - payload.init_num_heads;
+
+      // Update num_of_heads for prev_ben_id
+      const updateSql =
+        "UPDATE dispersals SET num_of_heads = ? WHERE beneficiary_id = ?";
+      const updateValues = [newNumOfHeads, prev_ben_id];
+      await db.query(updateSql, updateValues);
     }
   } catch (err) {
     console.error("[DB Error]", err);
@@ -129,13 +132,13 @@ export async function handleBatchRedispersals(req, res) {
     });
   }
 
-  // if previous beneficiary is specified. update recipient_id of their dispersal
+  // if previous beneficiary is specified. update beneficiary_id of their dispersal
 
-  if (previousBeneficiaryId) {
+  if (prev_ben_id) {
     const updateSql =
-      "UPDATE dispersals SET recipient_id = ?, status = 'Redispersed', redispersal_date =  NOW() WHERE beneficiary_id = ? ";
+      "UPDATE dispersals SET recipient_id = ? , status = 'Redispersed', redispersal_date =  NOW() WHERE beneficiary_id = ? ";
 
-    const updateValues = [beneficiaryId, previousBeneficiaryId];
+    const updateValues = [beneficiary_id, prev_ben_id];
 
     await db.query(updateSql, updateValues);
   }
@@ -143,14 +146,14 @@ export async function handleBatchRedispersals(req, res) {
   let lastInsertedId;
 
   const sql =
-    "INSERT INTO dispersals (beneficiary_id, dispersal_date, status, contract_details, redispersal_date, num_of_heads, prev_ben_id, notes) VALUES (?, ?, 'Dispersed', ?, ?, ?, ?, ?)";
+    "INSERT INTO dispersals (beneficiary_id, dispersal_date, status, contract_details, redispersal_date, num_of_heads, prev_ben_id, notes) VALUES (?, ?, 'Dispersed', ?, ?, ?, ?, 'Enter your notes here!')";
   const values = [
-    beneficiaryId,
-    dispersalDate,
-    contractDetails || null,
-    redispersalDate || null,
-    payload.initialNumberOfHeads,
-    previousBeneficiaryId || null,
+    beneficiary_id,
+    dispersal_date,
+    contract_details || null,
+    redispersal_date || null,
+    payload.init_num_heads,
+    prev_ben_id || null,
     notes || null,
   ];
 
@@ -221,10 +224,11 @@ export async function handleGetBatchDispersalList(req, res) {
     });
   }
 
-  const sql = `SELECT bd.batch_id, bd.livestock_recieved, bd.init_num_heads,bd.age, d.num_of_heads, d.dispersal_date, d.status, d.contract_details, d.notes,
-    v.visit_date, v.remarks, v.visit_again, b.full_name AS current_beneficiary, br.barangay_name 
+  const sql = `SELECT bd.batch_id, bd.livestock_received, bd.init_num_heads,bd.age, d.dispersal_id, d.num_of_heads, d.dispersal_date, d.status, d.contract_details, d.notes,
+    v.visit_date, v.remarks, v.visit_again, b.beneficiary_id, b.full_name AS current_beneficiary, br.barangay_name
     FROM batch_dispersal bd 
     JOIN dispersals d ON bd.dispersal_id = d.dispersal_id 
+     LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id 
     LEFT JOIN (
       SELECT dispersal_id, visit_date, remarks, visit_again 
       FROM visits 
@@ -266,7 +270,7 @@ export async function handleGetBatchDispersalInfo(req, res) {
   }
 
   const sql =
-    "SELECT bd.batch_id, bd.livestock_recieved, bd.init_num_heads,bd.age, d.*, b.full_name AS current_beneficiary, br.barangay_name, v.visit_date, v.remarks, v.visit_again FROM batch_dispersal bd JOIN dispersals d ON bd.dispersal_id = d.dispersal_id JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id JOIN barangays br ON b.barangay_id = br.barangay_id LEFT JOIN visits v ON d.dispersal_id = v.dispersal_id WHERE bd.batch_id = ? ORDER BY v.visit_date DESC;";
+    "SELECT bd.batch_id, bd.livestock_received, bd.init_num_heads,bd.age, d.*, b.full_name AS current_beneficiary,  pb.full_name AS previous_beneficiary, rb.full_name AS recipient, br.barangay_name, v.visit_date, v.remarks, v.visit_again FROM batch_dispersal bd JOIN dispersals d ON bd.dispersal_id = d.dispersal_id JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id JOIN barangays br ON b.barangay_id = br.barangay_id LEFT JOIN visits v ON d.dispersal_id = v.dispersal_id WHERE bd.batch_id = ? ORDER BY v.visit_date DESC;";
 
   try {
     const [rows] = await db.query(sql, [batch_id]);
@@ -315,15 +319,14 @@ export async function handleUpdateBatchDispersalData(req, res) {
     await db.query("START TRANSACTION");
 
     const sql =
-      "UPDATE dispersals d JOIN batch_dispersal bd ON d.dispersal_id = bd.dispersal_id SET d.num_of_heads = ?, d.notes = ?, bd.age = ? WHERE bd.batch_id = ?";
-    const { num_of_heads, notes, age, visit_date, remarks, visit_again } =
-      payload;
+      "UPDATE dispersals d JOIN batch_dispersal bd ON d.dispersal_id = bd.dispersal_id SET d.num_of_heads = ?, d.notes = ? WHERE bd.batch_id = ?";
+    const { num_of_heads, notes, visit_date, remarks, visit_again } = payload;
 
     const formattedDate = visit_date
       ? moment(visit_date).format("YYYY-MM-DD")
       : null;
 
-    const values = [num_of_heads, notes, age || null, batch_id];
+    const values = [num_of_heads, notes, batch_id];
 
     await db.query(sql, values);
 

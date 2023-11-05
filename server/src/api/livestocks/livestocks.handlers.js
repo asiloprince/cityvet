@@ -122,7 +122,7 @@ export async function handleDispersedLivestockList(req, res) {
   }
 
   const sql =
-    "SELECT eartags.ear_tag, livestock.type, livestock.category, livestock.is_dispersed FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id WHERE livestock.is_dispersed = false";
+    "SELECT eartags.ear_tag, livestock.type, livestock.category, livestock_id, livestock.is_dispersed FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id WHERE livestock.is_dispersed = false";
 
   try {
     const [rows] = await db.query(sql);
@@ -143,7 +143,6 @@ export async function handleDispersedLivestockList(req, res) {
 }
 
 // handles updating livestock info
-
 export async function handleUpdateLivestockRecord(req, res) {
   const payload = req.body;
   const livestock_id = req.params.livestock_id;

@@ -6,6 +6,7 @@ import livestocks from "./src/api/livestocks/livestocks.js";
 import dispersals from "./src/api/dispersals/dispersals.js";
 import auth from "./src/api/authentications/authentications.js";
 import accounts from "./src/api/accounts/accounts.js";
+import kpi from "./src/api/kpi/key.performance.indicators.js";
 const app = express();
 
 // configurations
@@ -29,6 +30,7 @@ app.use("/api/livestocks", livestocks);
 app.use("/api/dispersals", dispersals);
 app.use("/auth", auth);
 app.use("/accounts", accounts);
+app.use("/kpi", kpi);
 
 console.log(`Environment: ${process.env.NODE_ENV.toUpperCase()}`);
 
