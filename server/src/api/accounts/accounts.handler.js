@@ -13,7 +13,7 @@ export async function handleGetRole(req, res) {
     return res.status(401).send({ message: "Invalid auth token." });
   }
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -48,7 +48,7 @@ export async function handleGetRole(req, res) {
 export async function handleGetUserInfo(req, res) {
   const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the databse." });
   }
@@ -83,13 +83,13 @@ export async function handleGetUserInfo(req, res) {
 }
 
 export async function handleGetUsersList(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
 
   const sql =
-    "SELECT users.user_id, first_name, last_name, email, registration_date, roles.role_name FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE roles.role_name IN ('Program Manager', 'Coordinator');";
+    "SELECT users.user_id, first_name, last_name, email, registration_date, roles.role_name FROM users INNER JOIN roles ON users.role_id = roles.role_id WHERE roles.role_name IN ('Program Manager', 'Coordinator', 'Admin');";
 
   let rows;
 
@@ -117,27 +117,31 @@ export async function handleUpdateUserInfo(req, res) {
   const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
   const { first_name, last_name, email, password, new_password } = req.body;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
 
   // check if the provided password is correct
   if (new_password) {
-  let [rows] = await db.query("SELECT password FROM users WHERE user_id = ?", [
-    userID,
-  ]);
+    let [rows] = await db.query(
+      "SELECT password FROM users WHERE user_id = ?",
+      [userID]
+    );
 
-  if (rows.length === 0) {
-    return res.status(404).send({ message: "User not found." });
+    if (rows.length === 0) {
+      return res.status(404).send({ message: "User not found." });
+    }
+
+    const isPasswordCorrect = await comparePasswords(
+      rows[0].password,
+      password
+    );
+
+    if (!isPasswordCorrect) {
+      return res.status(403).send({ message: "Incorrect password." });
+    }
   }
-
-  const isPasswordCorrect = await comparePasswords(rows[0].password, password);
-
-  if (!isPasswordCorrect) {
-    return res.status(403).send({ message: "Incorrect password." });
-  }
-}
 
   // If the password is correct, we can proceed to update the user data
   let sql = "UPDATE users SET ";
@@ -190,16 +194,16 @@ export async function handleUpdateUserInfo(req, res) {
 
 // update roles / permission
 export async function handleUpdateUserRole(req, res) {
-  const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
+  const user_id = req.params.user_id;
   const { role_id } = req.body;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
 
   const sql = "UPDATE users SET role_id = ? WHERE user_id = ?";
-  const values = [role_id, userID];
+  const values = [role_id, user_id];
 
   try {
     await db.query(sql, values);
@@ -223,7 +227,7 @@ export async function handleUpdateUserRole(req, res) {
 export async function handleDeleteUserAccount(req, res) {
   const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -243,7 +247,7 @@ export async function handleDeleteUserAccount(req, res) {
     db.end();
   }
 
-  res.send({
+  res.clearCookie("auth_token").send({
     success: true,
     message: "User account deleted successfully",
   });

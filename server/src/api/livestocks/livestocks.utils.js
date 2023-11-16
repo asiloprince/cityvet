@@ -1,11 +1,9 @@
 export async function addLivestockData(db, livestockPayload) {
-  const sql =
-    "INSERT INTO livestock (type, category, breed, age) VALUES (?,?,?,?)";
+  const sql = "INSERT INTO livestock (type, category, age) VALUES (?,?,?)";
 
   const values = [
     livestockPayload.type,
     livestockPayload.category,
-    livestockPayload.breed,
     livestockPayload.age,
   ];
 

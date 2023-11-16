@@ -49,32 +49,32 @@ export async function validateLivestocksPayload(req, res, next) {
   }
 
   //breed
-  if (!isString(breed)) {
-    return res.send({
-      success: false,
-      message: "Breed must be string.",
-    });
-  }
+  // if (!isString(breed)) {
+  //   return res.send({
+  //     success: false,
+  //     message: "Breed must be string.",
+  //   });
+  // }
 
-  if (isStringEmpty(breed)) {
-    return res.send({
-      success: false,
-      message: "Livestock Type is required.",
-    });
-  }
+  // if (isStringEmpty(breed)) {
+  //   return res.send({
+  //     success: false,
+  //     message: "Livestock Type is required.",
+  //   });
+  // }
 
-  if (breed.length > livestocksConfig.breed.maxLength) {
-    return res.send({
-      success: false,
-      message: "Too many characters for a breed.",
-    });
-  }
-  if (breed.length < livestocksConfig.breed.minLength) {
-    return res.send({
-      success: false,
-      message: "Too few characters for a breed.",
-    });
-  }
+  // if (breed.length > livestocksConfig.breed.maxLength) {
+  //   return res.send({
+  //     success: false,
+  //     message: "Too many characters for a breed.",
+  //   });
+  // }
+  // if (breed.length < livestocksConfig.breed.minLength) {
+  //   return res.send({
+  //     success: false,
+  //     message: "Too few characters for a breed.",
+  //   });
+  // }
 
   //   age
   if (!isString(age)) {

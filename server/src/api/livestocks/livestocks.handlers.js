@@ -6,7 +6,7 @@ export async function handleLivestockRegistration(req, res) {
   const payload = req.body;
   const { ear_tag } = payload;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -57,13 +57,13 @@ export async function handleLivestockRegistration(req, res) {
 // handle fetching livestock info
 
 export async function handleGetLivestockInfo(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database" });
   }
   const livestock_id = req.params.livestock_id;
   const sql =
-    "SELECT livestock.livestock_id,type, category, breed, age,  health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id WHERE livestock.eartag_id =? ";
+    "SELECT livestock.livestock_id,type, category, age,  health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id WHERE livestock.eartag_id =? ";
 
   const values = [livestock_id];
   let rows;
@@ -88,13 +88,13 @@ export async function handleGetLivestockInfo(req, res) {
 }
 
 export async function handleGetLivestockList(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
 
   const sql =
-    "SELECT livestock.livestock_id, type, category, breed , age,  health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id";
+    "SELECT livestock.livestock_id, type, category, age,  health, isAlive, eartags.ear_tag FROM livestock INNER JOIN eartags ON livestock.eartag_id = eartags.eartag_id";
 
   try {
     const [rows] = await db.query(sql);
@@ -116,7 +116,7 @@ export async function handleGetLivestockList(req, res) {
 
 // handle disperse Livestock list
 export async function handleDispersedLivestockList(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -147,7 +147,7 @@ export async function handleUpdateLivestockRecord(req, res) {
   const payload = req.body;
   const livestock_id = req.params.livestock_id;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -167,11 +167,10 @@ export async function handleUpdateLivestockRecord(req, res) {
 
     // Update livestock data
     const sql =
-      "UPDATE Livestock SET type = ?, category = ?, breed = ?, age = ?, health = ?, isAlive = ? WHERE livestock_id = ?";
+      "UPDATE Livestock SET type = ?, category = ?,  age = ?, health = ?, isAlive = ? WHERE livestock_id = ?";
     const values = [
       payload.type,
       payload.category,
-      payload.breed,
       payload.age,
       payload.health,
       payload.isAlive,
@@ -210,7 +209,7 @@ export async function handleUpdateLivestockRecord(req, res) {
 export async function handleDeleteLivestockRecord(req, res) {
   const livestock_id = req.params.livestock_id;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }

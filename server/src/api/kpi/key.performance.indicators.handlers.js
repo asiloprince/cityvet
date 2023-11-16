@@ -2,7 +2,7 @@ import connectDb from "../../db/connection.js";
 
 // dispersal and redispersal
 export async function handleDispersalsAndRedispersal(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   const timePeriod = req.query.timePeriod;
 
   if (!db) {
@@ -119,7 +119,7 @@ export async function handleDispersalsAndRedispersal(req, res) {
 }
 
 export async function handleUpdates(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
 
   if (!db) {
     return res.status(500).send("Error connecting to database");
@@ -153,7 +153,7 @@ export async function handleUpdates(req, res) {
 }
 
 export async function handleDispersalsPrediction(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
 
   if (!db) {
     return res.status(500).send({
@@ -191,7 +191,7 @@ ORDER BY YEAR(dispersal_date), MONTH(dispersal_date)`;
 }
 
 export async function handleTotalivestockForEachType(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
 
   if (!db) {
     return res.status(500).send({
@@ -232,7 +232,7 @@ export async function handleTotalivestockForEachType(req, res) {
 }
 
 export async function handleBeneficiariesByGender(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
 
   if (!db) {
     return res.status(500).send({
@@ -257,7 +257,7 @@ export async function handleBeneficiariesByGender(req, res) {
 }
 
 export async function handleDisperseLivestocksStackBar(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
 
   if (!db) {
     return res.status(500).send({
@@ -324,7 +324,7 @@ export async function handleDisperseLivestocksStackBar(req, res) {
 }
 
 export async function handleLivestockHealthStatus(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
 
   if (!db) {
     return res.status(500).send({
@@ -353,8 +353,8 @@ export async function handleLivestockHealthStatus(req, res) {
   }
 }
 
-export async function handleTotalDispersalAndRedispersal (req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+export async function handleTotalDispersalAndRedispersal(req, res) {
+  const db = await connectDb("cityvet_program");
 
   if (!db) {
     return res.status(500).send({
@@ -404,4 +404,4 @@ export async function handleTotalDispersalAndRedispersal (req, res) {
   } finally {
     db.end();
   }
-};
+}

@@ -10,7 +10,7 @@ export async function handleLivestockDispersal(req, res) {
   const payload = req.body;
   const { beneficiary_id, dispersal_date, contract_details, notes } = payload;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -103,7 +103,7 @@ export async function handleRedispersalStarter(req, res) {
     num_of_heads,
   } = payload;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -195,7 +195,7 @@ export async function handleRedispersalOffspring(req, res) {
     livestock_id,
   } = payload;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database",
@@ -303,7 +303,7 @@ export async function handleRedispersalOffspring(req, res) {
 export async function handleGetDispersalInfo(req, res) {
   const { dispersal_id } = req.params;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -311,7 +311,7 @@ export async function handleGetDispersalInfo(req, res) {
   }
 
   const sql =
-    "SELECT d.*, b.full_name AS current_beneficiary, pb.full_name AS previous_beneficiary, rb.full_name AS recipient, e.ear_tag, l.category, l.age, sd.init_num_heads, br.barangay_name, v.visit_date, v.remarks, v.visit_again FROM dispersals d JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id JOIN livestock l ON sd.livestock_id = l.livestock_id JOIN EarTags e ON l.eartag_id = e.eartag_id JOIN barangays br ON b.barangay_id = br.barangay_id JOIN visits v ON d.dispersal_id = v.dispersal_id WHERE d.dispersal_id = ? ORDER BY v.visit_date DESC;";
+    "SELECT d.*, b.full_name AS current_beneficiary, pb.full_name AS previous_beneficiary, rb.full_name AS recipient, e.ear_tag, l.category, l.age, sd.init_num_heads, br.barangay_name, v.visit_date, v.remarks, v.visit_again FROM dispersals d JOIN beneficiaries b ON d.beneficiary_id = b.beneficiary_id LEFT JOIN beneficiaries pb ON d.prev_ben_id = pb.beneficiary_id LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id JOIN livestock l ON sd.livestock_id = l.livestock_id JOIN eartags e ON l.eartag_id = e.eartag_id JOIN barangays br ON b.barangay_id = br.barangay_id JOIN visits v ON d.dispersal_id = v.dispersal_id WHERE d.dispersal_id = ? ORDER BY v.visit_date DESC;";
 
   try {
     const [rows] = await db.query(sql, [dispersal_id]);
@@ -349,7 +349,7 @@ export async function handleGetDispersalInfo(req, res) {
 
 // get list
 export async function handleGetDispersalList(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -363,7 +363,7 @@ export async function handleGetDispersalList(req, res) {
   LEFT JOIN beneficiaries rb ON d.recipient_id = rb.beneficiary_id 
   JOIN single_dispersion sd ON d.dispersal_id = sd.dispersal_id 
   JOIN livestock l ON sd.livestock_id = l.livestock_id 
-  JOIN EarTags e ON l.eartag_id = e.eartag_id 
+  JOIN eartags e ON l.eartag_id = e.eartag_id 
   JOIN barangays br ON b.barangay_id = br.barangay_id 
   LEFT JOIN (
     SELECT dispersal_id, visit_date, remarks, visit_again 
@@ -395,7 +395,7 @@ export async function handleGetDispersalList(req, res) {
 
 //handle dispersal Activity
 export async function handleGetDispersalsActivityRecords(req, res) {
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -437,7 +437,7 @@ export async function handleUpdateDispersalData(req, res) {
   const { dispersal_id } = req.params;
   const payload = req.body;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.send({ message: " Cannot connect to the database" });
   }
@@ -546,7 +546,7 @@ export async function handleUpdateDispersalData(req, res) {
 export async function handleDeleteDispersalRecord(req, res) {
   const { dispersal_id } = req.params;
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database",

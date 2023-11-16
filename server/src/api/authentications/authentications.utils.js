@@ -44,7 +44,7 @@ export async function saveUsersData(db, validatedPayload) {
 export async function isEmailRegistered(email) {
   const sql = "SELECT COUNT(*) as isRegistered FROM users where email = ?";
 
-  const db = await connectDb("u429667672_cityvetdb");
+  const db = await connectDb("cityvet_program");
 
   if (!db) {
     throw new Error("cannot connect to the database.");
