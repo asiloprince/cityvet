@@ -45,7 +45,9 @@ function Settings() {
         userDetails,
         { withCredentials: true }
       );
-      alert("User details updated successfully!");
+      if (response.status === 200) {
+        alert("User details updated successfully!");
+      }
     } catch (error) {
       console.error("Failed to update user details:", error);
     }
@@ -57,7 +59,9 @@ function Settings() {
         `${import.meta.env.VITE_PUBLIC_API_URL}/accounts/delete/:user_id`,
         { withCredentials: true }
       );
-      alert("User account deleted successfully!");
+      if (response.status === 200) {
+        alert("User account deleted successfully!");
+      }
     } catch (error) {
       console.error("Failed to delete user account:", error);
     }
@@ -273,7 +277,10 @@ function Settings() {
                         </p>
                       </div>
                       <div className="flex justify-end pb-4 pr-8">
-                        <button className="bg-gray-200 text-red-600  border-red-600 py-2 px-4 rounded">
+                        <button
+                          className="bg-gray-200 text-red-600  border-red-600 py-2 px-4 rounded"
+                          onClick={handleDeleteUser}
+                        >
                           Delete your account
                         </button>
                       </div>
@@ -285,15 +292,15 @@ function Settings() {
           </div>
         </div>
         <div className="flex items-center justify-end mt-2.5 pb-5">
-          <button
-            className="border text-red-600 border-red-600 hover:bg-red-600 hover:text-white text-sm px-4 py-2 rounded-md"
-            onClick={handleUpdateUser}
-          >
-            Discard Changes
-          </button>
+          <Link to={"/"}>
+            {" "}
+            <button className="border text-red-600 border-red-600 hover:bg-red-600 hover:text-white text-sm px-4 py-2 rounded-md">
+              Discard Changes
+            </button>
+          </Link>
           <button
             className="bg-green-500 text-white text-sm px-4 py-2 rounded-md ml-2"
-            onClick={handleDeleteUser}
+            onClick={handleUpdateUser}
           >
             Save Changes
           </button>

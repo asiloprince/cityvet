@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "../../../../components/ui/select";
 import { isAliveStatus, livestockHealthStatuses } from "../livestock-status";
+import { toast } from "react-toastify";
 
 type EditProps = {
   livestock: LivestocksType;
@@ -33,7 +34,7 @@ const editSchema = z.object({
   livestock_id: z.number(),
   type: z.string(),
   category: z.string(),
-  breed: z.string(),
+  // breed: z.string(),
   age: z.string(),
   health: z.enum(["Excellent", "Good", "Fair", "Poor", "Not set"]).optional(),
   isAlive: z.enum(["Alive", "Deceased", "Unknown"]),
@@ -49,7 +50,7 @@ export default function LivestockEditDialog({ livestock }: EditProps) {
       livestock_id: livestock.livestock_id,
       type: livestock.type,
       category: livestock.category,
-      breed: livestock.breed,
+      // breed: livestock.breed,
       age: livestock.age,
       health: livestock.health,
       isAlive: livestock.isAlive,
@@ -68,11 +69,11 @@ export default function LivestockEditDialog({ livestock }: EditProps) {
       );
       if (res.status === 200) {
         console.log("Update successful!");
-        alert("Update successful!");
+        toast.success("Update successful!");
         console.log("livestock Data:", livestock);
       } else {
         console.log("Update failed with status: ", res.status);
-        alert("Update failed. Please try again.");
+        toast.error("Update failed. Please try again.");
       }
     } catch (error) {
       console.error("An error occurred while updating: ", error);
@@ -101,7 +102,7 @@ export default function LivestockEditDialog({ livestock }: EditProps) {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="breed"
               render={({ field }) => (
@@ -113,7 +114,7 @@ export default function LivestockEditDialog({ livestock }: EditProps) {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="age"

@@ -3,6 +3,7 @@ import throwImg from "../../../../assets/throw-away.svg";
 import axios from "axios";
 import AlertDialog from "../../../../components/alert-dialog/alertDialog";
 import { Button } from "../../../../components/ui/button";
+import { toast } from "react-toastify";
 
 type DeleteProps = {
   recipient: RecipientsType;
@@ -27,10 +28,11 @@ export default function RecipientDeleteDialog({
       if (!res.data.success) {
         throw new Error(res.data.message || "An error occured");
       }
-
+      toast.success("Beneficiary deleted successfully!");
       showActionToggle(false);
     } catch (err) {
       console.error(err);
+      toast.error("An error occurred while deleting the beneficiary.");
     }
   };
 

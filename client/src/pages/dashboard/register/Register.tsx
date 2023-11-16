@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { BiLogoGmail, BiLogoFacebookCircle } from "react-icons/bi";
-import RegImg from "../../assets/RegisterImg.png";
+import RegImg from "../.././../assets/RegisterImg.png";
 import SectionContent, {
   SectionTitle,
   SectionWrapper,
-} from "../../components/section-content/sectionContent";
-import ImageCard from "../../components/image-card/imageCard";
-import Manager from "../../assets/manager.png";
-import Coordinator from "../../assets/coordinator.png";
+} from "../../../components/section-content/sectionContent";
+import ImageCard from "../../../components/image-card/imageCard";
+import Manager from "../.././../assets/manager.png";
+import Coordinator from "../.././../assets/coordinator.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const steps = ["roles", "register"];
@@ -49,13 +50,14 @@ const Register = () => {
         payload,
         { withCredentials: true }
       );
-      console.log("Registration successful:", response.data);
-      if (response.status === 201) {
-        navigate("/login");
+      toast.success("Registration successful:", response.data);
+      if (response.status === 200) {
+        navigate("/roles");
       } else {
       }
     } catch (error) {
       console.error("Registration error:", error);
+      toast.error("Something went wrong!");
     }
 
     setPayload({

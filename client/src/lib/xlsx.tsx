@@ -209,7 +209,7 @@ export async function downloadToExcelDispersals() {
     ];
 
     const settings = {
-      fileName: "Livestocks Excel",
+      fileName: "Dispersal Excel",
     };
     xlsx(columns, settings);
   } catch (err) {

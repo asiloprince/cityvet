@@ -2,6 +2,9 @@ import { useForm } from "react-hook-form";
 import { useFormState } from "../../../context/form-context";
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Success from "../../../../../../assets/success.svg";
+import { Button } from "../../../../../../components/ui/button";
 
 type TFormValues = {
   dispersal_date: string;
@@ -17,7 +20,10 @@ export function DispersalForm({ onHandleBack }: DispersalFormProps) {
   const [isCreated, setCreated] = useState(false);
   const { setFormData, formData } = useFormState();
   const { register, handleSubmit } = useForm<TFormValues>({
-    defaultValues: formData,
+    defaultValues: {
+      ...formData,
+      init_num_heads: 1,
+    },
   });
 
   const onHandleFormSubmit = async (data: TFormValues) => {
@@ -40,12 +46,21 @@ export function DispersalForm({ onHandleBack }: DispersalFormProps) {
 
   return isCreated ? (
     <div className="mt-6 bg-white p-4 rounded shadow">
-      <p className="text-green-500 font-bold text-xl mb-4">
-        Account created successfully
-      </p>
-      <pre className="whitespace-pre-wrap">
+      <div className="flex flex-col items-center">
+        <img src={Success} alt="success" className="w-24 h-24 items center" />
+        <p className="text-green-500 font-bold text-xl mb-4 text-center">
+          Account created successfully
+        </p>
+        {/* <pre className="whitespace-pre-wrap">
         {JSON.stringify(formData, null, 2)}
-      </pre>
+      </pre> */}
+        <Link to={"/dispersal"}>
+          <Button className="my-12 bg-green-500 hover:bg-green-600">
+            {" "}
+            Close
+          </Button>
+        </Link>
+      </div>
     </div>
   ) : (
     <form onSubmit={handleSubmit(onHandleFormSubmit)}>

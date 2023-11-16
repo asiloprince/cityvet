@@ -24,6 +24,7 @@ import { DialogHeader, DialogTitle } from "../../../../../components/ui/dialog";
 import { DatePicker } from "../../../../../components/date-picker/datepicker";
 import axios from "axios";
 import { BatchLivestocksDispersalType } from "../../../../schema";
+import { toast } from "react-toastify";
 
 type EditProps = {
   batch: BatchLivestocksDispersalType;
@@ -67,10 +68,10 @@ export default function BatchDispersalEditDialog({ batch }: EditProps) {
       );
       if (res.status === 200) {
         console.log("Update successful!");
-        alert("Update successful!");
+        toast.success("Update successful!");
       } else {
         console.log("Update failed with status: ", res.status);
-        alert("Update failed. Please try again.");
+        toast.error("Update failed. Please try again.");
       }
     } catch (error) {
       console.error("An error occurred while updating: ", error);
@@ -96,7 +97,15 @@ export default function BatchDispersalEditDialog({ batch }: EditProps) {
                     <Input
                       type="number"
                       {...field}
-                      onChange={(e) => field.onChange(parseInt(e.target.value))}
+                      onChange={(e) => {
+                        {
+                          let value = parseInt(e.target.value);
+                          if (value < 0) {
+                            value = 0;
+                          }
+                          field.onChange(isNaN(value) ? 0 : value);
+                        }
+                      }}
                     />
                   </FormControl>
                   <FormMessage />

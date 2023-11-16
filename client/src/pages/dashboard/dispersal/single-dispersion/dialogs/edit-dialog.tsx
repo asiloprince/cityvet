@@ -24,6 +24,7 @@ import { Button } from "../../../../../components/ui/button";
 import { DialogHeader, DialogTitle } from "../../../../../components/ui/dialog";
 import { DatePicker } from "../../../../../components/date-picker/datepicker";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 type EditProps = {
   dispersal: DispersalType;
@@ -68,14 +69,14 @@ export default function EditDialog({ dispersal }: EditProps) {
       );
       if (res.status === 200) {
         console.log("Update successful!");
-        alert("Update successful!");
+        toast.success("Update successful!");
       } else {
         console.log("Update failed with status: ", res.status);
-        alert("Update failed. Please try again.");
+        toast.error("Update failed. Please try again.");
       }
     } catch (error) {
       console.error("An error occurred while updating: ", error);
-      alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.");
     }
   }
   return (
@@ -97,7 +98,10 @@ export default function EditDialog({ dispersal }: EditProps) {
                       type="number"
                       {...field}
                       onChange={(e) => {
-                        const value = parseInt(e.target.value);
+                        let value = parseInt(e.target.value);
+                         if (value < 0) {
+                           value = 0; 
+                         }
                         field.onChange(isNaN(value) ? 0 : value);
                       }}
                     />

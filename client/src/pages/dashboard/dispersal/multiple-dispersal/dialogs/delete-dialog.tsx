@@ -3,6 +3,7 @@ import throwImg from "../../../../../assets/throw-away.svg";
 import AlertDialog from "../../../../../components/alert-dialog/alertDialog";
 import axios from "axios";
 import { BatchLivestocksDispersalType } from "../../../../schema";
+import { toast } from "react-toastify";
 
 type DeleteProps = {
   batch: BatchLivestocksDispersalType;
@@ -27,10 +28,11 @@ export default function BatchDispersalDeleteDialog({
       if (!res.data.success) {
         throw new Error(res.data.message || "An error occured");
       }
-
+      toast.success("Deleted successfully");
       showActionToggle(false);
     } catch (err) {
       console.error(err);
+      toast.error("An error occurred while deleting the beneficiary.");
     }
   };
 

@@ -5,7 +5,7 @@ import moment from "moment";
 export async function handleGetBeneficiariesInfo(req, res) {
   const { beneficiary_id } = req.params;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot cnnect to the database" });
   }
@@ -37,7 +37,7 @@ export async function handleGetBeneficiariesInfo(req, res) {
 
 // fetch/get beneficiaries
 export async function handleGetBeneficiariesList(req, res) {
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
 
   if (!db) {
     return res
@@ -61,7 +61,7 @@ export async function handleGetBeneficiariesList(req, res) {
 // handle beneficiaris data creation
 export async function handleNewBeneficiaries(req, res) {
   const { full_name, birth_date, gender, mobile, barangay_id } = req.body;
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
 
   if (!db) {
     return res
@@ -88,7 +88,7 @@ export async function handleUpdateBeneficiaries(req, res) {
   const payload = req.body;
   const { beneficiary_id } = req.params;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database",
@@ -143,7 +143,7 @@ export async function handleUpdateBeneficiaries(req, res) {
 export async function handleDeleteBeneficiaries(req, res) {
   const { beneficiary_id } = req.params;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database" });
   }

@@ -1,15 +1,8 @@
 
-type Props = {
-  role: string;
-  number: number | string;
-  dataKey: string;
-  percentage: number;
-
-};
 
 
 
-function TeamCardWidget(props: Props) {
+function TeamCardWidget() {
   return (
     <div className="flex h-full ">
       <div className="flex-grow flex flex-col justify-between">

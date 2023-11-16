@@ -15,6 +15,7 @@ import Select from "react-select";
 import { DialogHeader, DialogTitle } from "../../../../components/ui/dialog";
 import { inputBarangays } from "../input/barangay-input";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const addSchema = z.object({
   full_name: z.string().min(1, { message: "Full Name Required" }),
@@ -62,8 +63,10 @@ export default function AddNewBeneficiaryForm() {
         { withCredentials: true }
       );
       console.log(res.data);
+      toast.success("Beneficiary added successfully!");
     } catch (err) {
       console.error(err);
+      toast.error("An error occurred while adding the beneficiary.");
     }
   };
 

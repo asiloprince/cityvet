@@ -40,7 +40,7 @@ export async function isVetOfficeMember(req, res, next) {
   const sql = "SELECT 1 FROM users WHERE user_id = ?";
   const values = [user_id];
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the databse." });
   }
@@ -93,7 +93,7 @@ export function authorizeRoles(roles) {
 
     const values = [user_id];
 
-    const db = await connectDb("cityvet_program");
+    const db = await connectDb("u429667672_cityvetdb");
     if (!db) {
       return res.status(500).send("Cannot connect to the database.");
     }

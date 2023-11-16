@@ -6,7 +6,7 @@ export async function handleLivestockRegistration(req, res) {
   const payload = req.body;
   const { ear_tag } = payload;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -57,7 +57,7 @@ export async function handleLivestockRegistration(req, res) {
 // handle fetching livestock info
 
 export async function handleGetLivestockInfo(req, res) {
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database" });
   }
@@ -88,7 +88,7 @@ export async function handleGetLivestockInfo(req, res) {
 }
 
 export async function handleGetLivestockList(req, res) {
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -116,7 +116,7 @@ export async function handleGetLivestockList(req, res) {
 
 // handle disperse Livestock list
 export async function handleDispersedLivestockList(req, res) {
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -147,7 +147,7 @@ export async function handleUpdateLivestockRecord(req, res) {
   const payload = req.body;
   const livestock_id = req.params.livestock_id;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -210,7 +210,7 @@ export async function handleUpdateLivestockRecord(req, res) {
 export async function handleDeleteLivestockRecord(req, res) {
   const livestock_id = req.params.livestock_id;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }

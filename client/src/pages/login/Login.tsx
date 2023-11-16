@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 // import { FcGoogle } from "react-icons/fc";
 
 function Login() {
@@ -19,17 +20,18 @@ function Login() {
       );
 
       if (!response.data.success) {
-        return alert(response.data.message);
+        toast.error(response.data.message);
+      } else {
+        toast.success("Logged in successfully!");
+        return navigate("/auth");
       }
-
-      return navigate("/auth");
     } catch (error) {
-      return alert("An error occured while signing you in.");
+      toast.error("An error occured while signing you in.");
     }
   };
   return (
-    <div className="grid grid-cols-1 sm:h-screen md:grid-cols-3 lg:grid-cols-3 md:h-screen lg:h-screen">
-      <div className=" bg-cyan-600 h-44 lg:h-auto  ">
+    <div className="grid grid-cols-1 sm:h-screen md:grid-cols-3 lg:grid-cols-3 h-screen">
+      <div className=" bg-cyan-600 h-44 md:h-auto  ">
         <section className="text-white text-center grid grid-cols-1">
           <h1 className="text-1xl md:text-3xl lg:text-2xl font-bold mt-8 sm:mt-4 md:mt-56 font-poppin">
             Hi, Welcome !
@@ -38,19 +40,17 @@ function Login() {
             To keep connected with us please<br></br>login your personal info.
           </p>
           <div className="mt-4 sm:mt-4 md:mt-8 lg:mt-12 flex justify-center">
-            <Link to={"/register"}>
-              <Button
-                variant={"outline"}
-                className="border bg-cyan-600 w-48 center font-poppin"
-              >
-                SIGN UP
-              </Button>
-            </Link>
+            <Button
+              variant={"outline"}
+              className=" rounded-full center font-poppin text-white hover:text-black bg-cyan-500 hover:bg-white transition-all duration-400 ease-in-out p-4"
+            >
+              Streamline your Dispersal Operations
+            </Button>
           </div>
         </section>
       </div>
       <div className="col-span-2 max-w-[600px] mx-auto">
-        <form className=" grid sm:grid-cols-1 p-4 sm:justify-center text-[#9ca3af] ">
+        <form className="md:mt-20 grid sm:grid-cols-1 p-4 sm:justify-center text-[#9ca3af] ">
           <h1 className="text-center text-2xl text-cyan-600 font-bold mt-12 font-poppin">
             Sign in
           </h1>

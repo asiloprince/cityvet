@@ -11,6 +11,7 @@ import SingleDispersions from "./dispersal/single-dispersion/add/disperse";
 import BatchDispersals from "./dispersal/multiple-dispersal/add/batch-disperse";
 import Statistics from "./statistics/Statistics";
 import DispersalPredictions from "./statistics/DispersalPredictions";
+import Register from "./register/Register";
 
 export {
   Overview,
@@ -26,4 +27,5 @@ export {
   BatchDispersals,
   Statistics,
   DispersalPredictions,
+  Register,
 };

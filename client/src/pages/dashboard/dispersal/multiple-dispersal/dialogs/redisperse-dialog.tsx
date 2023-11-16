@@ -16,6 +16,7 @@ import { BatchLivestocksDispersalType } from "../../../../schema";
 import { useState } from "react";
 import Select from "react-select";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 type BatchRedispersalProps = {
   batch: BatchLivestocksDispersalType;
@@ -72,12 +73,15 @@ export default function BatchRedispersalForms({
 
       if (response.data.success) {
         alert(response.data.message);
+        toast.success("Redispersal Success");
       } else {
-        alert("Dispersal was not created. Please try again.");
+        toast.error("Dispersal was not created. Please try again.");
       }
     } catch (error) {
       console.error(error);
-      alert("There was an error Redispersing the livestock. Please try again.");
+      toast.error(
+        "There was an error Redispersing the livestock. Please try again."
+      );
     }
   };
 

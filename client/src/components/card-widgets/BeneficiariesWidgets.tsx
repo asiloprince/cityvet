@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 interface Beneficiary {
   beneficiary_id: number;
@@ -69,7 +70,7 @@ const BeneficiariesWidgets = () => {
                 <span className="font-light">{beneficiary.barangay_name}</span>
               </div>
               <button className="flex items-center px-2 py-1 bg-gray-200 text-gray-600 rounded-md cursor-pointer">
-                View
+                <Link to={"/beneficiaries"}>View</Link>
               </button>
             </li>
           );

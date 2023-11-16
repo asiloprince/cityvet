@@ -13,7 +13,7 @@ export async function handleGetRole(req, res) {
     return res.status(401).send({ message: "Invalid auth token." });
   }
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -48,7 +48,7 @@ export async function handleGetRole(req, res) {
 export async function handleGetUserInfo(req, res) {
   const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the databse." });
   }
@@ -83,7 +83,7 @@ export async function handleGetUserInfo(req, res) {
 }
 
 export async function handleGetUsersList(req, res) {
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -117,7 +117,7 @@ export async function handleUpdateUserInfo(req, res) {
   const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
   const { first_name, last_name, email, password, new_password } = req.body;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -193,7 +193,7 @@ export async function handleUpdateUserRole(req, res) {
   const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
   const { role_id } = req.body;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -223,7 +223,7 @@ export async function handleUpdateUserRole(req, res) {
 export async function handleDeleteUserAccount(req, res) {
   const userID = DecodeAuthToken(req.cookies.auth_token).user_id;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }

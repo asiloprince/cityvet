@@ -10,7 +10,7 @@ import { isString, isStringEmpty } from "../../global/utils/validator.js";
 export async function handleUserRegistration(req, res) {
   const payload = req.body;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }
@@ -36,7 +36,7 @@ export async function handleUserRegistration(req, res) {
 }
 
 export async function handleLogin(req, res) {
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({ message: "Cannot connect to the database." });
   }

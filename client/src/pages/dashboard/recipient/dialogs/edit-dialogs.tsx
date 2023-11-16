@@ -18,6 +18,7 @@ import { DialogHeader, DialogTitle } from "../../../../components/ui/dialog";
 import { inputBarangays } from "../input/barangay-input";
 import axios from "axios";
 import { DatePicker } from "../../../../components/date-picker/datepicker";
+import { toast } from "react-toastify";
 
 type EditProps = {
   recipient: RecipientsType;
@@ -64,10 +65,10 @@ export default function EditDialog({ recipient }: EditProps) {
       );
       if (res.status === 200) {
         console.log("Update successful!");
-        alert("Update successful!");
+        toast.success("Update successful!");
       } else {
         console.log("Update failed with status: ", res.status);
-        alert("Update failed. Please try again.");
+        toast.error("Update failed. Please try again.");
       }
     } catch (error) {
       console.error("An error occurred while updating: ", error);

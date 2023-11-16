@@ -15,6 +15,7 @@ import { Button } from "../../../../../components/ui/button";
 import SelectBeneficiary from "../../../../../components/inputs/select-beneficiaries";
 import SelectLivestock from "../../../../../components/inputs/select-livestock";
 import { DispersalType } from "../../../../schema";
+import { toast } from "react-toastify";
 
 type LivestockRedispersalProps = {
   dispersal: DispersalType;
@@ -65,9 +66,10 @@ export default function LivestockRedispersalForm({
       );
 
       if (response.data.success) {
-        alert(response.data.message);
+        (response.data.message);
+        toast.success("Dispersal to new beneficiary Completed")
       } else {
-        alert("Dispersal was not created. Please try again.");
+        toast.error("Dispersal was not created. Please try again.");
       }
     } catch (error) {
       console.error(error);

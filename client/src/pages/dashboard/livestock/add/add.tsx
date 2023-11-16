@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,11 +16,13 @@ import { Input } from "../../../../components/ui/input";
 import { Button } from "../../../../components/ui/button";
 import { DialogHeader } from "../../../../components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import Select from "react-select";
+import { toast } from "react-toastify";
 
 const livestockSchema = z.object({
   type: z.string().min(1, { message: "Type Required" }),
   category: z.string().min(1, { message: "Category Required" }),
-  breed: z.string().min(1, { message: "Breed Required" }),
+  // breed: z.string().min(1, { message: "Breed Required" }),
   age: z.string().min(1, { message: "Age Required" }),
   ear_tag: z.string().min(1, { message: "Ear Tag Required" }),
   health: z.literal("Not set").optional(),
@@ -27,15 +30,47 @@ const livestockSchema = z.object({
 
 type LivestocksType = z.infer<typeof livestockSchema>;
 
+interface Option {
+  label: string;
+  value: string;
+}
+
+function generateEarTag() {
+  const currentYear = new Date().getFullYear().toString().slice(-2);
+  const randomKey = Array(3)
+    .fill("")
+    .map(() => Math.random().toString(36).substring(2, 3))
+    .join("")
+    .toUpperCase();
+  return `${currentYear}-${randomKey}`;
+}
+
+const livestockTypesOptions: Option[] = [
+  { value: "Cattle", label: "Catle" },
+  { value: "Goat", label: "Goat" },
+];
+
+const livestockCategoryOptions: Option[] = [
+  { value: "Cattle", label: "Cattle" },
+  { value: "CPDO Cattle", label: "CPDO Cattle" },
+  { value: "Goat", label: "Goat" },
+  { value: "Goat - Doe", label: "Goat - Doe" },
+  { value: "Goat - Buck", label: "Goat - Buck" },
+];
+
 export default function AddNewLivestockForm() {
+  const [filteredCategoryOptions, setFilteredCategoryOptions] = useState<
+    Option[]
+  >(livestockCategoryOptions);
+
   const form = useForm<LivestocksType>({
     resolver: zodResolver(livestockSchema),
     defaultValues: {
       type: "",
       category: "",
-      breed: "",
+      // breed: "",
       age: "",
-      ear_tag: "",
+      ear_tag: generateEarTag(),
       health: "Not set",
     },
   });
@@ -49,8 +84,10 @@ export default function AddNewLivestockForm() {
         { withCredentials: true }
       );
       console.log(res.data);
+      toast.success("Livestock added successfully!");
     } catch (err) {
       console.error(err);
+      toast.error("An error occurred while adding the livestock.");
     }
   };
 
@@ -68,7 +105,7 @@ export default function AddNewLivestockForm() {
               <FormItem>
                 <FormLabel>Ear Tag</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} readOnly />
                 </FormControl>
                 {form.formState.errors.ear_tag && (
                   <FormMessage>
@@ -85,17 +122,37 @@ export default function AddNewLivestockForm() {
               <FormItem>
                 <FormLabel>Type</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Select
+                    inputId="type"
+                    value={livestockTypesOptions.find(
+                      (option: Option) => option.value === field.value
+                    )}
+                    onChange={(option: Option | null) => {
+                      field.onChange(option?.value);
+                      const type = option?.value;
+                      if (type === "Cattle") {
+                        setFilteredCategoryOptions(
+                          livestockCategoryOptions.filter((option: Option) =>
+                            option.value.includes("Cattle")
+                          )
+                        );
+                      } else if (type === "Goat") {
+                        setFilteredCategoryOptions(
+                          livestockCategoryOptions.filter((option: Option) =>
+                            option.value.includes("Goat")
+                          )
+                        );
+                      } else {
+                        setFilteredCategoryOptions(livestockCategoryOptions);
+                      }
+                    }}
+                    options={livestockTypesOptions as any}
+                  />
                 </FormControl>
-                {form.formState.errors.type && (
-                  <FormMessage>
-                    {form.formState.errors.type.message}
-                  </FormMessage>
-                )}
+                {form.formState.errors.type && <FormMessage />}
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="category"
@@ -103,18 +160,23 @@ export default function AddNewLivestockForm() {
               <FormItem>
                 <FormLabel>Category</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Select
+                    inputId="category"
+                    value={filteredCategoryOptions.find(
+                      (option: Option) => option.value === field.value
+                    )}
+                    onChange={(option: Option | null) =>
+                      field.onChange(option?.value)
+                    }
+                    options={filteredCategoryOptions as any}
+                  />
                 </FormControl>
-                {form.formState.errors.category && (
-                  <FormMessage>
-                    {form.formState.errors.category.message}
-                  </FormMessage>
-                )}
+                {form.formState.errors.category && <FormMessage />}
               </FormItem>
             )}
           />
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="breed"
             render={({ field }) => (
@@ -130,7 +192,7 @@ export default function AddNewLivestockForm() {
                 )}
               </FormItem>
             )}
-          />
+          /> */}
 
           <FormField
             control={form.control}

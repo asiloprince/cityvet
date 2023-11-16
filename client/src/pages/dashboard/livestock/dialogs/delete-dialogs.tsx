@@ -3,6 +3,7 @@ import axios from "axios";
 import AlertDialog from "../../../../components/alert-dialog/alertDialog";
 import { Button } from "../../../../components/ui/button";
 import { LivestocksType } from "../../../schema";
+import { toast } from "react-toastify";
 
 type DeleteProps = {
   livestock: LivestocksType;
@@ -27,10 +28,11 @@ export default function LivestockDeleteDialog({
       if (!res.data.success) {
         throw new Error(res.data.message || "An error occured");
       }
-
+      toast.success("Livestock deleted successfully!");
       showActionToggle(false);
     } catch (err) {
       console.error(err);
+      toast.error("An error occurred while deleting the Livestock.");
     }
   };
 

@@ -163,7 +163,7 @@ export const livestockSchema = z.object({
   livestock_id: z.number(),
   type: z.string(),
   category: z.string(),
-  breed: z.string(),
+  // breed: z.string(),
   age: z.string(),
   health: z.enum(["Excellent", "Good", "Fair", "Poor", "Not set"]).optional(),
   isAlive: z.enum(["Alive", "Deceased", "Unknown"]),

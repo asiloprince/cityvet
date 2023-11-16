@@ -14,6 +14,7 @@ import { Input } from "../../../../../components/ui/input";
 import { Button } from "../../../../../components/ui/button";
 import SelectBeneficiary from "../../../../../components/inputs/select-beneficiaries";
 import { DispersalType } from "../../../../schema";
+import { toast } from "react-toastify";
 
 type LivestockTransferProps = {
   dispersal: DispersalType;
@@ -60,14 +61,14 @@ export default function TransferLivestockForm({
 
       console.log(response.data);
       if (response.status === 200) {
-        alert("Dispersal successfully updated.");
+        toast.success("Transfe to new recipient completed.");
       }
     } catch (error) {
       console.error(
         "There has been a problem with your fetch operation:",
         error
       );
-      alert("There was an error transferring the dispersal.");
+      toast.error("There was an error transferring the dispersal.");
     }
   };
 

@@ -10,7 +10,7 @@ export async function handleLivestockDispersal(req, res) {
   const payload = req.body;
   const { beneficiary_id, dispersal_date, contract_details, notes } = payload;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -103,7 +103,7 @@ export async function handleRedispersalStarter(req, res) {
     num_of_heads,
   } = payload;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -195,7 +195,7 @@ export async function handleRedispersalOffspring(req, res) {
     livestock_id,
   } = payload;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database",
@@ -303,7 +303,7 @@ export async function handleRedispersalOffspring(req, res) {
 export async function handleGetDispersalInfo(req, res) {
   const { dispersal_id } = req.params;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -349,7 +349,7 @@ export async function handleGetDispersalInfo(req, res) {
 
 // get list
 export async function handleGetDispersalList(req, res) {
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -395,7 +395,7 @@ export async function handleGetDispersalList(req, res) {
 
 //handle dispersal Activity
 export async function handleGetDispersalsActivityRecords(req, res) {
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database.",
@@ -437,7 +437,7 @@ export async function handleUpdateDispersalData(req, res) {
   const { dispersal_id } = req.params;
   const payload = req.body;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.send({ message: " Cannot connect to the database" });
   }
@@ -546,7 +546,7 @@ export async function handleUpdateDispersalData(req, res) {
 export async function handleDeleteDispersalRecord(req, res) {
   const { dispersal_id } = req.params;
 
-  const db = await connectDb("cityvet_program");
+  const db = await connectDb("u429667672_cityvetdb");
   if (!db) {
     return res.status(500).send({
       message: "Cannot connect to the database",
