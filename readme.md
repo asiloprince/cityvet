@@ -102,7 +102,7 @@ server/
 
 **Desktop App Demo (30s)**
 
-![Desktop App Demo](resources/desktop-demo.mp4)
+![Desktop App Demo](desktop/resources/desktop-demo.mp4)
 
 ## Screenshots
 
