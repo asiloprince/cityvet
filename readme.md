@@ -102,7 +102,7 @@ server/
 
 **Desktop App Demo (30s)**
 
-![Desktop App Demo](desktop/resources/sample-demo.mp4)
+[Watch Demo Video](https://drive.google.com/file/d/1UkrBZAqnKsksqIEExCQFQPXN3K0P3PaX/view?usp=drive_link)
 
 ## Screenshots
 
