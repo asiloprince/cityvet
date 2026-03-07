@@ -1,6 +1,108 @@
 # Cityvet Management System
 
-A progressive web app solution for streamlining operations at city veterinary offices.
+A comprehensive management system for city veterinary offices, available as both a web application and desktop application.
+
+## Project Structure
+
+This repository contains three main components:
+
+### Client (Web App)
+
+React-based progressive web application
+
+```
+client/
+├── src/
+│   ├── components/
+│   │   ├── activity/
+│   │   ├── alert-dialog/
+│   │   ├── box-header/
+│   │   ├── card-widgets/
+│   │   ├── charts/
+│   │   ├── data-table/
+│   │   ├── data-table-toolbar/
+│   │   ├── date-picker/
+│   │   ├── forms-side-navigator/
+│   │   ├── image-card/
+│   │   ├── inputs/
+│   │   ├── loaders/
+│   │   ├── modal/
+│   │   ├── route-protections/
+│   │   ├── section-content/
+│   │   ├── sidebar/
+│   │   ├── topbar/
+│   │   └── ui/
+│   ├── lib/
+│   ├── pages/
+│   │   ├── auth/
+│   │   ├── dashboard/
+│   │   └── login/
+│   ├── sampledata/
+│   ├── styles/
+│   ├── App.tsx
+│   └── main.tsx
+├── public/
+└── package.json
+```
+
+### Desktop (Electron App)
+
+Electron-based desktop application with offline capabilities
+
+**Repository:** https://github.com/asiloprince/cityvet-desktop-app.git
+
+```
+desktop/
+├── src/
+│   ├── main/              # Electron main process
+│   │   ├── database/      # Local database management
+│   │   ├── lib/
+│   │   └── index.ts
+│   ├── preload/           # Preload scripts
+│   ├── renderer/          # Renderer process (UI)
+│   │   └── src/
+│   │       ├── components/
+│   │       ├── page/
+│   │       ├── lib/
+│   │       ├── utils/
+│   │       ├── App.tsx
+│   │       └── main.tsx
+│   └── shared/            # Shared utilities
+├── build/                 # Build resources
+├── resources/
+├── electron-builder.yml
+└── package.json
+```
+
+### Server (Backend API)
+
+Node.js/Express REST API server
+
+```
+server/
+├── src/
+│   ├── api/
+│   │   ├── accounts/
+│   │   ├── authentications/
+│   │   ├── beneficiaries/
+│   │   ├── dispersals/
+│   │   ├── kpi/
+│   │   └── livestocks/
+│   ├── db/
+│   │   ├── configs/
+│   │   └── connection.js
+│   └── global/
+│       ├── middlewares/
+│       └── utils/
+├── schema/                # Database schemas
+└── package.json
+```
+
+## Demo
+
+**Desktop App Demo (30s)**
+
+![Desktop App Demo](resources/desktop-demo.mp4)
 
 ## Screenshots
 
@@ -26,8 +128,10 @@ A progressive web app solution for streamlining operations at city veterinary of
 
 ## Tech Stack
 
-**Client:** React and Tailwind
+**Client (Web):** React, TypeScript, Tailwind CSS, Vite
 
-**Server:** Node.JS and Express
+**Desktop:** Electron, React, TypeScript, Tailwind CSS, SQLite (local database)
+
+**Server:** Node.js, Express, JavaScript
 
 **Database:** MySQL (RDBMS)
